@@ -1,0 +1,42 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  number: number;
+  title: string;
+  description: string;
+  prev?: { href: string; title: string };
+  next?: { href: string; title: string };
+}
+
+const { number, title, description, prev, next } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lesson {number}: {title} — Canvas Lab</title>
+    <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="lesson">
+      <div class="lesson__header">
+        <div class="lesson__number">Lesson {number} of 8</div>
+        <h1 class="lesson__title">{title}</h1>
+        <p class="lesson__desc">{description}</p>
+      </div>
+
+      <slot />
+
+      <nav class="lesson__nav">
+        {prev ? <a href={prev.href}>&larr; {prev.title}</a> : <span></span>}
+        <a href="/">All Lessons</a>
+        {next ? <a href={next.href}>{next.title} &rarr;</a> : <span></span>}
+      </nav>
+    </div>
+  </body>
+</html>

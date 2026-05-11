@@ -1,0 +1,89 @@
+---
+import { Code } from 'astro:components';
+
+interface Props {
+  id: string;
+  title?: string;
+  width?: number;
+  height?: number;
+  code: string;
+}
+
+const { id, title, width = 500, height = 400, code } = Astro.props;
+const trimmedCode = code.trim();
+---
+
+<div class="canvas-demo">
+  {title && <div class="canvas-demo__title">{title}</div>}
+  <div class="canvas-demo__body">
+    <div class="canvas-demo__canvas-wrap">
+      <canvas id={id} width={width} height={height}></canvas>
+    </div>
+    <div class="canvas-demo__code">
+      <Code code={trimmedCode} lang="js" />
+    </div>
+  </div>
+  <div class="canvas-demo__controls">
+    <button class="canvas-demo__btn" data-reset={id}>Reset</button>
+  </div>
+</div>
+
+<script data-astro-rerun set:html={`
+(function() {
+  var id = '${id}';
+  if (window['__canvasCleanup_' + id]) {
+    window['__canvasCleanup_' + id]();
+  }
+
+  var canvas = document.getElementById(id);
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+
+  // DPI scaling
+  var dpr = window.devicePixelRatio || 1;
+  var w = ${width};
+  var h = ${height};
+  canvas.width = w * dpr;
+  canvas.height = h * dpr;
+  canvas.style.width = w + 'px';
+  canvas.style.height = h + 'px';
+  ctx.scale(dpr, dpr);
+
+  var __raf = null;
+  var __listeners = [];
+  function addListener(target, event, fn) {
+    target.addEventListener(event, fn);
+    __listeners.push({ target: target, event: event, fn: fn });
+  }
+
+  function runDemo() {
+    if (__raf) { cancelAnimationFrame(__raf); __raf = null; }
+    __listeners.forEach(function(l) { l.target.removeEventListener(l.event, l.fn); });
+    __listeners = [];
+    ctx.clearRect(0, 0, w, h);
+    try {
+      ${trimmedCode}
+    } catch(e) {
+      ctx.fillStyle = '#f85149';
+      ctx.font = '14px monospace';
+      ctx.fillText('Error: ' + e.message, 10, 30);
+    }
+  }
+
+  runDemo();
+
+  window['__canvasCleanup_' + id] = function() {
+    if (__raf) cancelAnimationFrame(__raf);
+    __listeners.forEach(function(l) { l.target.removeEventListener(l.event, l.fn); });
+    __listeners = [];
+  };
+
+  var btn = document.querySelector('[data-reset="' + id + '"]');
+  if (btn) {
+    btn.onclick = function() {
+      window['__canvasCleanup_' + id]();
+      runDemo();
+    };
+  }
+})();
+`} />

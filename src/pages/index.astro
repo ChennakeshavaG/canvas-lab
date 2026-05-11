@@ -1,0 +1,46 @@
+---
+import '../styles/global.css';
+
+const lessons = [
+  { num: '01', title: 'Basics', desc: 'Canvas element, coordinate system, rectangles', apis: 'getContext, fillRect, strokeRect, clearRect', href: '/01-basics' },
+  { num: '02', title: 'Paths & Shapes', desc: 'Custom shapes with paths, lines, arcs, curves', apis: 'beginPath, moveTo, lineTo, arc, bezierCurveTo', href: '/02-paths' },
+  { num: '03', title: 'Colors & Styles', desc: 'Fills, strokes, gradients, transparency', apis: 'fillStyle, strokeStyle, createLinearGradient, globalAlpha', href: '/03-colors' },
+  { num: '04', title: 'Text & Images', desc: 'Rendering text and drawing images on canvas', apis: 'fillText, strokeText, font, drawImage', href: '/04-text-images' },
+  { num: '05', title: 'Transforms', desc: 'Translate, rotate, scale, and the state stack', apis: 'translate, rotate, scale, save, restore', href: '/05-transforms' },
+  { num: '06', title: 'Animation', desc: 'Game loops, requestAnimationFrame, smooth motion', apis: 'requestAnimationFrame, clearRect, deltaTime', href: '/06-animation' },
+  { num: '07', title: 'Interaction', desc: 'Mouse and touch input, coordinate mapping, hit detection', apis: 'mousemove, click, getBoundingClientRect', href: '/07-interaction' },
+  { num: '08', title: 'Particle System', desc: 'Capstone project combining everything', apis: 'All of the above', href: '/08-particle-system' },
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Canvas Lab — Learn HTML Canvas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="landing">
+      <h1>Canvas Lab</h1>
+      <p class="landing__subtitle">Learn HTML Canvas from scratch. 8 interactive lessons, from drawing your first rectangle to building a particle system.</p>
+
+      <ul class="lesson-list">
+        {lessons.map(l => (
+          <li class="lesson-list__item">
+            <a href={l.href} class="lesson-list__link">
+              <span class="lesson-list__num">{l.num}</span>
+              <div>
+                <div class="lesson-list__title">{l.title}</div>
+                <div class="lesson-list__desc">{l.desc}</div>
+                <div class="lesson-list__apis">{l.apis}</div>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </body>
+</html>
