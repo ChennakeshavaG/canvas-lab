@@ -10,6 +10,7 @@ interface Props {
 }
 
 const { number, title, description, prev, next } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 
 <html lang="en">
@@ -33,9 +34,9 @@ const { number, title, description, prev, next } = Astro.props;
       <slot />
 
       <nav class="lesson__nav">
-        {prev ? <a href={prev.href}>&larr; {prev.title}</a> : <span></span>}
-        <a href="/">All Lessons</a>
-        {next ? <a href={next.href}>{next.title} &rarr;</a> : <span></span>}
+        {prev ? <a href={base + prev.href}>&larr; {prev.title}</a> : <span></span>}
+        <a href={base + '/'}>All Lessons</a>
+        {next ? <a href={base + next.href}>{next.title} &rarr;</a> : <span></span>}
       </nav>
     </div>
   </body>

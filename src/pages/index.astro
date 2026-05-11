@@ -1,15 +1,16 @@
 ---
 import '../styles/global.css';
 
+const base = import.meta.env.BASE_URL;
 const lessons = [
-  { num: '01', title: 'Basics', desc: 'Canvas element, coordinate system, rectangles', apis: 'getContext, fillRect, strokeRect, clearRect', href: '/01-basics' },
-  { num: '02', title: 'Paths & Shapes', desc: 'Custom shapes with paths, lines, arcs, curves', apis: 'beginPath, moveTo, lineTo, arc, bezierCurveTo', href: '/02-paths' },
-  { num: '03', title: 'Colors & Styles', desc: 'Fills, strokes, gradients, transparency', apis: 'fillStyle, strokeStyle, createLinearGradient, globalAlpha', href: '/03-colors' },
-  { num: '04', title: 'Text & Images', desc: 'Rendering text and drawing images on canvas', apis: 'fillText, strokeText, font, drawImage', href: '/04-text-images' },
-  { num: '05', title: 'Transforms', desc: 'Translate, rotate, scale, and the state stack', apis: 'translate, rotate, scale, save, restore', href: '/05-transforms' },
-  { num: '06', title: 'Animation', desc: 'Game loops, requestAnimationFrame, smooth motion', apis: 'requestAnimationFrame, clearRect, deltaTime', href: '/06-animation' },
-  { num: '07', title: 'Interaction', desc: 'Mouse and touch input, coordinate mapping, hit detection', apis: 'mousemove, click, getBoundingClientRect', href: '/07-interaction' },
-  { num: '08', title: 'Particle System', desc: 'Capstone project combining everything', apis: 'All of the above', href: '/08-particle-system' },
+  { num: '01', title: 'Basics', desc: 'Canvas element, coordinate system, rectangles', apis: 'getContext, fillRect, strokeRect, clearRect', href: `${base}/01-basics` },
+  { num: '02', title: 'Paths & Shapes', desc: 'Custom shapes with paths, lines, arcs, curves', apis: 'beginPath, moveTo, lineTo, arc, bezierCurveTo', href: `${base}/02-paths` },
+  { num: '03', title: 'Colors & Styles', desc: 'Fills, strokes, gradients, transparency', apis: 'fillStyle, strokeStyle, createLinearGradient, globalAlpha', href: `${base}/03-colors` },
+  { num: '04', title: 'Text & Images', desc: 'Rendering text and drawing images on canvas', apis: 'fillText, strokeText, font, drawImage', href: `${base}/04-text-images` },
+  { num: '05', title: 'Transforms', desc: 'Translate, rotate, scale, and the state stack', apis: 'translate, rotate, scale, save, restore', href: `${base}/05-transforms` },
+  { num: '06', title: 'Animation', desc: 'Game loops, requestAnimationFrame, smooth motion', apis: 'requestAnimationFrame, clearRect, deltaTime', href: `${base}/06-animation` },
+  { num: '07', title: 'Interaction', desc: 'Mouse and touch input, coordinate mapping, hit detection', apis: 'mousemove, click, getBoundingClientRect', href: `${base}/07-interaction` },
+  { num: '08', title: 'Particle System', desc: 'Capstone project combining everything', apis: 'All of the above', href: `${base}/08-particle-system` },
 ];
 ---
 
