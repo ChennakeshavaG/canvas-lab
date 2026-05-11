@@ -44,19 +44,19 @@ import CanvasDemo from '../components/CanvasDemo.astro';
 
 <div class="concept">
   <p><strong>The particle lifecycle — runs 60 times per second:</strong></p>
-  <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`  ┌─────────┐     ┌──────────┐     ┌──────────┐     ┌──────────┐
-  │  BIRTH  │────→│  UPDATE  │────→│  DEATH   │────→│   DRAW   │
-  │         │     │          │     │          │     │          │
-  │ Create  │     │ Move it  │     │ Remove   │     │ Render   │
-  │ new     │     │ Apply    │     │ if life  │     │ surviving│
-  │ particle│     │ physics  │     │ is <= 0  │     │ particles│
-  │ with    │     │ (gravity,│     │          │     │          │
-  │ position│     │  wind,   │     │          │     │          │
-  │ velocity│     │  drag)   │     │          │     │          │
-  │ lifetime│     │ Age it   │     │          │     │          │
-  └─────────┘     └──────────┘     └──────────┘     └──────────┘
-       │                                                  │
-       └──────────── next frame ──────────────────────────┘`}</pre>
+  <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`  ┌──────────┐     ┌──────────┐     ┌──────────┐     ┌──────────┐
+  │  BIRTH   │────→│  UPDATE  │────→│  DEATH   │────→│   DRAW   │
+  │          │     │          │     │          │     │          │
+  │ Create   │     │ Move it  │     │ Remove   │     │ Render   │
+  │ new      │     │ Apply    │     │ if life  │     │ surviving│
+  │ particle │     │ physics  │     │ is <= 0  │     │ particles│
+  │ with     │     │ (gravity,│     │          │     │          │
+  │ position │     │  wind,   │     │          │     │          │
+  │ velocity │     │  drag)   │     │          │     │          │
+  │ lifetime │     │ Age it   │     │          │     │          │
+  └──────────┘     └──────────┘     └──────────┘     └──────────┘
+       │                                                   │
+       └──────────── next frame ───────────────────────────┘`}</pre>
 </div>
 
 <p>A particle is just a plain JavaScript object with properties. Here is the anatomy of a typical particle:</p>
@@ -248,15 +248,15 @@ __raf = requestAnimationFrame(loop);
 <div class="concept">
   <p><strong>Common emitter shapes:</strong></p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
-  POINT             LINE              CIRCLE            CONE
-  All from          Along a           Around a          Within an
-  one spot          segment           ring               angle range
+  POINT            LINE             CIRCLE           CONE
+  All from         Along a          Around a         Within an
+  one spot         segment          ring             angle range
 
-     ·               ─────             ╭───╮           · · ·
-    /|\             ↓↓↓↓↓↓↓          ↗ · · ↖         · · · · ·
-   / | \                              ↑     ↓        · · · · · · ·
-                                      ↙ · · ↘             ▲
-                                       ╰───╯           emitter
+     ·              ─────            ╭───╮          · · ·
+    /|\            ↓↓↓↓↓↓↓         ↗ · · ↖        · · · · ·
+   / | \                            ↑     ↓       · · · · · · ·
+                                    ↙ · · ↘            ▲
+                                     ╰───╯          emitter
   </pre>
 </div>
 
@@ -393,11 +393,11 @@ __raf = requestAnimationFrame(loop);
   <p><strong>How forces modify velocity:</strong></p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
   Each frame:
-    p.vy += gravity * dt;      // gravity: constant downward pull
-    p.vx += wind * dt;         // wind: constant sideways push
+    p.vy += gravity * dt;                    // gravity: constant downward pull
+    p.vx += wind * dt;                       // wind: constant sideways push
     p.vx += (random-0.5) * turbulence * dt;  // turbulence: random jitter
     p.vy += (random-0.5) * turbulence * dt;
-    p.vx *= friction;          // friction: gradual slowdown (0.98)
+    p.vx *= friction;                        // friction: gradual slowdown (0.98)
     p.vy *= friction;
 
   Think of velocity as "speed + direction".
@@ -695,8 +695,8 @@ __raf = requestAnimationFrame(loop);
       opacity = 1 - (distance / threshold)
       draw a line between them with that opacity
 
-  Note: checking every pair is O(n^2). With 100 particles,
-  that is 4,950 checks per frame — fine for Canvas.
+  Note: checking every pair is O(n²). With 100 particles,
+  that is 4,950 checks per frame  — fine for Canvas.
   With 1000 particles, it would be 499,500 — too slow!
   Keep particle count moderate for this effect.`}</pre>
 </div>
@@ -816,20 +816,21 @@ __raf = requestAnimationFrame(loop);
 <div class="concept">
   <p><strong>Key blending modes for particles:</strong></p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
-  'source-over'  → Default. New covers old.
-  'lighter'      → Additive. Colors add up → bright overlaps.
-  'multiply'     → Colors darken where they overlap.
-  'screen'       → Opposite of multiply, lightens.
+  'source-over' → Default. New covers old.
+  'lighter'     → Additive. Colors add up → bright overlaps.
+  'multiply'    → Colors darken where they overlap.
+  'screen'      → Opposite of multiply, lightens.
 
   'lighter' is the secret ingredient for:
-  - Glowing fire/spark effects
-  - Neon trails
-  - Energy/magic effects
-  - Laser beams
+    - Glowing fire/spark effects
+    - Neon trails
+    - Energy/magic effects
+    - Laser beams
 
-  Usage: ctx.globalCompositeOperation = 'lighter';
-         // draw glowy things
-         ctx.globalCompositeOperation = 'source-over';  // reset
+  Usage:
+    ctx.globalCompositeOperation = 'lighter';
+    // draw glowy things
+    ctx.globalCompositeOperation = 'source-over';  // reset
   </pre>
 </div>
 
@@ -1305,21 +1306,21 @@ __raf = requestAnimationFrame(loop);
   <p><strong>How object pooling works:</strong></p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
   Without pooling:
-  emit() → push new object     → GC cleans up dead objects
-  emit() → push new object     → GC cleans up (STUTTER!)
-  emit() → push new object     → ...
+  emit() → push new object  → GC cleans up dead objects
+  emit() → push new object  → GC cleans up (STUTTER!)
+  emit() → push new object  → ...
 
   With pooling:
-  ┌──────────────────────────────────────────┐
-  │ Pool: [particle, particle, particle, ...]│
-  │                                          │
-  │ emit() → find a dead particle in pool    │
-  │        → reset its properties            │
-  │        → it is "alive" again             │
-  │                                          │
-  │ No new objects created!                  │
-  │ No garbage collection needed!            │
-  └──────────────────────────────────────────┘
+  ┌────────────────────────────────────────────┐
+  │ Pool: [particle, particle, particle, ...]  │
+  │                                            │
+  │ emit() → find a dead particle in pool      │
+  │        → reset its properties              │
+  │        → it is "alive" again               │
+  │                                            │
+  │ No new objects created!                    │
+  │ No garbage collection needed!              │
+  └────────────────────────────────────────────┘
   </pre>
 </div>
 

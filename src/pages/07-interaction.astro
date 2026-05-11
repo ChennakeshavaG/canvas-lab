@@ -22,11 +22,11 @@ import CanvasDemo from '../components/CanvasDemo.astro';
 <div class="concept">
   <p><strong>Analogy:</strong> Imagine you are sitting in a room with a doorbell. You do not constantly check the door — instead, you <em>listen</em> for the bell. When it rings, you go check who is there. Browser events work the same way: you register a "listener" function, and the browser calls it when that event happens.</p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
-  Your code           The browser
-  ┌──────────┐       ┌──────────────┐
-  │ listener │◄──────│ "click" event│
-  │ function │       │ happened!    │
-  └──────────┘       └──────────────┘
+  Your code            The browser
+  ┌──────────┐        ┌───────────────┐
+  │ listener │◄───────│ "click" event │
+  │ function │        │ happened!     │
+  └──────────┘        └───────────────┘
        │
        ▼
   "Oh! The user
@@ -165,22 +165,22 @@ draw();
   <p><strong>Three coordinate systems at play:</strong></p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
   Page coordinates (e.pageX, e.pageY)
-  ┌───────────────────────────────────────┐
-  │ Browser window (may be scrolled)      │
-  │                                       │
-  │   Client coordinates                  │
-  │   (e.clientX, e.clientY)              │
-  │   ┌──────────────────────┐            │
-  │   │  Visible viewport    │            │
-  │   │                      │            │
-  │   │    ┌──────────┐      │            │
-  │   │    │  CANVAS   │ ◄── Canvas coords│
-  │   │    │  (0,0)    │     │            │
-  │   │    │     ·click│     │            │
-  │   │    └──────────┘      │            │
-  │   │                      │            │
-  │   └──────────────────────┘            │
-  └───────────────────────────────────────┘
+  ┌─────────────────────────────────────────┐
+  │ Browser window (may be scrolled)        │
+  │                                         │
+  │   Client coordinates                    │
+  │   (e.clientX, e.clientY)                │
+  │   ┌───────────────────────────┐         │
+  │   │ Visible viewport          │         │
+  │   │                           │         │
+  │   │   ┌────────────┐          │         │
+  │   │   │ CANVAS     │ ◄── Canvas coords  │
+  │   │   │ (0,0)      │          │         │
+  │   │   │   · click   │          │         │
+  │   │   └────────────┘          │         │
+  │   │                           │         │
+  │   └───────────────────────────┘         │
+  └─────────────────────────────────────────┘
 
   To convert from client → canvas:
   canvasX = e.clientX - canvas.getBoundingClientRect().left
@@ -251,19 +251,19 @@ loop();
   <p><strong>The DPI scaling problem and solution:</strong></p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
   Without DPI scaling (blurry on Retina):
-  ┌──────────────────────┐
-  │ canvas.width  = 500  │  CSS size: 500px
-  │ canvas.height = 400  │  Pixel buffer: 500x400
-  │ Looks blurry on 2x!  │  (half the pixels needed)
-  └──────────────────────┘
+  ┌───────────────────────┐
+  │ canvas.width  = 500   │  CSS size: 500px
+  │ canvas.height = 400   │  Pixel buffer: 500x400
+  │ Looks blurry on 2x!   │  (half the pixels needed)
+  └───────────────────────┘
 
   With DPI scaling (sharp):
-  ┌──────────────────────┐
-  │ canvas.width  = 1000 │  CSS size: 500px
-  │ canvas.height = 800  │  Pixel buffer: 1000x800
-  │ ctx.scale(2, 2)      │  (we draw at 500x400 scale,
-  │ Sharp on Retina!     │   rendered at 2x resolution)
-  └──────────────────────┘
+  ┌───────────────────────┐
+  │ canvas.width  = 1000  │  CSS size: 500px
+  │ canvas.height = 800   │  Pixel buffer: 1000x800
+  │ ctx.scale(2, 2)       │  (we draw at 500x400 scale,
+  │ Sharp on Retina!      │   rendered at 2x resolution)
+  └───────────────────────┘
 
   The code:
     var dpr = window.devicePixelRatio || 1;
@@ -492,20 +492,20 @@ loop(performance.now());
 
 <div class="concept">
   <p><strong>The distance formula:</strong></p>
-  <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`                    click point (cx, cy)
-                        ·
-                       /|
-                      / |
-           distance  /  | dy = cy - circle.y
-                    /   |
-                   /    |
-  circle center  ·─────┘
+  <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`                   click point (cx, cy)
+                       ·
+                      /|
+                     / |
+          distance  /  │ dy = cy - circle.y
+                   /   │
+                  /    │
+  circle center ·──────┘
   (circle.x, circle.y)
-           dx = cx - circle.x
+          dx = cx - circle.x
 
-  distance = sqrt(dx*dx + dy*dy)    ← Pythagorean theorem!
+  distance = sqrt(dx*dx + dy*dy)   ← Pythagorean theorem!
 
-  if (distance < circle.radius) → HIT!
+  if (distance <  circle.radius) → HIT!
   if (distance >= circle.radius) → MISS!`}</pre>
 </div>
 
@@ -574,17 +574,17 @@ draw();
 <p>What about detecting when two circles overlap (collide)? The idea is the same as click detection — measure the distance between their centers. If that distance is less than the sum of their radii, they are overlapping.</p>
 
 <div class="concept">
-  <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`  Circle A (r=30)      Circle B (r=20)
+  <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`  Circle A (r=30)       Circle B (r=20)
 
-       ┌───┐               ┌──┐
-      ╱  A  ╲             ╱  B ╲
-     │   ·───┼────────────┼──·  │
-      ╲     ╱  distance   ╲   ╱
-       └───┘               └──┘
-            ◄─────────────►
-                 dist
+       ┌───┐                ┌──┐
+      ╱  A  ╲              ╱  B ╲
+     │   ·───┼─────────────┼──·  │
+      ╲     ╱   distance    ╲   ╱
+       └───┘                └──┘
+            ◄──────────────►
+                  dist
 
-  Collision if: dist < A.r + B.r    (30 + 20 = 50)
+  Collision if:    dist <  A.r + B.r  (30 + 20 = 50)
   No collision if: dist >= A.r + B.r`}</pre>
 </div>
 
@@ -711,20 +711,20 @@ draw();
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`  Two rectangles overlap if and only if they overlap
   on BOTH the X axis AND the Y axis.
 
-  Box A                Box B
-  ┌────────┐          ┌────────┐
-  │ Ax, Ay │          │ Bx, By │
-  │        │          │        │
-  │   Ax+Aw┤          │   Bx+Bw│
-  └────────┘          └────────┘
-       Ay+Ah               By+Bh
+  Box A                 Box B
+  ┌─────────┐          ┌─────────┐
+  │ Ax, Ay  │          │ Bx, By  │
+  │         │          │         │
+  │    Ax+Aw┤          │    Bx+Bw┤
+  └─────────┘          └─────────┘
+      Ay+Ah                By+Bh
 
   Overlap on X axis:
-    A's left edge < B's right edge   AND
+    A's left edge  < B's right edge  AND
     A's right edge > B's left edge
 
   Overlap on Y axis:
-    A's top edge < B's bottom edge   AND
+    A's top edge    < B's bottom edge  AND
     A's bottom edge > B's top edge
 
   In code:
@@ -834,14 +834,14 @@ draw();
 <div class="concept">
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
   Step 1: mousedown
-  ┌──────────┐
-  │  BOX     │  Click happens at (clickX, clickY)
-  │    · ◄───┼── offset = click - box position
-  └──────────┘
+  ┌───────────┐
+  │ BOX       │  Click happens at (clickX, clickY)
+  │   · ◄─────┼── offset = click - box position
+  └───────────┘
 
   Step 2: mousemove
   Mouse moves to (newX, newY)
-  box.x = newX - offsetX    ← preserves the grab point
+  box.x = newX - offsetX   ← preserves the grab point
   box.y = newY - offsetY
 
   Step 3: mouseup
@@ -1144,17 +1144,17 @@ draw();
 <div class="concept">
   <p><strong>How zoom and pan work together:</strong></p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
-  Without transform:          With translate + scale:
-  ┌──────────────┐            ┌──────────────┐
-  │ · · · · · ·  │            │              │
-  │ · · · · · ·  │  zoom in   │   · · · ·    │
-  │ · · · · · ·  │  ------→   │   · · · ·    │
-  │ · · · · · ·  │            │   · · · ·    │
-  └──────────────┘            └──────────────┘
-  All dots visible           Fewer dots, bigger
+  Without transform:           With translate + scale:
+  ┌──────────────┐             ┌──────────────┐
+  │ · · · · · ·  │             │              │
+  │ · · · · · ·  │   zoom in   │   · · · ·    │
+  │ · · · · · ·  │   ───────→  │   · · · ·    │
+  │ · · · · · ·  │             │   · · · ·    │
+  └──────────────┘             └──────────────┘
+  All dots visible            Fewer dots, bigger
 
-  ctx.translate(panX, panY);   // move the "camera"
-  ctx.scale(zoom, zoom);       // zoom level
+  ctx.translate(panX, panY);  // move the "camera"
+  ctx.scale(zoom, zoom);      // zoom level
   // then draw everything at normal coordinates
   </pre>
 </div>

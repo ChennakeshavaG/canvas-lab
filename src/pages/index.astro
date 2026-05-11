@@ -3,7 +3,8 @@ import '../styles/global.css';
 
 const base = import.meta.env.BASE_URL;
 const lessons = [
-  { num: '01', title: 'Basics', desc: 'Canvas element, coordinate system, rectangles', apis: 'getContext, fillRect, strokeRect, clearRect', href: `${base}/01-basics` },
+  { num: '00', title: 'Foundation', desc: 'What Canvas is, how it works, the coordinate system, and the ctx object', apis: 'getContext, coordinate system, immediate mode', href: `${base}/00-foundation` },
+  { num: '01', title: 'Basics', desc: 'Drawing rectangles, setting colors, and understanding draw order', apis: 'fillRect, strokeRect, clearRect, fillStyle', href: `${base}/01-basics` },
   { num: '02', title: 'Paths & Shapes', desc: 'Custom shapes with paths, lines, arcs, curves', apis: 'beginPath, moveTo, lineTo, arc, bezierCurveTo', href: `${base}/02-paths` },
   { num: '03', title: 'Colors & Styles', desc: 'Fills, strokes, gradients, transparency', apis: 'fillStyle, strokeStyle, createLinearGradient, globalAlpha', href: `${base}/03-colors` },
   { num: '04', title: 'Text & Images', desc: 'Rendering text and drawing images on canvas', apis: 'fillText, strokeText, font, drawImage', href: `${base}/04-text-images` },
@@ -26,7 +27,7 @@ const lessons = [
   <body>
     <div class="landing">
       <h1>Canvas Lab</h1>
-      <p class="landing__subtitle">Learn HTML Canvas from scratch. 8 interactive lessons, from drawing your first rectangle to building a particle system.</p>
+      <p class="landing__subtitle">Learn HTML Canvas from scratch. 9 interactive lessons, from understanding the fundamentals to building a particle system.</p>
 
       <ul class="lesson-list">
         {lessons.map(l => (

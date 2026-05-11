@@ -298,18 +298,18 @@ ctx.fillText('so the stroke appears on top of the fill.', 105, 296);
     0           0                  3 o'clock (right)
     90          Math.PI / 2        6 o'clock (bottom)
     180         Math.PI            9 o'clock (left)
-    270          Math.PI * 1.5      12 o'clock (top)
+    270         Math.PI * 1.5      12 o'clock (top)
     360         Math.PI * 2        full circle
 
     Formula: radians = degrees * Math.PI / 180
 
-                     270 / PI*1.5
+                    270 / PI*1.5
                          │
                          │
     180 / PI  ───────────●─────────── 0 (start)
                          │
                          │
-                     90 / PI/2
+                    90 / PI/2
 
     REMEMBER: 0 radians points RIGHT, not up!
     And angles go CLOCKWISE (Y is flipped in canvas).
@@ -636,12 +636,12 @@ ctx.fillText('(pulls the curve)', cpX - 45, cpY + 20);
 <div class="concept">
   <p><strong>How two control points shape a curve:</strong></p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
-    CP1 controls the     CP2 controls the
-    START of the curve   END of the curve
-        ●                    ●
-       ╱                      ╲
-      ╱   The curve leaves     ╲
-     ╱    START heading         ╲
+    CP1 controls the      CP2 controls the
+    START of the curve    END of the curve
+        ●                     ●
+       ╱                       ╲
+      ╱   The curve leaves      ╲
+     ╱    START heading          ╲
     ●     toward CP1, then   ────●
    START  bends to arrive       END
           from CP2's direction

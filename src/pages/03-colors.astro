@@ -30,8 +30,8 @@ import CanvasDemo from '../components/CanvasDemo.astro';
   |  **  |       |  **  |       |  **  |       |  **  |       |  **  |
   | RED  |       | GRN  |       |   B  |       | YLW  |       |   B  |
   +------+       +------+       +------+       +------+       +------+
-   (255,0,0)     (0,255,0)      (0,0,255)     (255,255,0)   (255,255,255)
-                                                = Yellow       = White!
+  (255,0,0)      (0,255,0)      (0,0,255)     (255,255,0)   (255,255,255)
+                                                 = Yellow       = White!
   </pre>
   <p>Key insight: mixing <em>light</em> is <strong>additive</strong> — adding more light makes things brighter. This is the opposite of mixing paint, where adding more paint makes things darker.</p>
 </div>
@@ -152,23 +152,23 @@ formats.forEach(function(c, i) {
   <p><strong>Saturation</strong> — "How vivid?" 0% = gray, 100% = pure vibrant color.</p>
   <p><strong>Lightness</strong> — "How bright?" 0% = black, 50% = normal, 100% = white.</p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
-          The Hue Color Wheel (degrees)
+            The Hue Color Wheel (degrees)
 
-                 0/360 = Red
-                   |
-         330      |      30
-    Magenta  \    |    /  Orange
-              \   |   /
-     300 ------+-----+----- 60
-     Violet    |  *  |    Yellow
-              /   |   \
-         270 /    |    \ 90
-    Blue-Violet   |      Yellow-Green
-                  |
-               180 = Cyan
-                (turquoise)
+                    0/360 = Red
+                       |
+            330       |       30
+       Magenta  \     |     /  Orange
+                 \    |    /
+        300 ------+-------+----- 60
+        Violet    |   *   |    Yellow
+                 /    |    \
+            270 /     |     \ 90
+       Blue-Violet    |      Yellow-Green
+                      |
+                  180 = Cyan
+                   (turquoise)
 
-  Saturation: center (gray) ----> edge (vivid)
+  Saturation: center (gray) ────> edge (vivid)
   Lightness:  separate axis — 0% black, 100% white
   </pre>
 </div>
@@ -396,17 +396,17 @@ ctx.fillText('change!', 180, 280);
 <div class="concept">
   <p><strong>Analogy: Glass Windows.</strong> Imagine stacking colored glass windows:</p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
-  alpha = 1.0        alpha = 0.5        alpha = 0.0
-  (fully opaque)     (semi-transparent)  (invisible)
-  +----------+       +----------+       +----------+
-  |##########|       |# # # # #|       |          |
-  |##########|       | # # # # |       |          |
-  |## SOLID ##|       |# SEMI # |       | NOTHING  |
-  |##########|       | # # # # |       |          |
-  +----------+       +----------+       +----------+
-  Like a wall.       Like tinted        Like clear
-  Blocks everything  glass. Lets some   glass. Fully
-  behind it.         light through.     transparent.
+  alpha = 1.0         alpha = 0.5          alpha = 0.0
+  (fully opaque)      (semi-transparent)   (invisible)
+  +──────────+        +──────────+         +──────────+
+  │##########│        │# # # # # │         │          │
+  │##########│        │ # # # #  │         │          │
+  │## SOLID ##│        │# SEMI  # │         │ NOTHING  │
+  │##########│        │ # # # #  │         │          │
+  +──────────+        +──────────+         +──────────+
+  Like a wall.        Like tinted          Like clear
+  Blocks everything   glass. Lets some     glass. Fully
+  behind it.          light through.       transparent.
   </pre>
   <p><strong>Method 1:</strong> <code>ctx.globalAlpha = 0.5</code> — affects ALL subsequent draws. Remember to reset it to 1.0!</p>
   <p><strong>Method 2:</strong> <code>rgba(r, g, b, alpha)</code> or <code>hsla(h, s%, l%, alpha)</code> — per-color transparency. More precise control.</p>
@@ -519,21 +519,21 @@ ctx.textAlign = 'left';
 <div class="concept">
   <p><code>createLinearGradient(x0, y0, x1, y1)</code> defines the line along which colors change:</p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
-  Horizontal:  (0, 100) ---------> (500, 100)
+  Horizontal:  (0, 100) ─────────> (500, 100)
                start                end
                Left to right, same y
 
   Vertical:    (100, 0)
-                 |
-                 |  Top to bottom, same x
-                 v
+                  │
+                  │  Top to bottom, same x
+                  v
                (100, 400)
 
   Diagonal:    (0, 0)
-                 \
-                  \  Corner to corner
-                   v
-                  (500, 400)
+                  \
+                   \  Corner to corner
+                    v
+                   (500, 400)
   </pre>
   <p>After creating the gradient, add color stops: <code>gradient.addColorStop(position, color)</code></p>
   <p><code>position</code> is 0.0 (start) to 1.0 (end). You can add as many stops as you want!</p>
@@ -666,18 +666,18 @@ ctx.fillText('Sun: radial gradient (covered next)', 20, 300);
   (x0, y0, r0) = inner circle center + radius  (gradient START)
   (x1, y1, r1) = outer circle center + radius  (gradient END)
 
-  Centered (same center):       Off-center (spotlight):
-  +-------------------+         +-------------------+
-  |                   |         |                   |
-  |     .-"""-.       |         |  .-"""-.          |
-  |   /  inner  \     |         | / inner \  outer  |
-  |  |   (r0)   |    |         ||  (r0)   \  (r1)  |
-  |   \        /      |         | \       / ---'    |
-  |     '-...-'       |         |  '-...-'          |
-  |    outer (r1)     |         |                   |
-  +-------------------+         +-------------------+
-  Colors radiate evenly         Light source is offset
-  from center outward           creating a spotlight
+  Centered (same center):        Off-center (spotlight):
+  +───────────────────+          +───────────────────+
+  │                   │          │                   │
+  │     .-"""-.       │          │  .-"""-.          │
+  │   /  inner  \     │          │ / inner \  outer  │
+  │  │   (r0)   │     │          │ │  (r0)   \  (r1) │
+  │   \        /      │          │  \       / ---'   │
+  │     '-...-'       │          │   '-...-'         │
+  │    outer (r1)     │          │                   │
+  +───────────────────+          +───────────────────+
+  Colors radiate evenly          Light source is offset
+  from center outward            creating a spotlight
   </pre>
 </div>
 
@@ -862,16 +862,16 @@ ctx.fillText('Tip: patterns are great for backgrounds!', 20, 375);
   <p><strong>"source"</strong> = the new shape you're drawing</p>
   <p><strong>"destination"</strong> = what's already on the canvas</p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
-  source-over     source-atop     destination-over    xor
-  +------+        +------+        +------+            +------+
-  |  BB  |        |  .B  |        |  AA  |            |  BA  |
-  | AABB |        | AABB |        | AABB |            | AA.BB|
-  | AA   |        | AA   |        | AABB |            | AA   |
-  +------+        +------+        +------+            +------+
-  New on top      New only where  Old on top          Overlap
-  of old          old exists      of new              becomes clear
+  source-over      source-atop      destination-over     xor
+  +------+         +------+         +------+             +------+
+  |  BB  |         |  .B  |         |  AA  |             |  BA  |
+  | AABB |         | AABB |         | AABB |             | AA.BB|
+  | AA   |         | AA   |         | AABB |             | AA   |
+  +------+         +------+         +------+             +------+
+  New on top       New only where   Old on top           Overlap
+  of old           old exists       of new               becomes clear
 
-  A = existing (destination)    B = new shape (source)
+  A = existing (destination)     B = new shape (source)
   </pre>
 </div>
 
@@ -995,20 +995,20 @@ ctx.fillText('destination-out punches holes through existing content', 30, 290);
   <p><strong>lineWidth</strong> — thickness in pixels. The line is centered on the path: half the width extends to each side.</p>
   <p><strong>lineCap</strong> — how line endpoints are drawn:</p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
-  "butt"     "round"    "square"
-  ---|---    ---O---    --[|]--
-  Ends at    Adds a     Adds a
-  the exact  semicircle rectangle
-  endpoint   beyond     beyond the
-             the end    endpoint
+  "butt"       "round"      "square"
+  ---|---      ---O---      --[|]--
+  Ends at      Adds a       Adds a
+  the exact    semicircle   rectangle
+  endpoint     beyond       beyond the
+               the end      endpoint
   </pre>
   <p><strong>lineJoin</strong> — how corners between line segments connect:</p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
-  "miter"    "round"    "bevel"
-   /\         /\         /\
-  /  \       (  )       /--\
-  Sharp      Rounded    Flat
-  corner     corner     corner
+  "miter"      "round"      "bevel"
+    /\           /\           /\
+   /  \         (  )         /--\
+  Sharp        Rounded      Flat
+  corner       corner       corner
   </pre>
 </div>
 
@@ -1215,15 +1215,15 @@ draw();
   <p><strong>shadowBlur</strong> — how fuzzy the shadow is (0 = sharp, higher = softer)</p>
   <p><strong>shadowOffsetX / shadowOffsetY</strong> — where the shadow falls relative to the shape</p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
-  shadowBlur = 0       shadowBlur = 10      shadowBlur = 30
-  +---+                +---+                +---+
-  |   |x               |   |                |   |
-  +---+x               +---+                +---+
-    xxxx               . soft .             .........
-  Sharp shadow         Moderate blur        Extremely soft
+  shadowBlur = 0        shadowBlur = 10       shadowBlur = 30
+  +───+                 +───+                 +───+
+  │   │x                │   │                 │   │
+  +───+x                +───+                 +───+
+    xxxx                . soft .              .........
+  Sharp shadow          Moderate blur         Extremely soft
 
-  offsetX = 5, offsetY = 5  (shadow cast down-right)
-  offsetX = 0, offsetY = 0  (glow effect — shadow all around)
+  offsetX = 5, offsetY = 5   (shadow cast down-right)
+  offsetX = 0, offsetY = 0   (glow effect — shadow all around)
   </pre>
   <p><strong>Always reset shadows when done!</strong> Otherwise every subsequent draw gets shadows too.</p>
 </div>

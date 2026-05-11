@@ -261,15 +261,15 @@ ctx.fillText('Same drawHouse() — three different translate() calls', 50, 260);
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
   Degrees │ Radians          │ In code
   ────────┼──────────────────┼──────────────────────
-    0°    │ 0                │ 0
-   30°    │ PI / 6  ≈ 0.524  │ Math.PI / 6
-   45°    │ PI / 4  ≈ 0.785  │ Math.PI / 4
-   60°    │ PI / 3  ≈ 1.047  │ Math.PI / 3
-   90°    │ PI / 2  ≈ 1.571  │ Math.PI / 2
-  120°    │ 2*PI/3 ≈ 2.094  │ 2 * Math.PI / 3
-  180°    │ PI     ≈ 3.142  │ Math.PI
-  270°    │ 3*PI/2 ≈ 4.712  │ 3 * Math.PI / 2
-  360°    │ 2 * PI ≈ 6.283  │ Math.PI * 2
+     0°   │ 0                │ 0
+    30°   │ PI / 6  ≈ 0.524  │ Math.PI / 6
+    45°   │ PI / 4  ≈ 0.785  │ Math.PI / 4
+    60°   │ PI / 3  ≈ 1.047  │ Math.PI / 3
+    90°   │ PI / 2  ≈ 1.571  │ Math.PI / 2
+   120°   │ 2*PI/3  ≈ 2.094  │ 2 * Math.PI / 3
+   180°   │ PI      ≈ 3.142  │ Math.PI
+   270°   │ 3*PI/2  ≈ 4.712  │ 3 * Math.PI / 2
+   360°   │ 2 * PI  ≈ 6.283  │ Math.PI * 2
 
   To convert: radians = degrees * (Math.PI / 180)
               degrees = radians * (180 / Math.PI)
@@ -281,7 +281,7 @@ ctx.fillText('Same drawHouse() — three different translate() calls', 50, 260);
 <div class="concept">
   <p><strong>The Canvas unit circle (y-axis is flipped!):</strong></p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
-                    270° (-PI/2)
+                  270° (-PI/2)
                         │
                         │  ↺ negative
                         │    (counter-clockwise)
@@ -291,7 +291,7 @@ ctx.fillText('Same drawHouse() — three different translate() calls', 50, 260);
                         │  ↻ positive
                         │    (clockwise)
                         │
-                     90° (PI/2)
+                    90° (PI/2)
 
   NOTE: In Canvas, positive rotation = clockwise
   (opposite of standard math, because Y points down)
@@ -545,16 +545,16 @@ ctx.fillText('scale(-1, -1)', 220, 255);
 <div class="concept">
   <p><strong>Think of it like an undo stack:</strong></p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
-   save()          save()          restore()        restore()
-     │               │                │                │
-     ▼               ▼                ▼                ▼
-  ┌───────┐      ┌───────┐      ┌───────┐       ┌───────┐
-  │State A│      │State B│      │       │       │       │
-  ├───────┤      ├───────┤      ├───────┤       ├───────┤
-  │       │      │State A│      │State A│       │       │
-  └───────┘      └───────┘      └───────┘       └───────┘
-   Stack: [A]    Stack: [A,B]   Stack: [A]      Stack: []
-                                (B popped)      (A popped)
+   save()         save()         restore()       restore()
+     │               │               │               │
+     ▼               ▼               ▼               ▼
+  ┌───────┐      ┌───────┐      ┌───────┐      ┌───────┐
+  │State A│      │State B│      │       │      │       │
+  ├───────┤      ├───────┤      ├───────┤      ├───────┤
+  │       │      │State A│      │State A│      │       │
+  └───────┘      └───────┘      └───────┘      └───────┘
+   Stack: [A]    Stack: [A,B]   Stack: [A]     Stack: []
+                                (B popped)     (A popped)
   </pre>
   <p><strong>Golden rule:</strong> Every <code>save()</code> MUST have a matching <code>restore()</code>. Unmatched pairs are the #1 source of transform bugs.</p>
 </div>
@@ -713,11 +713,11 @@ ctx.fillText('Same angle + distance, different order = different result', 30, 33
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
   Canvas uses a 3x3 matrix internally, but you only set 6 values:
 
-  ┌         ┐     ┌             ┐
-  │ a  c  e │     │ scaleX  skewX   translateX │
-  │ b  d  f │  =  │ skewY   scaleY  translateY │
-  │ 0  0  1 │     │ 0       0       1          │
-  └         ┘     └             ┘
+  ┌          ┐     ┌                                ┐
+  │  a  c  e  │     │  scaleX   skewX    translateX  │
+  │  b  d  f  │  =  │  skewY    scaleY   translateY  │
+  │  0  0  1  │     │  0        0        1           │
+  └          ┘     └                                ┘
 
   The default (identity) matrix: a=1, b=0, c=0, d=1, e=0, f=0
   ctx.setTransform(1, 0, 0, 1, 0, 0) resets to default.

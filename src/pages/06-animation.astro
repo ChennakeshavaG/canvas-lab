@@ -47,13 +47,13 @@ import CanvasDemo from '../components/CanvasDemo.astro';
 
 <div class="concept">
   <p><strong>Frame timing at different rates:</strong></p>
-  <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`  Framerate    Time per frame    Feels like
-  ─────────    ──────────────    ──────────
-   10 fps       100.0 ms         slideshow, painful
-   24 fps        41.7 ms         cinema film
-   30 fps        33.3 ms         okay for video
-   60 fps        16.7 ms         smooth for interaction ← target
-  120 fps         8.3 ms         butter-smooth (gaming monitors)
+  <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`  Framerate   Time per frame   Feels like
+  ─────────   ──────────────   ──────────
+   10 fps       100.0 ms       slideshow, painful
+   24 fps        41.7 ms       cinema film
+   30 fps        33.3 ms       okay for video
+   60 fps        16.7 ms       smooth for interaction ← target
+  120 fps         8.3 ms       butter-smooth (gaming monitors)
 
   Rule of thumb: keep your update+draw under 16ms and
   the browser handles the rest.`}</pre>
@@ -570,11 +570,11 @@ __raf = requestAnimationFrame(loop);
   <p><strong>Sine wave anatomy:</strong></p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`  Math.sin(time) oscillates between -1 and +1:
 
-   +1 ─  ╭──╮      ╭──╮      ╭──╮
-         │  │      │  │      │  │
-    0 ───┤  ├──────┤  ├──────┤  ├──── time →
-         │  │      │  │      │  │
-   -1 ─  ╰──╯      ╰──╯      ╰──╯
+   +1 ─  ╭──╮       ╭──╮       ╭──╮
+         │  │       │  │       │  │
+    0 ───┤  ├───────┤  ├───────┤  ├──── time →
+         │  │       │  │       │  │
+   -1 ─  ╰──╯       ╰──╯       ╰──╯
 
   To control oscillation:
     Amplitude:  Math.sin(t) * 50       → swings 50px each way
@@ -859,7 +859,7 @@ __raf = requestAnimationFrame(loop);
 <div class="concept">
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`  HSL = Hue (0-360), Saturation (0-100%), Lightness (0-100%)
 
-  hue:  0=red  60=yellow  120=green  180=cyan  240=blue  300=magenta
+  hue: 0=red  60=yellow  120=green  180=cyan  240=blue  300=magenta
 
   Cycling: hue = (hue + speed * dt) % 360
 
@@ -1016,12 +1016,12 @@ __raf = requestAnimationFrame(loop);
 
 <div class="concept">
   <p><strong>Common easing functions:</strong></p>
-  <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`  linear(t)      = t                  flat line, constant speed
-  easeInQuad(t)   = t * t              starts slow, ends fast
-  easeOutQuad(t)  = t * (2 - t)        starts fast, ends slow
-  easeInOutCubic  = smooth S-curve     slow → fast → slow
+  <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`  linear(t)       = t              flat line, constant speed
+  easeInQuad(t)    = t * t          starts slow, ends fast
+  easeOutQuad(t)   = t * (2 - t)   starts fast, ends slow
+  easeInOutCubic   = smooth S-curve slow → fast → slow
 
-  bounce(t) = ball-drop effect
+  bounce(t)  = ball-drop effect
   elastic(t) = springy overshoot
 
   All take t from 0→1 and return a modified 0→1 value.

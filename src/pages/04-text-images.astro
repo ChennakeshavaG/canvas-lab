@@ -24,12 +24,12 @@ import CanvasDemo from '../components/CanvasDemo.astro';
   <p><strong>strokeText(text, x, y)</strong> — draws only the outlines of each letter. Great for decorative effects.</p>
   <p>Both methods place the text starting at (x, y), where y refers to the text <strong>baseline</strong> — the invisible line that letters "sit" on (like ruled paper).</p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
-                    x
-                    |
-  y (baseline) ----+--- H e l l o ---
-                        |       |
-                    Ascenders go up (h, l)
-                    Descenders go down (g, p, y)
+                       x
+                       │
+  y (baseline) ────────┼─── H e l l o ───
+                       │        │
+                  Ascenders go up (h, l)
+                  Descenders go down (g, p, y)
 
   fillText("Hello", x, y)
        The x,y is where the baseline starts
@@ -86,13 +86,13 @@ ctx.fillText('for outlined text with a filled interior', 30, 296);
   <p><strong>Font string format:</strong> <code>"[style] [weight] size family"</code></p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
   ctx.font = "italic bold 24px serif"
-              |      |    |    |
-              |      |    |    +-- family: serif, sans-serif,
-              |      |    |        monospace, system-ui, or
-              |      |    |        any loaded font name
-              |      |    +------- size: required! px, em, pt
-              |      +------------ weight: normal, bold, 100-900
-              +------------------- style: normal, italic, oblique
+              │      │    │    │
+              │      │    │    └── family: serif, sans-serif,
+              │      │    │        monospace, system-ui, or
+              │      │    │        any loaded font name
+              │      │    └─────── size: required! px, em, pt
+              │      └──────────── weight: normal, bold, 100-900
+              └─────────────────── style: normal, italic, oblique
 
   Minimum required: size + family
   ctx.font = "24px sans-serif"   // this is enough!
@@ -148,18 +148,18 @@ ctx.fillText('Custom fonts must be loaded before drawing!', 20, 330);
 <div class="concept">
   <p><strong>textAlign</strong> — horizontal position relative to the x coordinate:</p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
-  "left"     "center"     "right"
-   x|Hello    He|llo       Hello|x
-   Text       Text is      Text ends
-   starts     centered     at x
-   at x       on x
+  "left"       "center"       "right"
+   x│Hello      He│llo         Hello│x
+   Text         Text is        Text ends
+   starts       centered       at x
+   at x         on x
   </pre>
   <p><strong>textBaseline</strong> — vertical position relative to the y coordinate:</p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
-  "top"         Text hangs below y ----
-  "middle"      Text centered on y  ----
-  "alphabetic"  Baseline sits on y  ---- (default, most common)
-  "bottom"      Text sits above y   ----
+  "top"          Text hangs below y  ────
+  "middle"       Text centered on y  ────
+  "alphabetic"   Baseline sits on y  ──── (default, most common)
+  "bottom"       Text sits above y   ────
   </pre>
 </div>
 
@@ -396,17 +396,17 @@ widths.forEach(function(mw, i) {
   1. Split text into words
   2. Start with an empty line
   3. For each word:
-     - Measure (current line + word) width
-     - If it fits within maxWidth: add word to current line
-     - If it doesn't: draw current line, start new line with this word
+     ├─ Measure (current line + word) width
+     ├─ If it fits within maxWidth: add word to current line
+     └─ If it doesn't: draw current line, start new line with this word
   4. Don't forget to draw the last line!
 
   "The quick brown fox jumps over the lazy dog"
    maxWidth = 200px
 
-   Line 1: "The quick brown"    (fits in 200px)
-   Line 2: "fox jumps over"     (fits in 200px)
-   Line 3: "the lazy dog"       (fits in 200px)
+   Line 1: "The quick brown"     (fits in 200px)
+   Line 2: "fox jumps over"      (fits in 200px)
+   Line 3: "the lazy dog"        (fits in 200px)
   </pre>
 </div>
 
@@ -677,16 +677,16 @@ ctx.textAlign = 'left';
          Crop a region from source, then draw scaled
 
   9-arg breakdown:
-  +--SOURCE IMAGE--+       +--YOUR CANVAS--+
-  |                |       |               |
-  | (sx,sy)       |       |  (dx,dy)      |
-  |  +------+     |  -->  |   +------+    |
-  |  | sw   |     |       |   | dw   |    |
-  |  | x sh |     |       |   | x dh |    |
-  |  +------+     |       |   +------+    |
-  |                |       |               |
-  +----------------+       +---------------+
-   Crop this area           Paste it here
+  +──SOURCE IMAGE──+        +──YOUR CANVAS──+
+  │                │        │               │
+  │  (sx,sy)       │        │  (dx,dy)      │
+  │   +──────+     │  ───>  │   +──────+    │
+  │   │ sw   │     │        │   │ dw   │    │
+  │   │ x sh │     │        │   │ x dh │    │
+  │   +──────+     │        │   +──────+    │
+  │                │        │               │
+  +────────────────+        +───────────────+
+   Crop this area            Paste it here
   </pre>
 </div>
 
@@ -923,20 +923,20 @@ ctx.fillText('Networks fail. Show a placeholder.', 125, 218);
   <p><strong>How sprite sheets work:</strong></p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
   Sprite Sheet (one PNG file):
-  +----+----+----+----+
-  | W1 | W2 | W3 | W4 |  Row 0: Walking animation
-  +----+----+----+----+
-  | R1 | R2 | R3 | R4 |  Row 1: Running animation
-  +----+----+----+----+
-  | J1 | J2 |idle|hurt|  Row 2: Jump, idle, hurt
-  +----+----+----+----+
+  +────+────+────+────+
+  │ W1 │ W2 │ W3 │ W4 │  Row 0: Walking animation
+  +────+────+────+────+
+  │ R1 │ R2 │ R3 │ R4 │  Row 1: Running animation
+  +────+────+────+────+
+  │ J1 │ J2 │idle│hurt│  Row 2: Jump, idle, hurt
+  +────+────+────+────+
   Each cell is 32x32 pixels
 
   To get "R2" (running frame 2):
-  row = 1, col = 1
-  sx = col * 32 = 32
-  sy = row * 32 = 32
-  drawImage(sheet, 32, 32, 32, 32, dx, dy, 32, 32)
+    row = 1, col = 1
+    sx  = col * 32 = 32
+    sy  = row * 32 = 32
+    drawImage(sheet, 32, 32, 32, 32, dx, dy, 32, 32)
   </pre>
 </div>
 
@@ -1094,20 +1094,20 @@ animate();
   <p><strong>How pixel data is stored:</strong></p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
   ImageData.data is a flat Uint8ClampedArray:
-  [R, G, B, A, R, G, B, A, R, G, B, A, ...]
-   pixel 0      pixel 1      pixel 2
+  [ R, G, B, A,  R, G, B, A,  R, G, B, A, ... ]
+    pixel 0       pixel 1       pixel 2
 
   For a 3x2 image (3 wide, 2 tall):
-  Row 0: [pix0] [pix1] [pix2]
-  Row 1: [pix3] [pix4] [pix5]
+    Row 0: [pix0] [pix1] [pix2]
+    Row 1: [pix3] [pix4] [pix5]
 
   To find pixel at (x, y):
-  index = (y * width + x) * 4
+    index = (y * width + x) * 4
 
-  data[index]     = Red   (0-255)
-  data[index + 1] = Green (0-255)
-  data[index + 2] = Blue  (0-255)
-  data[index + 3] = Alpha (0-255)  ← 255 = opaque, 0 = transparent
+    data[index]     = Red    (0-255)
+    data[index + 1] = Green  (0-255)
+    data[index + 2] = Blue   (0-255)
+    data[index + 3] = Alpha  (0-255)  ← 255 = opaque, 0 = transparent
   </pre>
   <p><strong>createImageData(w, h)</strong> — creates blank (all zero/transparent) pixel data</p>
   <p><strong>getImageData(x, y, w, h)</strong> — reads pixel data from the canvas</p>
@@ -1389,20 +1389,20 @@ ctx.fillText('Scaled to 160x160 (20x zoom)', 20, 275);
 <div class="concept">
   <p><strong>toDataURL(type, quality)</strong></p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
-  canvas.toDataURL()                  // PNG (default)
-  canvas.toDataURL('image/png')       // PNG explicitly
-  canvas.toDataURL('image/jpeg', 0.8) // JPEG at 80% quality
-  canvas.toDataURL('image/webp', 0.9) // WebP at 90% quality
+  canvas.toDataURL()                   // PNG (default)
+  canvas.toDataURL('image/png')        // PNG explicitly
+  canvas.toDataURL('image/jpeg', 0.8)  // JPEG at 80% quality
+  canvas.toDataURL('image/webp', 0.9)  // WebP at 90% quality
 
   Returns a string like:
-  "data:image/png;base64,iVBORw0KGgo..."
-  (very long base64-encoded image data)
+    "data:image/png;base64,iVBORw0KGgo..."
+    (very long base64-encoded image data)
 
   To create a download:
-  var link = document.createElement('a');
-  link.download = 'my-canvas.png';
-  link.href = canvas.toDataURL();
-  link.click();  // triggers download!
+    var link = document.createElement('a');
+    link.download = 'my-canvas.png';
+    link.href = canvas.toDataURL();
+    link.click();  // triggers download!
   </pre>
   <p><strong>Warning:</strong> If you've drawn a cross-origin image (from another domain) without CORS headers, <code>toDataURL()</code> will throw a security error. The canvas is "tainted" and you can no longer export it.</p>
 </div>
