@@ -23,7 +23,7 @@ import CanvasDemo from '../components/CanvasDemo.astro';
 <p>This lesson covers the <strong>concepts</strong> you need before writing any drawing code. Think of it as the theory chapter — the "why" and "how it works" before the "let's build." If you are the kind of person who likes to jump straight into code, you can skip to <a href="../01-basics">Lesson 1</a>. But if you want to truly understand what you are doing (and avoid common confusion later), read on.</p>
 
 <div class="concept">
-  <p><strong>A bit of history:</strong> Canvas was invented by Apple in 2004 for their macOS Dashboard widgets and the Safari browser. Under the hood, it exposed the Mac's powerful Quartz graphics engine to JavaScript. Firefox adopted it in 2005, Opera in 2006, and by the time HTML5 was standardized, Canvas was an official part of the web platform. Today every browser supports it — desktop and mobile alike. You could say Canvas is old enough to have a driver's license, and it is still the go-to tool for custom graphics on the web.</p>
+  <p><strong>A bit of history:</strong> Canvas was invented by Apple in 2004 for their macOS Dashboard widgets and the Safari browser. Under the hood, it exposed the Mac's powerful Quartz graphics engine to JavaScript. Firefox adopted it in 2005, Opera followed, and by the time HTML5 became a formal W3C standard in 2014, Canvas had already been universally supported for years. Today every browser supports it — desktop and mobile alike. You could say Canvas is old enough to have a driver's license, and it is still the go-to tool for custom graphics on the web.</p>
 </div>
 
 <!-- ═══════════════════════════════════════════════════ -->
@@ -38,13 +38,19 @@ import CanvasDemo from '../components/CanvasDemo.astro';
   <p><strong>Think of it like this:</strong> imagine a huge sheet of graph paper where every tiny square can be colored in. That is your screen. Each square is one pixel. When you "draw" on a computer, you are really just telling the computer which squares to color and what color to make them.</p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`    Each square = one pixel
     ┌───┬───┬───┬───┬───┬───┬───┬───┐
-    │   │   │ ■ │ ■ │ ■ │   │   │   │
+    │   │   │ ■ │ ■ │ ■ │ ■ │   │   │
     ├───┼───┼───┼───┼───┼───┼───┼───┤
-    │   │ ■ │   │   │   │ ■ │   │   │
+    │   │ ■ │   │   │   │   │ ■ │   │
     ├───┼───┼───┼───┼───┼───┼───┼───┤
-    │   │ ■ │   │   │   │ ■ │   │   │
+    │ ■ │   │ ■ │   │   │ ■ │   │ ■ │
     ├───┼───┼───┼───┼───┼───┼───┼───┤
-    │   │   │ ■ │ ■ │ ■ │   │   │   │
+    │ ■ │   │   │   │   │   │   │ ■ │
+    ├───┼───┼───┼───┼───┼───┼───┼───┤
+    │ ■ │   │ ■ │   │   │ ■ │   │ ■ │
+    ├───┼───┼───┼───┼───┼───┼───┼───┤
+    │   │ ■ │   │ ■ │ ■ │   │ ■ │   │
+    ├───┼───┼───┼───┼───┼───┼───┼───┤
+    │   │   │ ■ │ ■ │ ■ │ ■ │   │   │
     └───┴───┴───┴───┴───┴───┴───┴───┘
     A smiley face, 8 pixels wide!`}</pre>
 </div>
@@ -202,7 +208,7 @@ ctx.fillText('size is set correctly!', 200, 135);
 
 <p>It might sound like a disadvantage — why would you want something that forgets? The answer is <strong>performance and simplicity</strong>.</p>
 
-<p>Because Canvas does not maintain a scene graph (an internal tree of objects), it does not slow down as you draw more things. Drawing 10 circles and drawing 10,000 circles costs nearly the same amount of memory. The canvas does not care how many "objects" are in your scene — it just has a bitmap of pixels, and each drawing call splatters some new color onto that bitmap.</p>
+<p>Because Canvas does not maintain a scene graph (an internal tree of objects), it does not slow down as you draw more things. Drawing 10 circles and drawing 10,000 circles uses the same canvas memory — the bitmap is a fixed size regardless. Your JavaScript data (positions, velocities) still takes memory, but without the per-object DOM bookkeeping overhead. The canvas does not care how many "objects" are in your scene — it just has a bitmap of pixels, and each drawing call splatters some new color onto that bitmap.</p>
 
 <p>In retained mode, every object you add consumes memory and processing time. The browser must track each one, run layout calculations, handle event listeners, and update the display when any property changes. With 50 objects, this is fine. With 50,000 objects (like particles in a fireworks simulation), retained mode chokes. Canvas handles it effortlessly.</p>
 
@@ -589,21 +595,17 @@ points.forEach(function(p) {
     ─────────────────────── ─────────────────────────────── ───────────────
     Rectangles              fillRect, strokeRect, clearRect Lesson 1
     Paths and Shapes        Lines, arcs, curves, polygons   Lesson 2
-    Colors and Styles       fillStyle, strokeStyle,         Lessons 1-3
+    Colors and Styles       fillStyle, strokeStyle,         Lessons 1 & 3
                             gradients, patterns
-    Text                    fillText, strokeText, fonts,    Lesson 3
-                            measurement
-    Images                  drawImage (from files, video,   Lesson 4
-                            other canvases)
+    Text and Images          fillText, drawImage, fonts,     Lesson 4
+                            pixel manipulation
     Transformations         translate, rotate, scale —      Lesson 5
                             move/spin the coordinate system
     Animation               requestAnimationFrame,          Lesson 6
                             the clear-update-draw loop
     Interaction             Mouse/touch events,             Lesson 7
                             hit detection
-    Compositing and         globalAlpha, blend modes,       Lesson 8
-    Advanced Techniques     clipping, shadows, pixel
-                            manipulation, state management`}</pre>
+    Particle System         Capstone — combines everything  Lesson 8`}</pre>
 </div>
 
 <p>Notice two things about this roadmap:</p>
@@ -668,11 +670,11 @@ ctx.fillText('center:(350,90) r:60', 280, 175);
 // A small note at the bottom
 ctx.fillStyle = '#3fb950';
 ctx.font = '14px monospace';
-ctx.fillText('These 12 lines are all it takes!', 100, 250);
+ctx.fillText('A few lines of code is all it takes!', 100, 250);
   `}
 />
 
-<p>That is it — 12 lines of drawing code to put a rectangle, a circle, and text on screen. Everything starts from this foundation. In Lesson 1, we will zoom in on rectangles and explore every option: fills, strokes, colors, and combining them into more complex drawings.</p>
+<p>That is it — a handful of drawing commands to put a rectangle, a circle, and text on screen. Everything starts from this foundation. In Lesson 1, we will zoom in on rectangles and explore every option: fills, strokes, colors, and combining them into more complex drawings.</p>
 
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- Summary                                           -->

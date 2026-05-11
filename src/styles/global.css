@@ -207,6 +207,12 @@ pre code {
 .lesson__nav a {
   font-family: var(--font-mono);
   font-size: 0.85rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius);
+}
+
+.lesson__nav a:hover {
+  background: var(--accent-glow);
 }
 
 /* Landing Page */
@@ -306,6 +312,7 @@ button:focus-visible {
   padding: 1rem 1.25rem;
   border-radius: 0 var(--radius) var(--radius) 0;
   margin: 1.5rem 0;
+  overflow-x: hidden;
 }
 
 .concept p {
@@ -315,4 +322,13 @@ button:focus-visible {
 
 .concept strong {
   color: var(--accent);
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  h1 { font-size: 1.5rem; }
+  .landing h1 { font-size: 1.75rem; }
+  .lesson__title { font-size: 1.5rem; }
+  .lesson { padding: 2rem 1rem; }
+  .lesson__nav { flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
 }

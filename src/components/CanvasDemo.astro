@@ -47,6 +47,8 @@ const trimmedCode = code.trim();
   canvas.height = h * dpr;
   canvas.style.width = w + 'px';
   canvas.style.height = h + 'px';
+  canvas.style.maxWidth = '100%';
+  canvas.style.aspectRatio = w + ' / ' + h;
   ctx.scale(dpr, dpr);
 
   var __raf = null;
