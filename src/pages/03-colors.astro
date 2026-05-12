@@ -33,8 +33,10 @@ import CanvasDemo from '../components/CanvasDemo.astro';
   (255,0,0)      (0,255,0)      (0,0,255)     (255,255,0)   (255,255,255)
                                                  = Yellow       = White!
   </pre>
-  <p>Key insight: mixing <em>light</em> is <strong>additive</strong> — adding more light makes things brighter. This is the opposite of mixing paint, where adding more paint makes things darker.</p>
+  <p>Key insight: mixing <em>light</em> is <strong>additive</strong>. Adding more light makes things brighter. This is the opposite of mixing paint, where adding more paint makes things darker.</p>
 </div>
+
+<p>The demos below use <code>beginPath()</code> and <code>arc()</code> from Lesson 2 to draw circles. Here, we focus on <em>color</em> rather than shape.</p>
 
 <CanvasDemo
   id="rgb-mixing"
@@ -50,7 +52,8 @@ var centerY = 160;  // vertical center for the circles
 var radius = 90;    // how big each circle is
 var spread = 60;    // how far apart the centers are
 
-// Enable "lighter" blending — this simulates real light mixing
+// Enable "lighter" blending (a composite mode covered later in this lesson)
+// that simulates real light mixing
 ctx.globalCompositeOperation = 'lighter';
 
 // Red spotlight (top-left position)
@@ -96,9 +99,9 @@ ctx.textAlign = 'left';
 <div class="concept">
   <p><strong>Named Colors:</strong> CSS has 140+ built-in color names like <code>crimson</code>, <code>cornflowerblue</code>, <code>salmon</code>. Easy to read, but limited palette.</p>
   <p><strong>Hex (#rrggbb):</strong> Each pair of hex digits represents a channel: <code>#ff0000</code> = red 255, green 0, blue 0. Compact, widely used.</p>
-  <p><strong>RGB (r, g, b):</strong> <code>rgb(255, 0, 0)</code> — same as hex but easier to read. Values 0-255 per channel.</p>
+  <p><strong>RGB (r, g, b):</strong> <code>rgb(255, 0, 0)</code>, same as hex but easier to read. Values 0-255 per channel.</p>
   <p><strong>RGBA (r, g, b, a):</strong> Like RGB but with an alpha (opacity) channel from 0.0 (invisible) to 1.0 (solid).</p>
-  <p><strong>HSL (h, s%, l%):</strong> Hue (0-360 degrees on a color wheel), Saturation (0-100%), Lightness (0-100%). Often more intuitive — we'll explore this next.</p>
+  <p><strong>HSL (h, s%, l%):</strong> Hue (0-360 degrees on a color wheel), Saturation (0-100%), Lightness (0-100%). Often more intuitive; we'll explore this next.</p>
 </div>
 
 <CanvasDemo
@@ -143,14 +146,14 @@ formats.forEach(function(c, i) {
 <!-- SECTION 3: HSL COLOR MODEL                                          -->
 <!-- ================================================================== -->
 
-<h2>The HSL Color Model — Your Secret Weapon</h2>
+<h2>The HSL Color Model: Your Secret Weapon</h2>
 
 <p>RGB is how computers think about color. <strong>HSL is how humans think about color.</strong> Instead of mixing red/green/blue channels, you describe color using three intuitive properties:</p>
 
 <div class="concept">
-  <p><strong>Hue</strong> — "What color?" A position on the color wheel, measured in degrees (0-360).</p>
-  <p><strong>Saturation</strong> — "How vivid?" 0% = gray, 100% = pure vibrant color.</p>
-  <p><strong>Lightness</strong> — "How bright?" 0% = black, 50% = normal, 100% = white.</p>
+  <p><strong>Hue</strong>: "What color?" A position on the color wheel, measured in degrees (0-360).</p>
+  <p><strong>Saturation</strong>: "How vivid?" 0% = gray, 100% = pure vibrant color.</p>
+  <p><strong>Lightness</strong>: "How bright?" 0% = black, 50% = normal, 100% = white.</p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
             The Hue Color Wheel (degrees)
 
@@ -329,9 +332,9 @@ ctx.fillText('hsl(hue, 75%, 55%) where hue = i * 30', 20, 270);
 <p>Every shape you draw on Canvas uses two style properties. Think of them like choosing your art supplies:</p>
 
 <div class="concept">
-  <p><strong>fillStyle</strong> — the paint color that fills the inside of shapes. Like choosing which paint to pour into a bucket.</p>
-  <p><strong>strokeStyle</strong> — the pen color for outlines. Like choosing which marker to trace edges with.</p>
-  <p>Both accept any color format. Once set, they stay set until you change them — like picking up a new paintbrush.</p>
+  <p><strong>fillStyle</strong>: the paint color that fills the inside of shapes. Like choosing which paint to pour into a bucket.</p>
+  <p><strong>strokeStyle</strong>: the pen color for outlines. Like choosing which marker to trace edges with.</p>
+  <p>Both accept any color format. Once set, they stay set until you change them, like picking up a new paintbrush.</p>
 </div>
 
 <CanvasDemo
@@ -408,8 +411,8 @@ ctx.fillText('change!', 180, 280);
   Blocks everything   glass. Lets some     glass. Fully
   behind it.          light through.       transparent.
   </pre>
-  <p><strong>Method 1:</strong> <code>ctx.globalAlpha = 0.5</code> — affects ALL subsequent draws. Remember to reset it to 1.0!</p>
-  <p><strong>Method 2:</strong> <code>rgba(r, g, b, alpha)</code> or <code>hsla(h, s%, l%, alpha)</code> — per-color transparency. More precise control.</p>
+  <p><strong>Method 1:</strong> <code>ctx.globalAlpha = 0.5</code> affects ALL subsequent draws. Remember to reset it to 1.0!</p>
+  <p><strong>Method 2:</strong> <code>rgba(r, g, b, alpha)</code> or <code>hsla(h, s%, l%, alpha)</code> for per-color transparency. More precise control.</p>
 </div>
 
 <CanvasDemo
@@ -658,7 +661,7 @@ ctx.fillText('Sun: radial gradient (covered next)', 20, 300);
 
 <h2>Radial Gradients</h2>
 
-<p>A <strong>radial gradient</strong> transitions colors outward from a center point, like ripples in a pond. It's defined by two circles — an inner circle (where the gradient starts) and an outer circle (where it ends).</p>
+<p>A <strong>radial gradient</strong> transitions colors outward from a center point, like ripples in a pond. It's defined by two circles: an inner circle (where the gradient starts) and an outer circle (where it ends).</p>
 
 <div class="concept">
   <p><code>createRadialGradient(x0, y0, r0, x1, y1, r1)</code></p>
@@ -746,7 +749,7 @@ ctx.fillText('metallic button', 270, 360);
 
 <h2>Patterns with createPattern()</h2>
 
-<p>Besides solid colors and gradients, you can fill shapes with a <strong>repeating pattern</strong>. A pattern is like digital wallpaper — you create a small tile, and Canvas repeats it to fill any shape.</p>
+<p>Besides solid colors and gradients, you can fill shapes with a <strong>repeating pattern</strong>. A pattern is like digital wallpaper: you create a small tile, and Canvas repeats it to fill any shape.</p>
 
 <div class="concept">
   <p><code>createPattern(image, repetition)</code> where:</p>
@@ -855,10 +858,10 @@ ctx.fillText('Tip: patterns are great for backgrounds!', 20, 375);
 
 <h2>Composite Operations (Blending Modes)</h2>
 
-<p><code>globalCompositeOperation</code> controls how new shapes interact with existing content on the canvas. The default is <code>"source-over"</code> — new shapes paint on top. But there are 26 different modes that let you multiply, screen, subtract, and more.</p>
+<p><code>globalCompositeOperation</code> controls how new shapes interact with existing content on the canvas. The default is <code>"source-over"</code>, where new shapes paint on top. But there are 26 different modes that let you multiply, screen, subtract, and more.</p>
 
 <div class="concept">
-  <p><strong>Analogy: Photo editing layers.</strong> If you've used Photoshop or GIMP, composite operations are like blend modes — they control how a new layer combines with layers below it.</p>
+  <p><strong>Analogy: Photo editing layers.</strong> If you've used Photoshop or GIMP, composite operations are like blend modes. They control how a new layer combines with layers below it.</p>
   <p><strong>"source"</strong> = the new shape you're drawing</p>
   <p><strong>"destination"</strong> = what's already on the canvas</p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
@@ -992,8 +995,8 @@ ctx.fillText('destination-out punches holes through existing content', 30, 290);
 <p>Lines in Canvas aren't just "draw a line." You can control their thickness, how their ends look, how corners connect, and whether they're dashed.</p>
 
 <div class="concept">
-  <p><strong>lineWidth</strong> — thickness in pixels. The line is centered on the path: half the width extends to each side.</p>
-  <p><strong>lineCap</strong> — how line endpoints are drawn:</p>
+  <p><strong>lineWidth</strong>: thickness in pixels. The line is centered on the path, so half the width extends to each side.</p>
+  <p><strong>lineCap</strong>: how line endpoints are drawn:</p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
   "butt"       "round"      "square"
   ---|---      ---O---      --[|]--
@@ -1002,7 +1005,7 @@ ctx.fillText('destination-out punches holes through existing content', 30, 290);
   endpoint     beyond       beyond the
                the end      endpoint
   </pre>
-  <p><strong>lineJoin</strong> — how corners between line segments connect:</p>
+  <p><strong>lineJoin</strong>: how corners between line segments connect:</p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
   "miter"      "round"      "bevel"
     /\           /\           /\
@@ -1110,7 +1113,7 @@ ctx.fillText('Fix: use y=100.5 (half-pixel)', 300, 270);
 
 <h2>Dashed Lines and Marching Ants</h2>
 
-<p><code>setLineDash([segments])</code> creates dashed lines. The array alternates between dash length and gap length. <code>lineDashOffset</code> shifts the pattern — animate it for a "marching ants" selection effect.</p>
+<p><code>setLineDash([segments])</code> creates dashed lines. The array alternates between dash length and gap length. <code>lineDashOffset</code> shifts the pattern; animate it for a "marching ants" selection effect.</p>
 
 <CanvasDemo
   id="dashes"
@@ -1208,12 +1211,12 @@ draw();
 
 <h2>Shadows</h2>
 
-<p>Canvas can add shadows to anything you draw — shapes, text, images. There are four shadow properties that work together.</p>
+<p>Canvas can add shadows to anything you draw: shapes, text, and images. There are four shadow properties that work together.</p>
 
 <div class="concept">
-  <p><strong>shadowColor</strong> — the shadow's color (use rgba for translucent shadows)</p>
-  <p><strong>shadowBlur</strong> — how fuzzy the shadow is (0 = sharp, higher = softer)</p>
-  <p><strong>shadowOffsetX / shadowOffsetY</strong> — where the shadow falls relative to the shape</p>
+  <p><strong>shadowColor</strong>: the shadow's color (use rgba for translucent shadows).</p>
+  <p><strong>shadowBlur</strong>: how fuzzy the shadow is (0 = sharp, higher = softer).</p>
+  <p><strong>shadowOffsetX / shadowOffsetY</strong>: where the shadow falls relative to the shape.</p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
   shadowBlur = 0        shadowBlur = 10       shadowBlur = 30
   +───+                 +───+                 +───+
@@ -1490,14 +1493,14 @@ ctx.shadowBlur = 0;
 />
 
 <div class="concept">
-  <p><strong>Lesson 3 Recap — What you learned:</strong></p>
+  <p><strong>Lesson 3 Recap: What you learned.</strong></p>
   <p>Colors: RGB (how screens work), HSL (how humans think), and all CSS formats. <code>fillStyle</code> for fills, <code>strokeStyle</code> for outlines.</p>
-  <p>Transparency: <code>globalAlpha</code> (affects everything — always reset!) vs <code>rgba()</code>/<code>hsla()</code> (per-color control).</p>
+  <p>Transparency: <code>globalAlpha</code> (affects everything, so always reset!) vs <code>rgba()</code>/<code>hsla()</code> (per-color control).</p>
   <p>Gradients: <code>createLinearGradient</code> for straight-line transitions, <code>createRadialGradient</code> for circular transitions. Both use <code>addColorStop()</code>.</p>
   <p>Patterns: <code>createPattern</code> repeats a tile image to fill shapes.</p>
   <p>Compositing: <code>globalCompositeOperation</code> controls how new shapes blend with existing content (26 modes!).</p>
   <p>Lines: <code>lineWidth</code>, <code>lineCap</code>, <code>lineJoin</code>, <code>setLineDash</code>, and animated <code>lineDashOffset</code>.</p>
-  <p>Shadows: <code>shadowColor</code>, <code>shadowBlur</code>, <code>shadowOffsetX/Y</code> — for glow, depth, and drop shadows.</p>
+  <p>Shadows: <code>shadowColor</code>, <code>shadowBlur</code>, <code>shadowOffsetX/Y</code>, used for glow, depth, and drop shadows.</p>
 </div>
 
 </LessonLayout>

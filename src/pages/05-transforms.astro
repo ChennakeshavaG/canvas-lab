@@ -6,7 +6,7 @@ import CanvasDemo from '../components/CanvasDemo.astro';
 <LessonLayout
   number={5}
   title="Transforms"
-  description="Translate, rotate, scale — and the critical save/restore state stack."
+  description="Translate, rotate, scale, and the critical save/restore state stack."
   prev={{ href: '/04-text-images', title: 'Text & Images' }}
   next={{ href: '/06-animation', title: 'Animation' }}
 >
@@ -16,7 +16,7 @@ import CanvasDemo from '../components/CanvasDemo.astro';
      ====================================================== -->
 
 <h2>What Is a Coordinate System?</h2>
-<p>Before we talk about transforms, let's make sure we understand the <strong>coordinate system</strong> that Canvas uses. If you've ever used graph paper, you already know the idea: every point on the canvas has an address made of two numbers — <code>x</code> (how far right) and <code>y</code> (how far down).</p>
+<p>Before we talk about transforms, let's make sure we understand the <strong>coordinate system</strong> that Canvas uses. If you've ever used graph paper, you already know the idea: every point on the canvas has an address made of two numbers: <code>x</code> (how far right) and <code>y</code> (how far down).</p>
 
 <div class="concept">
   <p><strong>The Canvas coordinate system:</strong></p>
@@ -130,7 +130,7 @@ ctx.restore();
   │                     │             │                     │
   └─────────────────────┘             └─────────────────────┘
   </pre>
-  <p>Transforms use Method 2. You <strong>transform the coordinate system</strong> (move/rotate/scale the "paper"), then draw at simple coordinates. This is especially powerful for rotation — calculating rotated coordinates by hand requires trigonometry, but with transforms the canvas does the math for you.</p>
+  <p>Transforms use Method 2. You <strong>transform the coordinate system</strong> (move/rotate/scale the "paper"), then draw at simple coordinates. This is especially powerful for rotation, since calculating rotated coordinates by hand requires trigonometry, but with transforms the canvas does the math for you.</p>
 </div>
 
 <p>There are three basic transforms: <code>translate</code> (slide), <code>rotate</code> (spin), and <code>scale</code> (resize). Let's learn each one.</p>
@@ -139,11 +139,11 @@ ctx.restore();
      SECTION 3: translate(x, y)
      ====================================================== -->
 
-<h2>translate(x, y) — Sliding the Origin</h2>
+<h2>translate(x, y): Sliding the Origin</h2>
 <p><code>ctx.translate(x, y)</code> moves the origin point of the coordinate system. After calling <code>translate(200, 100)</code>, anything you draw at <code>(0, 0)</code> actually appears at pixel <code>(200, 100)</code> on the canvas.</p>
 
 <div class="concept">
-  <p><strong>Step by step — what translate does:</strong></p>
+  <p><strong>Step by step: what translate does:</strong></p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
   Before translate(200, 100):       After translate(200, 100):
   ┌────────────────────┐            ┌────────────────────┐
@@ -253,11 +253,11 @@ ctx.fillText('Same drawHouse() — three different translate() calls', 50, 260);
      SECTION 4: rotate(angle)
      ====================================================== -->
 
-<h2>rotate(angle) — Spinning the Coordinate System</h2>
+<h2>rotate(angle): Spinning the Coordinate System</h2>
 <p>Before we learn <code>rotate()</code>, we need to talk about <strong>radians</strong>. Canvas measures all angles in radians, not degrees. This trips up almost every beginner.</p>
 
 <div class="concept">
-  <p><strong>Degrees vs Radians — a quick conversion chart:</strong></p>
+  <p><strong>Degrees vs Radians, a quick conversion chart:</strong></p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
   Degrees │ Radians          │ In code
   ────────┼──────────────────┼──────────────────────
@@ -277,6 +277,8 @@ ctx.fillText('Same drawHouse() — three different translate() calls', 50, 260);
 </div>
 
 <p><code>ctx.rotate(angle)</code> spins the coordinate system around the <strong>current origin</strong>. Positive angles go <strong>clockwise</strong> (because y points down). This is opposite to math class!</p>
+
+<p>Several demos in this lesson use <code>ctx.globalAlpha</code> to make shapes semi-transparent. Setting <code>globalAlpha</code> to a value between 0 (fully transparent) and 1 (fully opaque) affects all subsequent drawing until you change it back or call <code>restore()</code>.</p>
 
 <div class="concept">
   <p><strong>The Canvas unit circle (y-axis is flipped!):</strong></p>
@@ -354,7 +356,7 @@ ctx.fillText('All rects: translate to center → rotate → draw', 80, 340);
 />
 
 <div class="concept">
-  <p><strong>Critical pattern — rotating around a specific point:</strong> Rotation always happens around the <em>current</em> origin. So the pattern is always: (1) <code>translate</code> to the center of what you want to rotate, (2) <code>rotate</code>, (3) draw centered at (0,0). If you rotate without translating first, everything spins around the top-left corner of the canvas!</p>
+  <p><strong>Critical pattern: rotating around a specific point.</strong> Rotation always happens around the <em>current</em> origin. So the pattern is always: (1) <code>translate</code> to the center of what you want to rotate, (2) <code>rotate</code>, (3) draw centered at (0,0). If you rotate without translating first, everything spins around the top-left corner of the canvas!</p>
 </div>
 
 <CanvasDemo
@@ -397,7 +399,7 @@ ctx.fillText('12 rectangles, each rotated 30° more', 115, 335);
      SECTION 5: scale(sx, sy)
      ====================================================== -->
 
-<h2>scale(sx, sy) — Resizing the Coordinate System</h2>
+<h2>scale(sx, sy): Resizing the Coordinate System</h2>
 <p><code>ctx.scale(sx, sy)</code> stretches or shrinks the coordinate system. <code>scale(2, 2)</code> makes everything drawn after it <strong>twice as large</strong>. <code>scale(0.5, 0.5)</code> makes it <strong>half size</strong>. You can scale x and y independently to create stretching effects.</p>
 
 <CanvasDemo
@@ -466,8 +468,8 @@ ctx.fillText('Same drawStar(30) call — only the scale changes', 60, 265);
   `}
 />
 
-<h3>Negative Scaling — Mirroring and Flipping</h3>
-<p>A negative scale value <strong>flips</strong> the coordinate system along that axis. <code>scale(-1, 1)</code> mirrors horizontally (like looking in a mirror), and <code>scale(1, -1)</code> flips vertically. This is incredibly useful for game sprites — draw a character facing right once, then flip it when they walk left.</p>
+<h3>Negative Scaling: Mirroring and Flipping</h3>
+<p>A negative scale value <strong>flips</strong> the coordinate system along that axis. <code>scale(-1, 1)</code> mirrors horizontally (like looking in a mirror), and <code>scale(1, -1)</code> flips vertically. This is incredibly useful for game sprites; draw a character facing right once, then flip it when they walk left.</p>
 
 <CanvasDemo
   id="scale-mirror"
@@ -539,7 +541,7 @@ ctx.fillText('scale(-1, -1)', 220, 255);
      SECTION 6: save() and restore()
      ====================================================== -->
 
-<h2>save() and restore() — The State Stack</h2>
+<h2>save() and restore(): The State Stack</h2>
 <p><code>ctx.save()</code> takes a snapshot of the current state and pushes it onto a stack. <code>ctx.restore()</code> pops the most recent snapshot and restores everything. The "state" includes: transforms, fill/stroke styles, font, globalAlpha, clipping region, line width/dash, shadow settings, and more.</p>
 
 <div class="concept">
@@ -700,12 +702,12 @@ ctx.fillText('Same angle + distance, different order = different result', 30, 33
      SECTION 8: setTransform, transform, getTransform
      ====================================================== -->
 
-<h2>setTransform() vs transform() — Reset vs Accumulate</h2>
+<h2>setTransform() vs transform(): Reset vs Accumulate</h2>
 <p>Canvas gives you three lower-level transform methods:</p>
 <ul>
-  <li><code>ctx.transform(a, b, c, d, e, f)</code> — multiplies the current transform by a new one (they <strong>accumulate</strong>)</li>
-  <li><code>ctx.setTransform(a, b, c, d, e, f)</code> — <strong>replaces</strong> the current transform entirely (resets first)</li>
-  <li><code>ctx.getTransform()</code> — returns the current transform as a <code>DOMMatrix</code> object (read-only)</li>
+  <li><code>ctx.transform(a, b, c, d, e, f)</code> multiplies the current transform by a new one (they <strong>accumulate</strong>)</li>
+  <li><code>ctx.setTransform(a, b, c, d, e, f)</code> <strong>replaces</strong> the current transform entirely (resets first)</li>
+  <li><code>ctx.getTransform()</code> returns the current transform as a <code>DOMMatrix</code> object (read-only)</li>
 </ul>
 
 <div class="concept">
@@ -794,10 +796,10 @@ ctx.fillText('setTransform ignores all previous transforms', 50, 265);
 <p>Every beginner hits these. Learn them now so you can spot them immediately.</p>
 
 <div class="concept">
-  <p><strong>Mistake #1 — Forgetting save/restore:</strong> Transforms accumulate. If you translate(100, 0) in a loop without restoring, each iteration adds another 100px. Your shapes fly off-screen.</p>
-  <p><strong>Mistake #2 — Rotating without translating first:</strong> <code>rotate()</code> spins around the origin (0,0), which is the top-left corner by default. If you want to rotate a shape in-place, translate to its center first.</p>
-  <p><strong>Mistake #3 — Wrong transform order:</strong> Transforms apply to the <em>current</em> coordinate system. If you rotate first, then translate, the translation follows the rotated axes.</p>
-  <p><strong>Mistake #4 — Scale affects everything:</strong> <code>scale(2, 2)</code> doubles not just shapes, but also line widths, text sizes, and translations. If you <code>scale(2,2)</code> then <code>translate(50, 0)</code>, you actually move 100 pixels.</p>
+  <p><strong>Mistake #1, forgetting save/restore:</strong> Transforms accumulate. If you translate(100, 0) in a loop without restoring, each iteration adds another 100px. Your shapes fly off-screen.</p>
+  <p><strong>Mistake #2, rotating without translating first:</strong> <code>rotate()</code> spins around the origin (0,0), which is the top-left corner by default. If you want to rotate a shape in-place, translate to its center first.</p>
+  <p><strong>Mistake #3, wrong transform order:</strong> Transforms apply to the <em>current</em> coordinate system. If you rotate first, then translate, the translation follows the rotated axes.</p>
+  <p><strong>Mistake #4, scale affects everything:</strong> <code>scale(2, 2)</code> doubles not just shapes, but also line widths, text sizes, and translations. If you <code>scale(2,2)</code> then <code>translate(50, 0)</code>, you actually move 100 pixels.</p>
 </div>
 
 <CanvasDemo
@@ -858,7 +860,7 @@ ctx.fillText('pivot', 148, 228);
      ====================================================== -->
 
 <h2>Practical: Spinning Loading Indicator</h2>
-<p>Transforms are perfect for radial patterns. This loading spinner draws 12 lines at equal angles, with one highlighted to create the spinning effect.</p>
+<p>Transforms are perfect for radial patterns. This loading spinner draws 12 lines at equal angles, with one highlighted to create the spinning effect. It uses <code>requestAnimationFrame</code> to run a loop that redraws each frame; the next lesson covers animation in full detail.</p>
 
 <CanvasDemo
   id="spinner"
@@ -912,10 +914,10 @@ loop();
      SECTION 11: Practical — Solar System (nested transforms)
      ====================================================== -->
 
-<h2>Practical: Solar System — Orbits Within Orbits</h2>
+<h2>Practical: Solar System, Orbits Within Orbits</h2>
 <p>The real power of transforms shows when you <strong>nest</strong> them. Here, the Earth orbits the Sun, and the Moon orbits the Earth. Each orbit is just a <code>rotate</code> + <code>translate</code> inside the parent's coordinate system.</p>
 
-<p><em>Note: This demo advances by a fixed amount each frame for simplicity. On a 120Hz screen it will spin faster. Lesson 6 (Animation) teaches delta-time — the proper way to make motion frame-rate independent.</em></p>
+<p><em>Note: This demo advances by a fixed amount each frame for simplicity. On a 120Hz screen it will spin faster. Lesson 6 (Animation) teaches delta-time, the proper way to make motion frame-rate independent.</em></p>
 
 <CanvasDemo
   id="solar-system"
@@ -1018,7 +1020,7 @@ loop();
      SECTION 12: Practical — Fractal Tree
      ====================================================== -->
 
-<h2>Practical: Fractal Tree — Recursive Transforms</h2>
+<h2>Practical: Fractal Tree with Recursive Transforms</h2>
 <p>Recursion + transforms = fractals. Each branch translates to its end, rotates, scales down, and draws another branch. The tree emerges from simple rules repeated.</p>
 
 <CanvasDemo
@@ -1132,7 +1134,7 @@ for (var row = 0; row < 7; row++) {
      SECTION 14: Transform Sandbox
      ====================================================== -->
 
-<h2>Transform Sandbox — Step-by-Step Visualization</h2>
+<h2>Transform Sandbox: Step-by-Step Visualization</h2>
 <p>This demo shows how a sequence of transforms builds up. Each colored rectangle shows the coordinate system after one more transform is applied. Watch how the origin (dot) moves and the axes rotate.</p>
 
 <CanvasDemo
@@ -1356,10 +1358,10 @@ ctx.restore();
   <p><strong>What you learned in this lesson:</strong></p>
   <ul>
     <li><strong>Coordinate system:</strong> Origin at top-left, y goes down, x goes right</li>
-    <li><strong>translate(x, y):</strong> Slides the origin — "moving the paper"</li>
+    <li><strong>translate(x, y):</strong> Slides the origin, the "moving the paper" concept</li>
     <li><strong>rotate(radians):</strong> Spins the coordinate system around the current origin (clockwise = positive)</li>
     <li><strong>scale(sx, sy):</strong> Stretches/shrinks; negative values mirror/flip</li>
-    <li><strong>save()/restore():</strong> Stack-based state management — always pair them</li>
+    <li><strong>save()/restore():</strong> Stack-based state management; always pair them</li>
     <li><strong>Transform order matters:</strong> Each transform acts on the already-transformed system</li>
     <li><strong>setTransform() vs transform():</strong> Reset-and-set vs accumulate</li>
     <li><strong>The 2x3 matrix:</strong> [scaleX, skewY, skewX, scaleY, translateX, translateY]</li>

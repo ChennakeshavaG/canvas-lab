@@ -17,7 +17,7 @@ import CanvasDemo from '../components/CanvasDemo.astro';
 
 <h2>The "Pen" Metaphor</h2>
 
-<p>In Lesson 1, we drew rectangles — but the real world isn't made of rectangles. To draw triangles, circles, arrows, speech bubbles, or any custom shape, we need <strong>paths</strong>.</p>
+<p>In Lesson 1, we drew rectangles, but the real world isn't made of rectangles. To draw triangles, circles, arrows, speech bubbles, or any custom shape, we need <strong>paths</strong>.</p>
 
 <p>Imagine you're holding an invisible pen over a piece of paper:</p>
 
@@ -119,7 +119,7 @@ ctx.stroke();
 <!-- SECTION 3 — moveTo and lineTo                 -->
 <!-- ───────────────────────────────────────────── -->
 
-<h2>moveTo and lineTo — Straight Lines</h2>
+<h2>moveTo and lineTo: Straight Lines</h2>
 
 <p><code>moveTo(x, y)</code> picks up the pen and places it at a new position without drawing. <code>lineTo(x, y)</code> draws a straight line from wherever the pen currently is to the new point.</p>
 
@@ -163,7 +163,7 @@ ctx.setLineDash([]);
 <!-- SECTION 4 — closePath                         -->
 <!-- ───────────────────────────────────────────── -->
 
-<h2>closePath — Connecting Back to Start</h2>
+<h2>closePath: Connecting Back to Start</h2>
 
 <p><code>closePath()</code> draws a straight line from the current pen position back to the very first point of the current path (where you called <code>moveTo()</code> initially). It's how you close a shape cleanly.</p>
 
@@ -221,12 +221,12 @@ ctx.fillText('with closePath()', 290, 240);
 <!-- SECTION 5 — fill() vs stroke()                -->
 <!-- ───────────────────────────────────────────── -->
 
-<h2>fill() vs stroke() — Filling vs Outlining</h2>
+<h2>fill() vs stroke(): Filling vs Outlining</h2>
 
 <p>After building a path, you have two choices for making it visible:</p>
 <ul>
-  <li><code>fill()</code> — colors in the entire interior of the shape</li>
-  <li><code>stroke()</code> — draws just the outline</li>
+  <li><code>fill()</code> colors in the entire interior of the shape</li>
+  <li><code>stroke()</code> draws just the outline</li>
 </ul>
 <p>You can use both on the same path!</p>
 
@@ -318,7 +318,7 @@ ctx.fillText('so the stroke appears on top of the fill.', 105, 296);
 
 <CanvasDemo
   id="arcs"
-  title="arc() — Circles and Partial Arcs"
+  title="arc(): Circles and Partial Arcs"
   width={500}
   height={350}
   code={`
@@ -454,20 +454,20 @@ ctx.fillText('different sweep direction!', 140, 36);
 />
 
 <div class="concept">
-  <p><strong>When does direction matter?</strong> For a full circle (0 to PI*2), it doesn't matter. But for partial arcs — pie charts, gauges, pac-man — the direction determines which "slice" of the circle you get. Same start and end angle, but clockwise gives you the big slice while counterclockwise gives the small slice (or vice versa).</p>
+  <p><strong>When does direction matter?</strong> For a full circle (0 to PI*2), it doesn't matter. But for partial arcs (pie charts, gauges, pac-man), the direction determines which "slice" of the circle you get. Same start and end angle, but clockwise gives you the big slice while counterclockwise gives the small slice (or vice versa).</p>
 </div>
 
 <!-- ───────────────────────────────────────────── -->
 <!-- SECTION 8 — rect() shorthand                  -->
 <!-- ───────────────────────────────────────────── -->
 
-<h2>rect() — Rectangle as a Path</h2>
+<h2>rect(): Rectangle as a Path</h2>
 
 <p>We used <code>fillRect()</code> and <code>strokeRect()</code> in Lesson 1, but there's also <code>rect()</code> which adds a rectangle to the current <em>path</em> without drawing it immediately. This lets you combine rectangles with other path operations.</p>
 
 <CanvasDemo
   id="rect-path"
-  title="rect() — Add Rectangle to a Path"
+  title="rect(): Add Rectangle to a Path"
   width={500}
   height={250}
   code={`
@@ -500,13 +500,13 @@ ctx.fillText('fillRect() = draws immediately', 260, 220);
 <!-- SECTION 9 — ellipse()                         -->
 <!-- ───────────────────────────────────────────── -->
 
-<h2>ellipse() — Ovals and Rotated Circles</h2>
+<h2>ellipse(): Ovals and Rotated Circles</h2>
 
-<p><code>ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle)</code> is like <code>arc()</code> but allows different horizontal and vertical radii, plus rotation.</p>
+<p><code>ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle)</code> is like <code>arc()</code> but allows different horizontal and vertical radii, plus rotation. The egg example below also uses <code>save()</code>, <code>translate()</code>, <code>scale()</code>, and <code>restore()</code> to stretch a circle into an oval; these transform methods will be covered in a later lesson.</p>
 
 <CanvasDemo
   id="ellipse"
-  title="ellipse() — Beyond Circles"
+  title="ellipse(): Beyond Circles"
   width={500}
   height={300}
   code={`
@@ -555,7 +555,7 @@ ctx.fillText('egg (scaled arc)', 130, 255);
 <!-- SECTION 10 — Quadratic Curves                 -->
 <!-- ───────────────────────────────────────────── -->
 
-<h2>Quadratic Curves — One Control Point</h2>
+<h2>Quadratic Curves: One Control Point</h2>
 
 <p><code>quadraticCurveTo(cpx, cpy, endX, endY)</code> draws a curve from the current pen position, bending toward a <strong>control point</strong>, and ending at the endpoint.</p>
 
@@ -581,7 +581,7 @@ ctx.fillText('egg (scaled arc)', 130, 255);
 
 <CanvasDemo
   id="quadratic"
-  title="quadraticCurveTo — One Control Point"
+  title="quadraticCurveTo: One Control Point"
   width={500}
   height={300}
   code={`
@@ -629,7 +629,7 @@ ctx.fillText('(pulls the curve)', cpX - 45, cpY + 20);
 <!-- SECTION 11 — Bezier Curves                    -->
 <!-- ───────────────────────────────────────────── -->
 
-<h2>Bezier Curves — Two Control Points</h2>
+<h2>Bezier Curves: Two Control Points</h2>
 
 <p><code>bezierCurveTo(cp1x, cp1y, cp2x, cp2y, endX, endY)</code> is the more powerful cousin of quadratic curves. With <strong>two</strong> control points, you can make S-curves, loops, and the smooth curves used in fonts and vector graphics.</p>
 
@@ -663,7 +663,7 @@ ctx.fillText('(pulls the curve)', cpX - 45, cpY + 20);
 
 <CanvasDemo
   id="bezier"
-  title="bezierCurveTo — Two Control Points"
+  title="bezierCurveTo: Two Control Points"
   width={500}
   height={300}
   code={`
@@ -880,7 +880,7 @@ ctx.fillText('here in the card.', 300, 198);
 
 <h2>Practical Shape: Speech Bubble</h2>
 
-<p>A speech bubble is a rounded rectangle with a triangular tail — combining lines, arcs, and curves in one path.</p>
+<p>A speech bubble is a rounded rectangle with a triangular tail, combining lines, arcs, and curves in one path.</p>
 
 <CanvasDemo
   id="speech-bubble"
@@ -1078,7 +1078,7 @@ shapes.forEach(function(s) {
 />
 
 <div class="concept">
-  <p><strong>Notice:</strong> As the number of sides increases, the polygon starts looking like a circle! In fact, <code>arc()</code> is just a polygon with so many sides you can't see the edges. This is how computers draw circles — they approximate them with many tiny straight lines.</p>
+  <p><strong>Notice:</strong> As the number of sides increases, the polygon starts looking like a circle! In fact, <code>arc()</code> is just a polygon with so many sides you can't see the edges. This is how computers draw circles; they approximate them with many tiny straight lines.</p>
 </div>
 
 <!-- ───────────────────────────────────────────── -->
@@ -1087,7 +1087,7 @@ shapes.forEach(function(s) {
 
 <h2>Practical Shape: Gear</h2>
 
-<p>A gear combines the polygon idea with alternating inner and outer radii — the same approach as the star in the fill rules demo, but with more teeth.</p>
+<p>A gear combines the polygon idea with alternating inner and outer radii, the same approach as the star in the fill rules demo, but with more teeth.</p>
 
 <CanvasDemo
   id="gear"
@@ -1165,7 +1165,7 @@ ctx.fillText('alternating radius!', 300, 306);
 
 <CanvasDemo
   id="hit-test"
-  title="isPointInPath() — Click Detection Preview"
+  title="isPointInPath(): Click Detection Preview"
   width={500}
   height={300}
   code={`
@@ -1222,7 +1222,7 @@ addListener(canvas, 'click', function(e) {
 />
 
 <div class="concept">
-  <p><strong>How it works:</strong> After building a path (but before or after drawing it), call <code>ctx.isPointInPath(x, y)</code>. It returns <code>true</code> if the point is inside the path, <code>false</code> otherwise. This works for ANY shape — circles, polygons, custom paths, even bezier curves!</p>
+  <p><strong>How it works:</strong> After building a path (but before or after drawing it), call <code>ctx.isPointInPath(x, y)</code>. It returns <code>true</code> if the point is inside the path, <code>false</code> otherwise. This works for ANY shape: circles, polygons, custom paths, even bezier curves!</p>
 </div>
 
 <!-- ───────────────────────────────────────────── -->
@@ -1235,7 +1235,7 @@ addListener(canvas, 'click', function(e) {
 
 <CanvasDemo
   id="combined-scene"
-  title="Paths in Action — Mountains & Lake"
+  title="Paths in Action: Mountains and Lake"
   width={500}
   height={350}
   code={`

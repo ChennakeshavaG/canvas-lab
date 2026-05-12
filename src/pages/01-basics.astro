@@ -11,16 +11,16 @@ import CanvasDemo from '../components/CanvasDemo.astro';
   next={{ href: '/02-paths', title: 'Paths & Shapes' }}
 >
 
-<p>In the <a href="../00-foundation">Foundation lesson</a> you learned what Canvas is, how the coordinate system works, and what the <code>ctx</code> object does. Now it's time to draw. This lesson covers the three rectangle methods — the simplest way to put shapes on screen — plus colors, draw order, and practical examples.</p>
+<p>In the <a href="../00-foundation">Foundation lesson</a> you learned what Canvas is, how the coordinate system works, and what the <code>ctx</code> object does. Now it's time to draw. This lesson covers the three rectangle methods, the simplest way to put shapes on screen, plus colors, draw order, and practical examples.</p>
 
 
 <!-- ───────────────────────────────────────────── -->
 <!-- SECTION 1 — fillRect                          -->
 <!-- ───────────────────────────────────────────── -->
 
-<h2>fillRect — Drawing Filled Rectangles</h2>
+<h2>fillRect: Drawing Filled Rectangles</h2>
 
-<p>The simplest drawing command is <code>fillRect(x, y, width, height)</code>. It fills a rectangle with the current <code>fillStyle</code> color.</p>
+<p>The simplest drawing command is <code>fillRect(x, y, width, height)</code>. It fills a rectangle with the current <code>fillStyle</code> color. You'll also see <code>ctx.fillText(text, x, y)</code> used in many demos to add labels; it draws a string at the given position using the current <code>ctx.font</code> and <code>fillStyle</code>.</p>
 
 <div class="concept">
   <p><strong>fillRect parameters:</strong></p>
@@ -73,7 +73,7 @@ ctx.fillText('fillRect(50, 50, 200, 100)', 55, 95);
 <!-- SECTION 2 — fillStyle color formats           -->
 <!-- ───────────────────────────────────────────── -->
 
-<h2>fillStyle — Color Formats Explained</h2>
+<h2>fillStyle: Color Formats Explained</h2>
 
 <p>Before drawing, you set the color with <code>ctx.fillStyle</code>. Canvas accepts many color formats. Here are the most common ones:</p>
 
@@ -124,16 +124,16 @@ swatch('hsl(280, 70%, 60%)', "'hsl(280, 70%, 60%)'", 'HSL: Hue (0-360), Saturati
 />
 
 <div class="concept">
-  <p><strong>Which format should I use?</strong> For beginners, <strong>named colors</strong> (like <code>'red'</code>, <code>'dodgerblue'</code>) are easiest. For precise control, use <strong>hex codes</strong> (<code>'#58a6ff'</code>). When you need transparency, use <strong>rgba</strong>. The <code>fillStyle</code> stays set until you change it — it's like dipping your brush in paint.</p>
+  <p><strong>Which format should I use?</strong> For beginners, <strong>named colors</strong> (like <code>'red'</code>, <code>'dodgerblue'</code>) are easiest. For precise control, use <strong>hex codes</strong> (<code>'#58a6ff'</code>). When you need transparency, use <strong>rgba</strong>. The <code>fillStyle</code> stays set until you change it; it's like dipping your brush in paint.</p>
 </div>
 
 <!-- ───────────────────────────────────────────── -->
 <!-- SECTION 3 — strokeRect                        -->
 <!-- ───────────────────────────────────────────── -->
 
-<h2>strokeRect — Outlined Rectangles</h2>
+<h2>strokeRect: Outlined Rectangles</h2>
 
-<p><code>strokeRect(x, y, width, height)</code> draws just the <strong>outline</strong> of a rectangle, without filling the inside. You control the outline color with <code>strokeStyle</code> and thickness with <code>lineWidth</code>.</p>
+<p><code>strokeRect(x, y, width, height)</code> draws just the <strong>outline</strong> of a rectangle, without filling the inside. You control the outline color with <code>strokeStyle</code>, thickness with <code>lineWidth</code>, and pattern with <code>setLineDash([dashLength, gapLength])</code> for dashed or dotted lines.</p>
 
 <CanvasDemo
   id="stroke-rect"
@@ -206,13 +206,13 @@ ctx.setLineDash([]);
 <!-- SECTION 4 — clearRect                        -->
 <!-- ───────────────────────────────────────────── -->
 
-<h2>clearRect — Erasing Pixels</h2>
+<h2>clearRect: Erasing Pixels</h2>
 
-<p><code>clearRect(x, y, width, height)</code> makes a rectangular area fully transparent — it erases whatever was drawn there. Think of it as a rectangular eraser.</p>
+<p><code>clearRect(x, y, width, height)</code> makes a rectangular area fully transparent. It erases whatever was drawn there. Think of it as a rectangular eraser.</p>
 
 <CanvasDemo
   id="clear-rect"
-  title="clearRect — Cutting Holes"
+  title="clearRect: Cutting Holes"
   width={500}
   height={300}
   code={`
@@ -248,9 +248,9 @@ ctx.fillText('cleared areas become transparent', 50, 290);
 <!-- SECTION 5 — Draw Order / Compositing         -->
 <!-- ───────────────────────────────────────────── -->
 
-<h2>Draw Order — What Happens When Shapes Overlap</h2>
+<h2>Draw Order: What Happens When Shapes Overlap</h2>
 
-<p>Canvas works like painting on paper with opaque paint: the last thing you draw covers everything before it. This is called <strong>painter's algorithm</strong> — just like a real painter, the newest layer goes on top.</p>
+<p>Canvas works like painting on paper with opaque paint: the last thing you draw covers everything before it. This is called the <strong>painter's algorithm</strong>. Just like a real painter, the newest layer goes on top.</p>
 
 <CanvasDemo
   id="draw-order"
@@ -300,7 +300,7 @@ ctx.fillText('= on top', 410, 198);
 
 <h2>Practical Example: Drawing a Robot</h2>
 
-<p>Let's use everything we've learned to draw something fun — a robot made entirely from rectangles!</p>
+<p>Let's use everything we've learned to draw something fun: a robot made entirely from rectangles!</p>
 
 <CanvasDemo
   id="robot"
@@ -385,7 +385,7 @@ ctx.fillRect(170, 385, 160, 10);
 
 <h2>Practical Example: A Simple House</h2>
 
-<p>Another example using only rectangles — notice how <em>draw order</em> matters for the windows and door (they need to be drawn <em>after</em> the wall).</p>
+<p>Another example using mostly rectangles. Notice how <em>draw order</em> matters for the windows and door (they need to be drawn <em>after</em> the wall). The roof uses <code>beginPath()</code>, <code>moveTo()</code>, <code>lineTo()</code>, and <code>fill()</code> to draw a triangle, and the moon uses <code>arc()</code> to draw a circle. These are path commands covered fully in Lesson 2.</p>
 
 <CanvasDemo
   id="house"
@@ -465,11 +465,11 @@ stars.forEach(function(s) {
 
 <h2>Putting It All Together: Night Cityscape</h2>
 
-<p>Here's a more complex scene showing how many simple rectangles combine into something impressive. Study the code — it's all <code>fillRect</code>, <code>strokeRect</code>, and <code>clearRect</code>!</p>
+<p>Here's a more complex scene showing how many simple rectangles combine into something impressive. Study the code; it's all <code>fillRect</code>, <code>strokeRect</code>, and <code>clearRect</code>!</p>
 
 <CanvasDemo
   id="cityscape"
-  title="Night Cityscape — Only Rectangles!"
+  title="Night Cityscape: Only Rectangles!"
   width={500}
   height={350}
   code={`

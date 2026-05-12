@@ -6,7 +6,7 @@ import CanvasDemo from '../components/CanvasDemo.astro';
 <LessonLayout
   number={7}
   title="Interaction"
-  description="Mouse, touch, and keyboard input — coordinate mapping, hit detection, dragging, and building interactive tools."
+  description="Mouse, touch, and keyboard input: coordinate mapping, hit detection, dragging, and building interactive tools."
   prev={{ href: '/06-animation', title: 'Animation' }}
   next={{ href: '/08-particle-system', title: 'Particle System' }}
 >
@@ -17,10 +17,10 @@ import CanvasDemo from '../components/CanvasDemo.astro';
 
 <h2>What Are Browser Events?</h2>
 
-<p>Before we make our canvas interactive, let's understand how browsers tell your code that something happened. Every time a user clicks, moves the mouse, presses a key, scrolls, or touches the screen, the browser creates an <strong>event object</strong> and sends it to your code. Think of it like a mail carrier delivering a letter every time something happens — your code is the mailbox.</p>
+<p>Before we make our canvas interactive, let's understand how browsers tell your code that something happened. Every time a user clicks, moves the mouse, presses a key, scrolls, or touches the screen, the browser creates an <strong>event object</strong> and sends it to your code. Think of it like a mail carrier delivering a letter every time something happens; your code is the mailbox.</p>
 
 <div class="concept">
-  <p><strong>Analogy:</strong> Imagine you are sitting in a room with a doorbell. You do not constantly check the door — instead, you <em>listen</em> for the bell. When it rings, you go check who is there. Browser events work the same way: you register a "listener" function, and the browser calls it when that event happens.</p>
+  <p><strong>Analogy:</strong> Imagine you are sitting in a room with a doorbell. You do not constantly check the door. Instead, you <em>listen</em> for the bell. When it rings, you go check who is there. Browser events work the same way: you register a "listener" function, and the browser calls it when that event happens.</p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
   Your code            The browser
   ┌──────────┐        ┌───────────────┐
@@ -35,7 +35,7 @@ import CanvasDemo from '../components/CanvasDemo.astro';
   </pre>
 </div>
 
-<p>When we do <code>addListener(canvas, 'mousemove', function(e) {'{ ... }'})</code>, we are telling the browser: "whenever the mouse moves over the canvas, run this function and give me the details in <code>e</code>." The <code>e</code> parameter (the event object) contains everything about what happened — where the mouse is, which button was pressed, whether Shift was held, and more.</p>
+<p>When we do <code>addListener(canvas, 'mousemove', function(e) {'{ ... }'})</code>, we are telling the browser: "whenever the mouse moves over the canvas, run this function and give me the details in <code>e</code>." The <code>e</code> parameter (the event object) contains everything about what happened: where the mouse is, which button was pressed, whether Shift was held, and more.</p>
 
 <!-- ============================================================ -->
 <!-- SECTION 2: The event object                                  -->
@@ -61,7 +61,7 @@ import CanvasDemo from '../components/CanvasDemo.astro';
   </pre>
 </div>
 
-<p>Let's build a demo that shows you the event object in real time — move your mouse, click, and hold modifier keys to see the properties change.</p>
+<p>Let's build a demo that shows you the event object in real time. Move your mouse, click, and hold modifier keys to see the properties change.</p>
 
 <CanvasDemo
   id="event-inspector"
@@ -210,7 +210,7 @@ draw();
   </pre>
 </div>
 
-<p><code>canvas.getBoundingClientRect()</code> returns an object with <code>left</code>, <code>top</code>, <code>width</code>, and <code>height</code> — the canvas's position and size in the viewport. Subtracting <code>left</code> and <code>top</code> from the mouse's client position gives you the position relative to the canvas's top-left corner.</p>
+<p><code>canvas.getBoundingClientRect()</code> returns an object with <code>left</code>, <code>top</code>, <code>width</code>, and <code>height</code>, representing the canvas's position and size in the viewport. Subtracting <code>left</code> and <code>top</code> from the mouse's client position gives you the position relative to the canvas's top-left corner.</p>
 
 <CanvasDemo
   id="mouse-coords"
@@ -319,7 +319,7 @@ loop();
 
 <h2>Touch Events for Mobile</h2>
 
-<p>Mouse events do not fire on phones and tablets — instead, you get <strong>touch events</strong>. Touch events are similar to mouse events but support multiple simultaneous touches (fingers). The three core touch events are:</p>
+<p>Mouse events do not fire on phones and tablets. Instead, you get <strong>touch events</strong>. Touch events are similar to mouse events but support multiple simultaneous touches (fingers). The three core touch events are:</p>
 
 <div class="concept">
   <p><strong>Touch events vs. mouse events:</strong></p>
@@ -424,11 +424,11 @@ ctx.fillText('Draw with mouse or touch', 140, 340);
 
 <h2>Keyboard Events on Canvas</h2>
 
-<p>Canvas elements do not receive keyboard events by default because they are not "focusable" elements (like input fields). To make a canvas keyboard-interactive, you need to give it a <code>tabindex</code> attribute and then focus it. Here we listen on the <code>window</code> for simplicity — use the arrow keys to move the square.</p>
+<p>Canvas elements do not receive keyboard events by default because they are not "focusable" elements (like input fields). To make a canvas keyboard-interactive, you need to give it a <code>tabindex</code> attribute and then focus it. Here we listen on the <code>window</code> for simplicity; use the arrow keys to move the square.</p>
 
 <CanvasDemo
   id="keyboard"
-  title="Keyboard Control — Arrow Keys to Move"
+  title="Keyboard Control: Arrow Keys to Move"
   width={500}
   height={350}
   code={`
@@ -593,7 +593,7 @@ draw();
 
 <h2>Circle-Circle Collision Detection</h2>
 
-<p>What about detecting when two circles overlap (collide)? The idea is the same as click detection — measure the distance between their centers. If that distance is less than the sum of their radii, they are overlapping.</p>
+<p>What about detecting when two circles overlap (collide)? The idea is the same as click detection: measure the distance between their centers. If that distance is less than the sum of their radii, they are overlapping.</p>
 
 <div class="concept">
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`  Circle A (r=30)       Circle B (r=20)
@@ -612,7 +612,7 @@ draw();
 
 <CanvasDemo
   id="circle-collision"
-  title="Circle-Circle Collision — Drag the Blue Circle"
+  title="Circle-Circle Collision: Drag the Blue Circle"
   width={500}
   height={350}
   code={`
@@ -739,7 +739,7 @@ draw();
 
 <h2>Rectangle Collision (AABB)</h2>
 
-<p>AABB stands for "Axis-Aligned Bounding Box" — a rectangle that is not rotated. This is the most common collision check in 2D games. Instead of distance, you check whether two rectangles overlap on both the X and Y axes.</p>
+<p>AABB stands for "Axis-Aligned Bounding Box," a rectangle that is not rotated. This is the most common collision check in 2D games. Instead of distance, you check whether two rectangles overlap on both the X and Y axes.</p>
 
 <div class="concept">
   <p><strong>AABB overlap logic:</strong></p>
@@ -771,7 +771,7 @@ draw();
 
 <CanvasDemo
   id="aabb-collision"
-  title="AABB Collision — Drag the Blue Box"
+  title="AABB Collision: Drag the Blue Box"
   width={500}
   height={350}
   code={`
@@ -877,7 +877,7 @@ draw();
 
 <h2>Dragging Objects</h2>
 
-<p>Dragging combines three events: <code>mousedown</code> (start), <code>mousemove</code> (update), and <code>mouseup</code> (stop). The key trick is storing the <strong>offset</strong> — the distance between the click point and the object's corner — so the object does not "jump" to the cursor.</p>
+<p>Dragging combines three events: <code>mousedown</code> (start), <code>mousemove</code> (update), and <code>mouseup</code> (stop). The key trick is storing the <strong>offset</strong>, the distance between the click point and the object's corner, so the object does not "jump" to the cursor.</p>
 
 <div class="concept">
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
@@ -999,7 +999,7 @@ draw();
 
 <CanvasDemo
   id="hover"
-  title="Hover — Grow on Mouseover + Cursor Change"
+  title="Hover: Grow on Mouseover + Cursor Change"
   width={500}
   height={300}
   code={`
@@ -1089,7 +1089,7 @@ draw();
 
 <h2>Tooltip on Hover</h2>
 
-<p>A common UI pattern: show a tooltip with information when the user hovers over an element. On canvas, you draw the tooltip yourself as a rounded rectangle with text.</p>
+<p>A common UI pattern: show a tooltip with information when the user hovers over an element. On canvas, you draw the tooltip yourself as a rounded rectangle with text. The <code>ctx.roundRect(x, y, w, h, radius)</code> method works like <code>fillRect</code> but adds rounded corners with the specified radius.</p>
 
 <CanvasDemo
   id="tooltip"
@@ -1198,7 +1198,7 @@ draw();
 
 <h2>Zoom and Pan (Wheel + Drag)</h2>
 
-<p>For data visualization or maps, you often need to let users zoom in/out with the mouse wheel and pan by dragging. This uses canvas <code>translate()</code> and <code>scale()</code> transforms.</p>
+<p>For data visualization or maps, you often need to let users zoom in/out with the mouse wheel and pan by dragging. This uses canvas <code>translate()</code> and <code>scale()</code> transforms, which shift and resize the coordinate system before drawing. If you covered transforms in an earlier lesson, this is the same idea applied to user input. We also use <code>ctx.save()</code> and <code>ctx.restore()</code> to isolate the transform so it does not affect UI overlays drawn afterward.</p>
 
 <div class="concept">
   <p><strong>How zoom and pan work together:</strong></p>
@@ -1485,7 +1485,7 @@ draw();
 
 <h2>Selection Box (Marquee Select)</h2>
 
-<p>In graphic design tools and strategy games, you can click and drag to draw a selection rectangle. Any objects inside the rectangle become selected. This combines drag tracking with AABB collision.</p>
+<p>In graphic design tools and strategy games, you can click and drag to draw a selection rectangle. Any objects inside the rectangle become selected. This combines drag tracking with AABB collision. The demo also uses <code>ctx.setLineDash([4, 4])</code> to draw a dashed border around the selection area; this method sets a repeating pattern of dash and gap lengths, and you reset it with <code>ctx.setLineDash([])</code> when done.</p>
 
 <CanvasDemo
   id="selection-box"
@@ -1631,7 +1631,7 @@ draw();
 
 <h2>Practical Example: Color Picker</h2>
 
-<p>Let's build something useful — a hue/saturation color picker drawn entirely on canvas. This shows how interaction, gradients, and real-time feedback come together.</p>
+<p>Let's build something useful: a hue/saturation color picker drawn entirely on canvas. This shows how interaction, gradients, and real-time feedback come together.</p>
 
 <CanvasDemo
   id="color-picker"
@@ -1784,7 +1784,7 @@ draw();
 
 <h2>Practical Example: Mini Paint App</h2>
 
-<p>Let's combine everything into a tiny paint application. It has a color bar, brush size control, and a drawing canvas — all rendered with Canvas 2D.</p>
+<p>Let's combine everything into a tiny paint application. It has a color bar, brush size control, and a drawing canvas, all rendered with Canvas 2D.</p>
 
 <CanvasDemo
   id="mini-paint"

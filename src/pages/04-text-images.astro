@@ -17,12 +17,12 @@ import CanvasDemo from '../components/CanvasDemo.astro';
 
 <h2>Drawing Text on Canvas</h2>
 
-<p>Canvas gives you two ways to render text. Think of it like writing on a whiteboard — you can write in solid marker (fill) or trace just the outlines (stroke).</p>
+<p>Canvas gives you two ways to render text. Think of it like writing on a whiteboard: you can write in solid marker (fill) or trace just the outlines (stroke).</p>
 
 <div class="concept">
-  <p><strong>fillText(text, x, y)</strong> — draws solid, filled text. This is what you'll use 90% of the time.</p>
-  <p><strong>strokeText(text, x, y)</strong> — draws only the outlines of each letter. Great for decorative effects.</p>
-  <p>Both methods place the text starting at (x, y), where y refers to the text <strong>baseline</strong> — the invisible line that letters "sit" on (like ruled paper).</p>
+  <p><strong>fillText(text, x, y)</strong> draws solid, filled text. This is what you'll use 90% of the time.</p>
+  <p><strong>strokeText(text, x, y)</strong> draws only the outlines of each letter. Great for decorative effects.</p>
+  <p>Both methods place the text starting at (x, y), where y refers to the text <strong>baseline</strong>, the invisible line that letters "sit" on (like ruled paper).</p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
                        x
                        │
@@ -80,7 +80,7 @@ ctx.fillText('for outlined text with a filled interior', 30, 296);
 
 <h2>How Fonts Work in Canvas</h2>
 
-<p>The <code>ctx.font</code> property uses CSS font syntax — the same format you'd use in a stylesheet. It's a string that combines style, weight, size, and family.</p>
+<p>The <code>ctx.font</code> property uses CSS font syntax, the same format you'd use in a stylesheet. It's a string that combines style, weight, size, and family.</p>
 
 <div class="concept">
   <p><strong>Font string format:</strong> <code>"[style] [weight] size family"</code></p>
@@ -146,7 +146,7 @@ ctx.fillText('Custom fonts must be loaded before drawing!', 20, 330);
 <p>When you call <code>fillText("Hello", 250, 100)</code>, where exactly does "Hello" appear relative to (250, 100)? That depends on two properties.</p>
 
 <div class="concept">
-  <p><strong>textAlign</strong> — horizontal position relative to the x coordinate:</p>
+  <p><strong>textAlign</strong>: horizontal position relative to the x coordinate:</p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
   "left"       "center"       "right"
    x│Hello      He│llo         Hello│x
@@ -154,7 +154,7 @@ ctx.fillText('Custom fonts must be loaded before drawing!', 20, 330);
    starts       centered       at x
    at x         on x
   </pre>
-  <p><strong>textBaseline</strong> — vertical position relative to the y coordinate:</p>
+  <p><strong>textBaseline</strong>: vertical position relative to the y coordinate:</p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">
   "top"          Text hangs below y  ────
   "middle"       Text centered on y  ────
@@ -386,7 +386,7 @@ widths.forEach(function(mw, i) {
 <!-- SECTION 6: TEXT WRAPPING                                              -->
 <!-- ================================================================== -->
 
-<h2>Text Wrapping — Canvas Doesn't Do It!</h2>
+<h2>Text Wrapping: Canvas Doesn't Do It!</h2>
 
 <p>Here's a surprise for beginners: <strong>Canvas has no built-in text wrapping.</strong> If your text is longer than the canvas, it just keeps going off the right edge. To wrap text, you have to do it yourself using <code>measureText()</code>.</p>
 
@@ -486,7 +486,7 @@ ctx.fillText('Narrower box:', 320, 95);
 
 <h2>Drawing Multiline Text</h2>
 
-<p>If your text contains newline characters (<code>\n</code>), Canvas ignores them completely — it draws everything on one line. You need to split by <code>\n</code> and draw each line separately.</p>
+<p>If your text contains newline characters (<code>\n</code>), Canvas ignores them completely. It draws everything on one line. You need to split by <code>\n</code> and draw each line separately.</p>
 
 <CanvasDemo
   id="multiline"
@@ -542,7 +542,7 @@ ctx.fillText('  ctx.fillText(line, x, y + i * lineHeight);', 20, 278);
 
 <h2>Practical: Game HUD / Scoreboard</h2>
 
-<p>One of the most common uses of Canvas text is building a heads-up display (HUD) for games. Let's combine text alignment, measurement, and styling to build a polished scoreboard.</p>
+<p>One of the most common uses of Canvas text is building a heads-up display (HUD) for games. Let's combine text alignment, measurement, and styling to build a polished scoreboard. This demo also uses <code>createLinearGradient</code> from Lesson 3 for the bar backgrounds.</p>
 
 <CanvasDemo
   id="game-hud"
@@ -788,7 +788,7 @@ ctx.fillText('dest region', 170, 260);
 
 <h2>Loading Images the Right Way</h2>
 
-<p>In real projects, you load images from files or URLs. The critical thing to understand: <strong>images load asynchronously</strong>. If you try to draw an image before it's loaded, nothing appears — no error, just silence.</p>
+<p>In real projects, you load images from files or URLs. The critical thing to understand: <strong>images load asynchronously</strong>. If you try to draw an image before it's loaded, nothing appears. There is no error, just silence.</p>
 
 <div class="concept">
   <p><strong>The correct pattern:</strong></p>
@@ -915,7 +915,7 @@ ctx.fillText('Networks fail. Show a placeholder.', 125, 218);
 <!-- SECTION 11: SPRITE SHEETS                                            -->
 <!-- ================================================================== -->
 
-<h2>Sprite Sheets — How Games Use Images</h2>
+<h2>Sprite Sheets: How Games Use Images</h2>
 
 <p>A <strong>sprite sheet</strong> is a single image file containing many smaller images (sprites) arranged in a grid. Games use them because loading one big file is faster than loading hundreds of small files. The 9-argument <code>drawImage</code> is how you slice out individual sprites.</p>
 
@@ -1086,9 +1086,9 @@ animate();
 <!-- SECTION 12: PIXEL MANIPULATION                                       -->
 <!-- ================================================================== -->
 
-<h2>Pixel Manipulation — Reading and Writing Pixels</h2>
+<h2>Pixel Manipulation: Reading and Writing Pixels</h2>
 
-<p>Canvas lets you access individual pixels through <code>ImageData</code> objects. Each pixel is stored as four consecutive numbers: Red, Green, Blue, Alpha — each ranging from 0 to 255.</p>
+<p>Canvas lets you access individual pixels through <code>ImageData</code> objects. Each pixel is stored as four consecutive numbers (Red, Green, Blue, Alpha), each ranging from 0 to 255.</p>
 
 <div class="concept">
   <p><strong>How pixel data is stored:</strong></p>
@@ -1109,9 +1109,9 @@ animate();
     data[index + 2] = Blue   (0-255)
     data[index + 3] = Alpha  (0-255)  ← 255 = opaque, 0 = transparent
   </pre>
-  <p><strong>createImageData(w, h)</strong> — creates blank (all zero/transparent) pixel data</p>
-  <p><strong>getImageData(x, y, w, h)</strong> — reads pixel data from the canvas</p>
-  <p><strong>putImageData(data, x, y)</strong> — writes pixel data back to the canvas</p>
+  <p><strong>createImageData(w, h)</strong> creates blank (all zero/transparent) pixel data.</p>
+  <p><strong>getImageData(x, y, w, h)</strong> reads pixel data from the canvas.</p>
+  <p><strong>putImageData(data, x, y)</strong> writes pixel data back to the canvas.</p>
 </div>
 
 <CanvasDemo
@@ -1305,7 +1305,7 @@ ctx.fillText('All filters use getImageData -> modify -> putImageData', 20, 390);
 
 <h2>Image Smoothing for Pixel Art</h2>
 
-<p>When you scale up a small image, the browser applies <strong>smoothing</strong> (anti-aliasing) by default. This makes photos look great but ruins pixel art — it turns crisp pixels into blurry blobs. Toggle it off with <code>imageSmoothingEnabled = false</code>.</p>
+<p>When you scale up a small image, the browser applies <strong>smoothing</strong> (anti-aliasing) by default. This makes photos look great but ruins pixel art, turning crisp pixels into blurry blobs. Toggle it off with <code>imageSmoothingEnabled = false</code>.</p>
 
 <CanvasDemo
   id="image-smoothing"
@@ -1384,7 +1384,7 @@ ctx.fillText('Scaled to 160x160 (20x zoom)', 20, 275);
 
 <h2>Saving Your Canvas as an Image</h2>
 
-<p><code>canvas.toDataURL()</code> converts the entire canvas into a data URL — a long string that represents the image. You can use this to create a download link, display the result in an <code>&lt;img&gt;</code> tag, or send it to a server.</p>
+<p><code>canvas.toDataURL()</code> converts the entire canvas into a data URL, a long string that represents the image. You can use this to create a download link, display the result in an <code>&lt;img&gt;</code> tag, or send it to a server.</p>
 
 <div class="concept">
   <p><strong>toDataURL(type, quality)</strong></p>
@@ -1475,7 +1475,7 @@ ctx.fillText('(' + dataUrl.length + ' chars total)', 18, 58);
 
 <h2>Putting It All Together: Mini Image Editor</h2>
 
-<p>Let's combine text rendering, image creation, pixel manipulation, and filtering into an interactive mini image editor. Click the buttons below the canvas to apply different filters to the generated image.</p>
+<p>Let's combine text rendering, image creation, pixel manipulation, and filtering into an interactive mini image editor. Click the buttons below the canvas to apply different filters to the generated image. The <code>addListener</code> helper used below is provided by the demo framework to attach event listeners that are automatically cleaned up when the demo is removed.</p>
 
 <CanvasDemo
   id="mini-editor"
@@ -1648,7 +1648,7 @@ addListener(canvas, 'click', function(e) {
 />
 
 <div class="concept">
-  <p><strong>Lesson 4 Recap — What you learned:</strong></p>
+  <p><strong>Lesson 4 Recap: What you learned.</strong></p>
   <p><strong>Text:</strong> <code>fillText</code>/<code>strokeText</code> for rendering. <code>ctx.font</code> uses CSS syntax. <code>textAlign</code> and <code>textBaseline</code> for positioning. <code>measureText()</code> for width. <code>maxWidth</code> parameter for auto-shrinking.</p>
   <p><strong>Text challenges:</strong> Canvas has no built-in word wrap (implement manually with measureText). Newlines are ignored (split and draw line by line). Fonts must be pre-loaded.</p>
   <p><strong>Images:</strong> <code>drawImage</code> with 3, 5, or 9 arguments. Always use <code>img.onload</code> callback. Set <code>crossOrigin</code> for external images. Sprite sheets use the 9-arg form to extract frames.</p>

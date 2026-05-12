@@ -16,14 +16,14 @@ import CanvasDemo from '../components/CanvasDemo.astro';
 
 <h2>Welcome to Canvas</h2>
 
-<p>By the end of this course, you will be able to draw shapes, render text, build animations, respond to mouse clicks, manipulate individual pixels, and create things like games, data visualizations, and generative art — all inside a web browser, with nothing but JavaScript.</p>
+<p>By the end of this course, you will be able to draw shapes, render text, build animations, respond to mouse clicks, manipulate individual pixels, and create things like games, data visualizations, and generative art, all inside a web browser, with nothing but JavaScript.</p>
 
-<p>That might sound ambitious, but it all starts with a single HTML element: <code>&lt;canvas&gt;</code>. It is a programmable rectangle of pixels — a blank surface that does nothing on its own, but becomes anything you want once you write code to draw on it.</p>
+<p>That might sound ambitious, but it all starts with a single HTML element: <code>&lt;canvas&gt;</code>. It is a programmable rectangle of pixels, a blank surface that does nothing on its own but becomes anything you want once you write code to draw on it.</p>
 
-<p>This lesson covers the <strong>concepts</strong> you need before writing any drawing code. Think of it as the theory chapter — the "why" and "how it works" before the "let's build." If you are the kind of person who likes to jump straight into code, you can skip to <a href="../01-basics">Lesson 1</a>. But if you want to truly understand what you are doing (and avoid common confusion later), read on.</p>
+<p>This lesson covers the <strong>concepts</strong> you need before writing any drawing code. Think of it as the theory chapter: the "why" and "how it works" before the "let's build." If you are the kind of person who likes to jump straight into code, you can skip to <a href="../01-basics">Lesson 1</a>. But if you want to truly understand what you are doing (and avoid common confusion later), read on.</p>
 
 <div class="concept">
-  <p><strong>A bit of history:</strong> Canvas was invented by Apple in 2004 for their macOS Dashboard widgets and the Safari browser. Under the hood, it exposed the Mac's powerful Quartz graphics engine to JavaScript. Firefox adopted it in 2005, Opera followed, and by the time HTML5 became a formal W3C standard in 2014, Canvas had already been universally supported for years. Today every browser supports it — desktop and mobile alike. You could say Canvas is old enough to have a driver's license, and it is still the go-to tool for custom graphics on the web.</p>
+  <p><strong>A bit of history:</strong> Canvas was invented by Apple in 2004 for their macOS Dashboard widgets and the Safari browser. Under the hood, it exposed the Mac's powerful Quartz graphics engine to JavaScript. Firefox adopted it in 2005, Opera followed, and by the time HTML5 became a formal W3C standard in 2014, Canvas had already been universally supported for years. Today every browser supports it, desktop and mobile alike. You could say Canvas is old enough to have a driver's license, and it is still the go-to tool for custom graphics on the web.</p>
 </div>
 
 <!-- ═══════════════════════════════════════════════════ -->
@@ -55,9 +55,9 @@ import CanvasDemo from '../components/CanvasDemo.astro';
     A smiley face, 8 pixels wide!`}</pre>
 </div>
 
-<p>Every color on your screen is made from a combination of <strong>red, green, and blue</strong> light (RGB). Each pixel has three tiny sub-pixels — one red, one green, one blue — and by varying their brightness, the screen produces any color. Pure red means the red sub-pixel is fully on and the others are off. White means all three are fully on. Black means all three are off.</p>
+<p>Every color on your screen is made from a combination of <strong>red, green, and blue</strong> light (RGB). Each pixel has three tiny sub-pixels, one red, one green, one blue, and by varying their brightness, the screen produces any color. Pure red means the red sub-pixel is fully on and the others are off. White means all three are fully on. Black means all three are off.</p>
 
-<p>Canvas gives you direct control over a rectangle of these pixels inside your web page. Unlike most HTML elements (buttons, paragraphs, images), which the browser figures out how to display, Canvas is a <strong>blank slate</strong> — nothing appears until you write code that says what to draw.</p>
+<p>Canvas gives you direct control over a rectangle of these pixels inside your web page. Unlike most HTML elements (buttons, paragraphs, images), which the browser figures out how to display, Canvas is a <strong>blank slate</strong>; nothing appears until you write code that says what to draw.</p>
 
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- SECTION 3 — The <canvas> HTML Element              -->
@@ -86,14 +86,14 @@ import CanvasDemo from '../components/CanvasDemo.astro';
 <p>A <code>&lt;canvas&gt;</code> element is fundamentally different from other HTML elements:</p>
 
 <ul>
-  <li><strong>A &lt;div&gt;</strong> is a container — it holds text, images, and other elements. The browser handles layout automatically.</li>
+  <li><strong>A &lt;div&gt;</strong> is a container: it holds text, images, and other elements. The browser handles layout automatically.</li>
   <li><strong>An &lt;img&gt;</strong> displays a pre-made image file. You point it at a .png or .jpg and the browser shows it.</li>
-  <li><strong>An &lt;svg&gt;</strong> describes shapes using markup — circles, rectangles, paths. Each shape is a real element the browser tracks.</li>
+  <li><strong>An &lt;svg&gt;</strong> describes shapes using markup: circles, rectangles, paths. Each shape is a real element the browser tracks.</li>
   <li><strong>A &lt;canvas&gt;</strong> is a <em>blank bitmap</em>. It starts as a rectangle of transparent pixels. Nothing appears until you write JavaScript that paints onto it.</li>
 </ul>
 
 <div class="concept">
-  <p><strong>Analogy:</strong> If a <code>&lt;div&gt;</code> is a bulletin board where you pin notes and the board remembers each note, then a <code>&lt;canvas&gt;</code> is a whiteboard — you draw on it with markers, and the surface has no idea what a "note" is. It just has colored ink on it.</p>
+  <p><strong>Analogy:</strong> If a <code>&lt;div&gt;</code> is a bulletin board where you pin notes and the board remembers each note, then a <code>&lt;canvas&gt;</code> is a whiteboard. You draw on it with markers, and the surface has no idea what a "note" is. It just has colored ink on it.</p>
 </div>
 
 <p>If you put a <code>&lt;canvas&gt;</code> tag in your HTML and do nothing else, you will see... nothing. Just an invisible rectangle taking up space. The magic happens when JavaScript starts giving it drawing commands.</p>
@@ -169,20 +169,20 @@ ctx.fillText('size is set correctly!', 200, 135);
 
 <p>There are two fundamentally different approaches to computer graphics:</p>
 
-<h3>Retained Mode — The Browser Remembers</h3>
+<h3>Retained Mode: The Browser Remembers</h3>
 
 <p>This is how the DOM and SVG work. You tell the browser "put a red circle here" and the browser <em>remembers</em> that circle. It creates an internal object for it, stores its properties (position, color, size), and keeps it in a tree of objects. You can change its color later, move it, remove it, or ask "what's at position (100, 50)?" The browser maintains the scene for you.</p>
 
 <div class="concept">
-  <p><strong>Analogy — the magnetic board:</strong> Retained mode is like a magnetic whiteboard with movable magnets. Each magnet is a distinct object. You can pick up the red circle magnet and move it to a new spot. You can remove the blue square magnet. The board "knows" what is on it because each piece is a separate physical thing.</p>
+  <p><strong>Analogy, the magnetic board:</strong> Retained mode is like a magnetic whiteboard with movable magnets. Each magnet is a distinct object. You can pick up the red circle magnet and move it to a new spot. You can remove the blue square magnet. The board "knows" what is on it because each piece is a separate physical thing.</p>
 </div>
 
-<h3>Immediate Mode — Canvas Forgets</h3>
+<h3>Immediate Mode: Canvas Forgets</h3>
 
-<p>This is how Canvas works. You tell the canvas "paint red pixels in a circle shape here" and those pixels appear. But the canvas <em>immediately forgets</em> what you did. It has no idea there is a "circle" — it just sees colored pixels on a bitmap. Want to move the circle? You have to erase everything and redraw the entire scene with the circle in its new position.</p>
+<p>This is how Canvas works. You tell the canvas "paint red pixels in a circle shape here" and those pixels appear. But the canvas <em>immediately forgets</em> what you did. It has no idea there is a "circle"; it just sees colored pixels on a bitmap. Want to move the circle? You have to erase everything and redraw the entire scene with the circle in its new position.</p>
 
 <div class="concept">
-  <p><strong>Analogy — the Etch A Sketch:</strong> Immediate mode is like an Etch A Sketch (or painting with real paint). Once you draw a line, it is just marks on the surface. There is no "line object" you can grab and move. To change anything, you shake the Etch A Sketch (clear the canvas) and redraw from scratch.</p>
+  <p><strong>Analogy, the Etch A Sketch:</strong> Immediate mode is like an Etch A Sketch (or painting with real paint). Once you draw a line, it is just marks on the surface. There is no "line object" you can grab and move. To change anything, you shake the Etch A Sketch (clear the canvas) and redraw from scratch.</p>
 </div>
 
 <p>Here is a side-by-side comparison of how the two modes handle the same operations:</p>
@@ -206,9 +206,9 @@ ctx.fillText('size is set correctly!', 200, 135);
 
 <h3>Why Would You Want Something That Forgets?</h3>
 
-<p>It might sound like a disadvantage — why would you want something that forgets? The answer is <strong>performance and simplicity</strong>.</p>
+<p>It might sound like a disadvantage. Why would you want something that forgets? The answer is <strong>performance and simplicity</strong>.</p>
 
-<p>Because Canvas does not maintain a scene graph (an internal tree of objects), it does not slow down as you draw more things. Drawing 10 circles and drawing 10,000 circles uses the same canvas memory — the bitmap is a fixed size regardless. Your JavaScript data (positions, velocities) still takes memory, but without the per-object DOM bookkeeping overhead. The canvas does not care how many "objects" are in your scene — it just has a bitmap of pixels, and each drawing call splatters some new color onto that bitmap.</p>
+<p>Because Canvas does not maintain a scene graph (an internal tree of objects), it does not slow down as you draw more things. Drawing 10 circles and drawing 10,000 circles uses the same canvas memory; the bitmap is a fixed size regardless. Your JavaScript data (positions, velocities) still takes memory, but without the per-object DOM bookkeeping overhead. The canvas does not care how many "objects" are in your scene. It just has a bitmap of pixels, and each drawing call splatters some new color onto that bitmap.</p>
 
 <p>In retained mode, every object you add consumes memory and processing time. The browser must track each one, run layout calculations, handle event listeners, and update the display when any property changes. With 50 objects, this is fine. With 50,000 objects (like particles in a fireworks simulation), retained mode chokes. Canvas handles it effortlessly.</p>
 
@@ -262,6 +262,8 @@ ctx.fillText('size is set correctly!', 200, 135);
 
 <p>Every frame is like a fresh painting on a clean canvas. This might seem wasteful, but modern computers can draw thousands of shapes in a single frame (1/60th of a second). And because canvas has no bookkeeping overhead, each frame is fast and predictable.</p>
 
+<p>The <code>requestAnimationFrame</code> function mentioned in step 4 is a browser API that tells the browser "call my drawing function before the next screen refresh." It is the standard way to create smooth animations; the browser handles timing so your animation runs at the optimal frame rate (usually 60 fps). You will use it extensively starting in Lesson 6.</p>
+
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- SECTION 6 — Canvas vs SVG vs DOM                  -->
 <!-- ═══════════════════════════════════════════════════ -->
@@ -272,15 +274,15 @@ ctx.fillText('size is set correctly!', 200, 135);
 
 <h3>DOM / CSS</h3>
 
-<p>The Document Object Model is the standard way web pages work. You write HTML elements (<code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;button&gt;</code>), style them with CSS, and the browser handles layout, text wrapping, scrolling, accessibility, and user interaction. This is the right tool for documents, forms, navigation bars — anything text-heavy or interactive in a standard UI way.</p>
+<p>The Document Object Model is the standard way web pages work. You write HTML elements (<code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;button&gt;</code>), style them with CSS, and the browser handles layout, text wrapping, scrolling, accessibility, and user interaction. This is the right tool for documents, forms, navigation bars, anything text-heavy or interactive in a standard UI way.</p>
 
 <h3>SVG (Scalable Vector Graphics)</h3>
 
-<p>SVG lets you describe shapes in XML markup — circles, rectangles, paths, text. Each shape becomes a real DOM element the browser tracks. You can style SVG with CSS, animate it with CSS transitions, and attach click handlers to individual shapes. SVG is resolution-independent: it stays sharp at any zoom level. This is ideal for icons, logos, charts with relatively few elements, and interactive diagrams.</p>
+<p>SVG lets you describe shapes in XML markup: circles, rectangles, paths, text. Each shape becomes a real DOM element the browser tracks. You can style SVG with CSS, animate it with CSS transitions, and attach click handlers to individual shapes. SVG is resolution-independent: it stays sharp at any zoom level. This is ideal for icons, logos, charts with relatively few elements, and interactive diagrams.</p>
 
 <h3>Canvas</h3>
 
-<p>Canvas gives you a blank bitmap and a JavaScript API to paint onto it. It is the raw-performance option: no objects, no DOM nodes, just pixels. You manage everything yourself — what to draw, when to redraw, how to detect clicks. This is the right tool for games, particle systems, image processing, real-time data visualization, and anything with thousands of moving elements.</p>
+<p>Canvas gives you a blank bitmap and a JavaScript API to paint onto it. It is the raw-performance option: no objects, no DOM nodes, just pixels. You manage everything yourself: what to draw, when to redraw, how to detect clicks. This is the right tool for games, particle systems, image processing, real-time data visualization, and anything with thousands of moving elements.</p>
 
 <div class="concept">
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`    ┌──────────────┬──────────────────┬──────────────────┬──────────────────┐
@@ -313,7 +315,7 @@ ctx.fillText('size is set correctly!', 200, 135);
     └──────────────┴──────────────────┴──────────────────┴──────────────────┘`}</pre>
 </div>
 
-<h3>When to Use Which — A Decision Guide</h3>
+<h3>When to Use Which: A Decision Guide</h3>
 
 <div class="concept">
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`    Is it a regular web page with text, forms, buttons?
@@ -341,7 +343,7 @@ ctx.fillText('size is set correctly!', 200, 135);
 </div>
 
 <div class="concept">
-  <p><strong>An analogy:</strong> Think of DOM/CSS as arranging furniture in a room — you place objects and the browser remembers where everything is. SVG is like putting stickers on a window — each sticker is a distinct object you can peel off or move. Canvas is like spray-painting a wall — once the paint hits the surface, there are no "objects" anymore, just colored pixels. To change something, you paint over it.</p>
+  <p><strong>An analogy:</strong> Think of DOM/CSS as arranging furniture in a room: you place objects and the browser remembers where everything is. SVG is like putting stickers on a window; each sticker is a distinct object you can peel off or move. Canvas is like spray-painting a wall; once the paint hits the surface, there are no "objects" anymore, just colored pixels. To change something, you paint over it.</p>
 </div>
 
 <!-- ═══════════════════════════════════════════════════ -->
@@ -350,7 +352,7 @@ ctx.fillText('size is set correctly!', 200, 135);
 
 <h2>The Rendering Context: Your Paintbrush</h2>
 
-<p>The <code>&lt;canvas&gt;</code> element itself is just a container — a blank rectangle in your HTML. It cannot draw anything on its own. To actually put pixels on the screen, you need a <strong>rendering context</strong>. You get one by calling:</p>
+<p>The <code>&lt;canvas&gt;</code> element itself is just a container, a blank rectangle in your HTML. It cannot draw anything on its own. To actually put pixels on the screen, you need a <strong>rendering context</strong>. You get one by calling:</p>
 
 <div class="concept">
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`    var canvas = document.getElementById('myCanvas');
@@ -374,7 +376,7 @@ ctx.fillText('size is set correctly!', 200, 135);
 </ul>
 
 <div class="concept">
-  <p><strong>Analogy:</strong> If the <code>&lt;canvas&gt;</code> element is a physical canvas (the fabric stretched over a frame), then <code>ctx</code> is the entire art supply kit sitting next to it — brushes, paints, pencils, erasers, rulers, stencils. The canvas just sits there. The context does all the work.</p>
+  <p><strong>Analogy:</strong> If the <code>&lt;canvas&gt;</code> element is a physical canvas (the fabric stretched over a frame), then <code>ctx</code> is the entire art supply kit sitting next to it: brushes, paints, pencils, erasers, rulers, stencils. The canvas just sits there. The context does all the work.</p>
 </div>
 
 <h3>Other Rendering Contexts</h3>
@@ -401,7 +403,7 @@ ctx.fillText('size is set correctly!', 200, 135);
                           canvases or from workers.`}</pre>
 </div>
 
-<p>A canvas can only have <strong>one</strong> context at a time. Once you call <code>getContext('2d')</code>, that canvas is locked to 2D — calling <code>getContext('webgl')</code> on the same canvas returns <code>null</code>. For this entire course, <code>'2d'</code> is all you need.</p>
+<p>A canvas can only have <strong>one</strong> context at a time. Once you call <code>getContext('2d')</code>, that canvas is locked to 2D; calling <code>getContext('webgl')</code> on the same canvas returns <code>null</code>. For this entire course, <code>'2d'</code> is all you need.</p>
 
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- SECTION 8 — The Rendering Pipeline                -->
@@ -430,16 +432,16 @@ ctx.fillText('size is set correctly!', 200, 135);
 <p>In code, that pipeline looks like this:</p>
 
 <ol>
-  <li><code>&lt;canvas id="c" width="500" height="400"&gt;&lt;/canvas&gt;</code> — the HTML creates the blank bitmap</li>
-  <li><code>var canvas = document.getElementById('c');</code> — JavaScript grabs a reference to it</li>
-  <li><code>var ctx = canvas.getContext('2d');</code> — you get the 2D drawing context</li>
-  <li><code>ctx.fillRect(10, 10, 100, 80);</code> — you issue drawing commands that change pixels</li>
+  <li><code>&lt;canvas id="c" width="500" height="400"&gt;&lt;/canvas&gt;</code>, the HTML creates the blank bitmap</li>
+  <li><code>var canvas = document.getElementById('c');</code>, JavaScript grabs a reference to it</li>
+  <li><code>var ctx = canvas.getContext('2d');</code>, you get the 2D drawing context</li>
+  <li><code>ctx.fillRect(10, 10, 100, 80);</code>, you issue drawing commands that change pixels</li>
 </ol>
 
-<p>Behind the scenes, the browser may use GPU hardware acceleration to execute your drawing commands quickly. Modern browsers are surprisingly efficient — a simple <code>fillRect</code> call might be translated into a GPU texture operation that completes in microseconds.</p>
+<p>Behind the scenes, the browser may use GPU hardware acceleration to execute your drawing commands quickly. Modern browsers are surprisingly efficient; a simple <code>fillRect</code> call might be translated into a GPU texture operation that completes in microseconds.</p>
 
 <div class="concept">
-  <p><strong>Key point:</strong> Drawing commands execute <em>immediately</em>. When <code>ctx.fillRect()</code> returns, those pixels are already on the canvas bitmap. There is no "render later" step for basic drawing. (Animation is different — we use <code>requestAnimationFrame</code> to time our redraws, but each individual draw call is instant.)</p>
+  <p><strong>Key point:</strong> Drawing commands execute <em>immediately</em>. When <code>ctx.fillRect()</code> returns, those pixels are already on the canvas bitmap. There is no "render later" step for basic drawing. (Animation is different; we use <code>requestAnimationFrame</code> to time our redraws, but each individual draw call is instant.)</p>
 </div>
 
 <!-- ═══════════════════════════════════════════════════ -->
@@ -471,7 +473,9 @@ ctx.fillText('size is set correctly!', 200, 135);
 
 <p>If you have ever used a spreadsheet, it is the same idea: row 1 is at the top, and higher row numbers go further down. Column A is on the left, and later columns go further right.</p>
 
-<p>This "Y goes down" convention trips up nearly everyone who has taken a math class where Y goes up. It comes from how old computer monitors drew pixels — starting at the top-left and scanning rightward, row by row, top to bottom. The convention stuck, and virtually every 2D graphics system (not just Canvas) uses it.</p>
+<p>This "Y goes down" convention trips up nearly everyone who has taken a math class where Y goes up. It comes from how old computer monitors drew pixels, starting at the top-left and scanning rightward, row by row, top to bottom. The convention stuck, and virtually every 2D graphics system (not just Canvas) uses it.</p>
+
+<p>One detail worth noting: coordinates do not have to be whole numbers. You can draw at position <code>(100.5, 75.3)</code>, and the browser will use <strong>anti-aliasing</strong> (blending neighboring pixels) to approximate the sub-pixel position. This is useful for smooth animations but can cause blurry lines if you are not careful. We will revisit this in later lessons.</p>
 
 <CanvasDemo
   id="coords"
@@ -556,7 +560,7 @@ points.forEach(function(p) {
 />
 
 <div class="concept">
-  <p><strong>Remember:</strong> Coordinates are measured in pixels from the top-left corner. <code>(100, 50)</code> means "100 pixels to the right, 50 pixels down." Later in the course you will learn about <strong>transforms</strong> — you can move the origin, rotate the axes, even flip Y so it goes upward — but the default is always top-left origin, Y-down.</p>
+  <p><strong>Remember:</strong> Coordinates are measured in pixels from the top-left corner. <code>(100, 50)</code> means "100 pixels to the right, 50 pixels down." Later in the course you will learn about <strong>transforms</strong>: you can move the origin, rotate the axes, even flip Y so it goes upward. But the default is always top-left origin, Y-down.</p>
 </div>
 
 <!-- ═══════════════════════════════════════════════════ -->
@@ -565,17 +569,17 @@ points.forEach(function(p) {
 
 <h2>What Can You Build?</h2>
 
-<p>Canvas is not a niche tool — it powers some of the most impressive things on the web. Here is what people build with it in the real world:</p>
+<p>Canvas is not a niche tool; it powers some of the most impressive things on the web. Here is what people build with it in the real world:</p>
 
 <ul>
-  <li><strong>Browser Games</strong> — From simple Pong and Snake clones to complex 2D platformers and tower defense games. Frameworks like <strong>Phaser</strong> use Canvas (or WebGL) under the hood. Many popular web games — those .io games you have probably played — are Canvas-based.</li>
-  <li><strong>Data Visualization</strong> — Interactive charts, graphs, heatmaps, and dashboards. <strong>Chart.js</strong>, one of the most popular charting libraries on the web, draws everything on Canvas. When you see a beautiful animated chart on a website, it is often Canvas doing the work.</li>
-  <li><strong>Image Editors</strong> — <strong>Photopea</strong> is a full Photoshop-class image editor that runs entirely in your browser, built on Canvas. Photo filters, cropping tools, drawing apps — Canvas can read and write individual pixels, making it ideal for image processing.</li>
-  <li><strong>Creative and Generative Art</strong> — Algorithmic patterns, fractals, particle systems, and interactive installations. The creative coding community uses Canvas extensively. Libraries like <strong>p5.js</strong> make Canvas art accessible to beginners.</li>
-  <li><strong>Maps</strong> — When you see a smooth, interactive map with hundreds of markers and overlays, it might be Canvas. Google Maps and Mapbox both use Canvas for performance-critical rendering layers.</li>
-  <li><strong>Video Processing</strong> — You can draw video frames onto Canvas and manipulate them pixel by pixel. Green-screen effects, live filters, augmented reality overlays — Canvas makes real-time video processing possible in the browser.</li>
-  <li><strong>Physics Simulations</strong> — Bouncing balls, cloth simulations, fluid dynamics, gravity demos. Canvas's ability to redraw thousands of objects at 60 frames per second makes it perfect for physics playgrounds.</li>
-  <li><strong>Digital Signatures</strong> — Those "sign here" pads on delivery apps and online contracts? They often use Canvas to capture your finger or stylus input.</li>
+  <li><strong>Browser Games:</strong> From simple Pong and Snake clones to complex 2D platformers and tower defense games. Frameworks like <strong>Phaser</strong> use Canvas (or WebGL) under the hood. Many popular web games, those .io games you have probably played, are Canvas-based.</li>
+  <li><strong>Data Visualization:</strong> Interactive charts, graphs, heatmaps, and dashboards. <strong>Chart.js</strong>, one of the most popular charting libraries on the web, draws everything on Canvas. When you see a beautiful animated chart on a website, it is often Canvas doing the work.</li>
+  <li><strong>Image Editors:</strong> <strong>Photopea</strong> is a full Photoshop-class image editor that runs entirely in your browser, built on Canvas. Photo filters, cropping tools, drawing apps: Canvas can read and write individual pixels, making it ideal for image processing.</li>
+  <li><strong>Creative and Generative Art:</strong> Algorithmic patterns, fractals, particle systems, and interactive installations. The creative coding community uses Canvas extensively. Libraries like <strong>p5.js</strong> make Canvas art accessible to beginners.</li>
+  <li><strong>Maps:</strong> When you see a smooth, interactive map with hundreds of markers and overlays, it might be Canvas. Google Maps and Mapbox both use Canvas for performance-critical rendering layers.</li>
+  <li><strong>Video Processing:</strong> You can draw video frames onto Canvas and manipulate them pixel by pixel. Green-screen effects, live filters, augmented reality overlays: Canvas makes real-time video processing possible in the browser.</li>
+  <li><strong>Physics Simulations:</strong> Bouncing balls, cloth simulations, fluid dynamics, gravity demos. Canvas's ability to redraw thousands of objects at 60 frames per second makes it perfect for physics playgrounds.</li>
+  <li><strong>Digital Signatures:</strong> Those "sign here" pads on delivery apps and online contracts? They often use Canvas to capture your finger or stylus input.</li>
 </ul>
 
 <div class="concept">
@@ -588,7 +592,7 @@ points.forEach(function(p) {
 
 <h2>The Canvas API at a Glance</h2>
 
-<p>The <code>ctx</code> object has a <em>lot</em> of methods and properties. You do not need to learn them all at once — this course covers them lesson by lesson. But it helps to see the big picture so you know what is possible and what is coming. Think of this as the map of your journey:</p>
+<p>The <code>ctx</code> object has a <em>lot</em> of methods and properties. You do not need to learn them all at once; this course covers them lesson by lesson. But it helps to see the big picture so you know what is possible and what is coming. Think of this as the map of your journey:</p>
 
 <div class="concept">
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`    Category                What it does                    You'll learn in
@@ -612,7 +616,7 @@ points.forEach(function(p) {
 
 <ol>
   <li><strong>Everything goes through <code>ctx</code>.</strong> There is no separate "shapes" object or "text" object. One context does it all.</li>
-  <li><strong>The API is low-level.</strong> There is no <code>ctx.drawButton()</code> or <code>ctx.drawChart()</code>. You build complex things from simple primitives — rectangles, lines, arcs, and text. That is what makes Canvas both powerful and fun: you are building from scratch.</li>
+  <li><strong>The API is low-level.</strong> There is no <code>ctx.drawButton()</code> or <code>ctx.drawChart()</code>. You build complex things from simple primitives: rectangles, lines, arcs, and text. That is what makes Canvas both powerful and fun: you are building from scratch.</li>
 </ol>
 
 <p>Do not worry about memorizing any of this. As we work through each lesson, these categories will become second nature. This overview just gives you a mental map so you are never lost.</p>
@@ -623,7 +627,7 @@ points.forEach(function(p) {
 
 <h2>Your First Lines of Code</h2>
 
-<p>Let's close this lesson with a gentle "hello world" — a tiny taste of what drawing looks like before we dive deep in Lesson 1. This demo draws a colored rectangle and a circle, with annotations explaining each line:</p>
+<p>Let's close this lesson with a gentle "hello world," a tiny taste of what drawing looks like before we dive deep in Lesson 1. This demo draws a colored rectangle and a circle, with annotations explaining each line:</p>
 
 <CanvasDemo
   id="hello-world"
@@ -674,7 +678,7 @@ ctx.fillText('A few lines of code is all it takes!', 100, 250);
   `}
 />
 
-<p>That is it — a handful of drawing commands to put a rectangle, a circle, and text on screen. Everything starts from this foundation. In Lesson 1, we will zoom in on rectangles and explore every option: fills, strokes, colors, and combining them into more complex drawings.</p>
+<p>That is it: a handful of drawing commands to put a rectangle, a circle, and text on screen. Everything starts from this foundation. In Lesson 1, we will zoom in on rectangles and explore every option: fills, strokes, colors, and combining them into more complex drawings.</p>
 
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- Summary                                           -->
@@ -720,6 +724,6 @@ ctx.fillText('A few lines of code is all it takes!', 100, 250);
                                  maps, video effects, and more.`}</pre>
 </div>
 
-<p>You now have the conceptual foundation for everything that follows. Next up: <strong>Lesson 1 — Basics</strong>, where you will draw your first rectangles and start building real scenes.</p>
+<p>You now have the conceptual foundation for everything that follows. Next up: <strong>Lesson 1, Basics</strong>, where you will draw your first rectangles and start building real scenes.</p>
 
 </LessonLayout>

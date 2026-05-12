@@ -6,7 +6,7 @@ import CanvasDemo from '../components/CanvasDemo.astro';
 <LessonLayout
   number={8}
   title="Particle System"
-  description="Capstone — build a complete particle system combining everything you've learned."
+  description="Capstone: build a complete particle system combining everything you've learned."
   prev={{ href: '/07-interaction', title: 'Interaction' }}
 >
 
@@ -16,7 +16,7 @@ import CanvasDemo from '../components/CanvasDemo.astro';
 
 <h2>What IS a Particle System?</h2>
 
-<p>A particle system is one of the most rewarding things you can build with Canvas. It manages hundreds or thousands of tiny objects — "particles" — that move, change, and eventually disappear. Together, these particles create effects that look like fire, smoke, rain, sparks, confetti, stars, or magic dust.</p>
+<p>A particle system is one of the most rewarding things you can build with Canvas. It manages hundreds or thousands of tiny objects called "particles" that move, change, and eventually disappear. Together, these particles create effects that look like fire, smoke, rain, sparks, confetti, stars, or magic dust.</p>
 
 <p>You have already seen particle systems everywhere, even if you did not know the name:</p>
 
@@ -31,7 +31,7 @@ import CanvasDemo from '../components/CanvasDemo.astro';
     <li>The cursor trail on a flashy website</li>
     <li>Stars streaming past in a space game</li>
   </ul>
-  <p>The magic: each individual particle is <strong>dead simple</strong> — just a dot that moves. But hundreds of simple dots following simple rules create complex, organic-looking effects.</p>
+  <p>The magic: each individual particle is <strong>dead simple</strong>, just a dot that moves. But hundreds of simple dots following simple rules create complex, organic-looking effects.</p>
 </div>
 
 <!-- ============================================================ -->
@@ -43,7 +43,7 @@ import CanvasDemo from '../components/CanvasDemo.astro';
 <p>Every particle system follows the same pattern, every single frame. Think of it like a factory assembly line:</p>
 
 <div class="concept">
-  <p><strong>The particle lifecycle — runs 60 times per second:</strong></p>
+  <p><strong>The particle lifecycle, running 60 times per second:</strong></p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`  ┌──────────┐     ┌──────────┐     ┌──────────┐     ┌──────────┐
   │  BIRTH   │────→│  UPDATE  │────→│  DEATH   │────→│   DRAW   │
   │          │     │          │     │          │     │          │
@@ -153,9 +153,9 @@ __raf = requestAnimationFrame(loop);
 <div class="concept">
   <p><strong>Key takeaways from Step 1:</strong></p>
   <ul style="color: var(--text-muted); margin-left: 1rem; margin-top: 0.5rem;">
-    <li><code>particles</code> is just a regular array — nothing fancy</li>
+    <li><code>particles</code> is just a regular array, nothing fancy</li>
     <li>Each frame: emit, update, filter dead, draw survivors</li>
-    <li><code>p.life</code> goes from 1 to 0 — we use it for opacity AND size</li>
+    <li><code>p.life</code> goes from 1 to 0; we use it for opacity AND size</li>
     <li>Delta time (<code>dt</code>) makes movement speed-independent</li>
   </ul>
 </div>
@@ -166,7 +166,7 @@ __raf = requestAnimationFrame(loop);
 
 <h2>Step 2: Mouse-Driven Emission</h2>
 
-<p>Instead of a fixed spawn point, let's emit particles from wherever the mouse is. This instantly makes the effect feel interactive and alive.</p>
+<p>Instead of a fixed spawn point, let's emit particles from wherever the mouse is. This instantly makes the effect feel interactive and alive. Notice how we use <code>Math.cos(angle)</code> and <code>Math.sin(angle)</code> to convert a random angle into horizontal and vertical velocity components; cosine gives the x-direction and sine gives the y-direction for any angle in radians.</p>
 
 <CanvasDemo
   id="mouse-particles"
@@ -262,7 +262,7 @@ __raf = requestAnimationFrame(loop);
 
 <CanvasDemo
   id="emitter-patterns"
-  title="Emitter Patterns — Click to Switch"
+  title="Emitter Patterns: Click to Switch"
   width={500}
   height={400}
   code={`
@@ -387,7 +387,7 @@ __raf = requestAnimationFrame(loop);
 
 <h2>Forces: Gravity, Wind, and Turbulence</h2>
 
-<p>Particles that move in straight lines look boring. Real-world particles are affected by forces: gravity pulls them down, wind pushes them sideways, and turbulence makes them wobble randomly. Adding forces is simple — you just modify velocity each frame.</p>
+<p>Particles that move in straight lines look boring. Real-world particles are affected by forces: gravity pulls them down, wind pushes them sideways, and turbulence makes them wobble randomly. Adding forces is simple: you just modify velocity each frame.</p>
 
 <div class="concept">
   <p><strong>How forces modify velocity:</strong></p>
@@ -408,7 +408,7 @@ __raf = requestAnimationFrame(loop);
 
 <CanvasDemo
   id="forces"
-  title="Forces Playground — Click to Switch"
+  title="Forces Playground: Click to Switch"
   width={500}
   height={400}
   code={`
@@ -496,7 +496,7 @@ __raf = requestAnimationFrame(loop);
 
 <h2>Attraction and Repulsion</h2>
 
-<p>One of the coolest forces is <strong>attraction</strong> — particles are pulled toward a point (like gravity toward a planet). The opposite is <strong>repulsion</strong> — particles are pushed away. The force gets stronger as particles get closer.</p>
+<p>One of the coolest forces is <strong>attraction</strong>, where particles are pulled toward a point (like gravity toward a planet). The opposite is <strong>repulsion</strong>, where particles are pushed away. The force gets stronger as particles get closer.</p>
 
 <CanvasDemo
   id="attraction"
@@ -811,7 +811,7 @@ __raf = requestAnimationFrame(loop);
 
 <h2>Blending Modes (globalCompositeOperation)</h2>
 
-<p>By default, new drawings cover what is beneath them. But Canvas supports <strong>blending modes</strong> that combine overlapping colors in interesting ways. The most useful for particle effects is <code>'lighter'</code> — it <em>adds</em> colors together, creating a glowing effect where particles overlap.</p>
+<p>By default, new drawings cover what is beneath them. But Canvas supports <strong>blending modes</strong> that combine overlapping colors in interesting ways. The most useful for particle effects is <code>'lighter'</code>, which <em>adds</em> colors together, creating a glowing effect where particles overlap.</p>
 
 <div class="concept">
   <p><strong>Key blending modes for particles:</strong></p>
@@ -836,7 +836,7 @@ __raf = requestAnimationFrame(loop);
 
 <CanvasDemo
   id="blending"
-  title="Additive Blending (lighter) — Move Mouse"
+  title="Additive Blending (lighter): Move Mouse"
   width={500}
   height={400}
   code={`
@@ -923,7 +923,7 @@ __raf = requestAnimationFrame(loop);
 
 <h2>Fire Effect</h2>
 
-<p>Fire combines upward velocity, warm colors (orange/yellow), size decay, turbulence, and fade trails. The additive blending from the previous section makes it glow.</p>
+<p>Fire combines upward velocity, warm colors (orange/yellow), size decay, turbulence, and fade trails. The additive blending from the previous section makes it glow. This demo also uses <code>ctx.createRadialGradient()</code> to give each particle a soft, glowing edge. A radial gradient transitions colors outward from a center point to an outer radius, which is ideal for simulating light falloff.</p>
 
 <CanvasDemo
   id="fire"
@@ -1010,7 +1010,7 @@ __raf = requestAnimationFrame(loop);
 
 <CanvasDemo
   id="snow-rain"
-  title="Snow / Rain — Click to Toggle"
+  title="Snow / Rain: Click to Toggle"
   width={500}
   height={400}
   code={`
@@ -1120,7 +1120,7 @@ __raf = requestAnimationFrame(loop);
 
 <h2>Confetti Celebration</h2>
 
-<p>Confetti uses rectangular particles that rotate as they fall. The rotation is what makes it look like real paper confetti tumbling through the air. We vary the colors and sizes for a festive look.</p>
+<p>Confetti uses rectangular particles that rotate as they fall. The rotation is what makes it look like real paper confetti tumbling through the air. We vary the colors and sizes for a festive look. This demo uses <code>ctx.save()</code>, <code>ctx.translate()</code>, and <code>ctx.rotate()</code> from the transforms lesson to spin each confetti piece around its own center, then <code>ctx.restore()</code> to reset the transform before drawing the next piece.</p>
 
 <CanvasDemo
   id="confetti"
@@ -1209,7 +1209,7 @@ __raf = requestAnimationFrame(loop);
 
 <CanvasDemo
   id="starfield"
-  title="Starfield — Move Mouse to Steer"
+  title="Starfield: Move Mouse to Steer"
   width={500}
   height={400}
   code={`
@@ -1326,7 +1326,7 @@ __raf = requestAnimationFrame(loop);
 
 <CanvasDemo
   id="pooling"
-  title="Object Pooling — 1000 Particle Pool"
+  title="Object Pooling: 1000 Particle Pool"
   width={500}
   height={400}
   code={`
@@ -1430,7 +1430,7 @@ __raf = requestAnimationFrame(loop);
 
 <CanvasDemo
   id="complete"
-  title="Complete Particle System — Click to Switch Effects"
+  title="Complete Particle System: Click to Switch Effects"
   width={500}
   height={400}
   code={`
@@ -1560,7 +1560,7 @@ __raf = requestAnimationFrame(loop);
     <li><strong>Limit particle count.</strong> Set a max (e.g. 500-1000) and stop emitting or remove oldest when you hit it.</li>
     <li><strong>Use object pooling</strong> (shown above) for high-throughput systems to avoid garbage collection pauses.</li>
     <li><strong>Avoid per-particle gradients</strong> when possible. Flat circles are 5-10x faster than radial gradient circles.</li>
-    <li><strong>Use <code>fillRect</code> instead of <code>arc</code></strong> for square particles — it skips the path building step.</li>
+    <li><strong>Use <code>fillRect</code> instead of <code>arc</code></strong> for square particles; it skips the path building step.</li>
     <li><strong>Batch draws.</strong> Build one big path with many arcs, then fill once, instead of fill() per particle.</li>
     <li><strong>Skip offscreen particles.</strong> Do not draw particles that are outside the canvas bounds.</li>
     <li><strong>Reduce particle count on mobile.</strong> Check <code>navigator.hardwareConcurrency</code> or test frame rate.</li>
@@ -1588,17 +1588,17 @@ __raf = requestAnimationFrame(loop);
 
 <h2>Where to Go Next</h2>
 
-<p>Congratulations — you have built a complete particle system from scratch and learned the core Canvas 2D API! Here are directions to explore next:</p>
+<p>Congratulations. You have built a complete particle system from scratch and learned the core Canvas 2D API! Here are directions to explore next:</p>
 
 <ul style="color: var(--text-muted); margin-left: 1.5rem;">
-  <li><strong>Sprite sheets</strong> — animate characters using <code>drawImage()</code> source cropping instead of drawing shapes</li>
-  <li><strong>Tile maps</strong> — build game levels from grid data, combine with keyboard controls from Lesson 7</li>
-  <li><strong>Physics engines</strong> — <a href="https://brm.io/matter-js/" style="color: var(--accent);">Matter.js</a> adds rigid body physics (bouncing, stacking, constraints)</li>
-  <li><strong>Canvas game frameworks</strong> — <a href="https://phaser.io/" style="color: var(--accent);">Phaser</a>, <a href="https://pixijs.com/" style="color: var(--accent);">PixiJS</a>, <a href="https://konvajs.org/" style="color: var(--accent);">Konva</a> for production-grade games</li>
-  <li><strong>WebGL / Three.js</strong> — 3D graphics using the GPU, orders of magnitude more particles possible</li>
-  <li><strong>OffscreenCanvas</strong> — render in a Web Worker for better performance on the main thread</li>
-  <li><strong>Shader-based particles</strong> — move particle physics to the GPU with GLSL shaders for millions of particles</li>
-  <li><strong>Procedural generation</strong> — generate terrain, trees, caves using noise functions and Canvas</li>
+  <li><strong>Sprite sheets:</strong> animate characters using <code>drawImage()</code> source cropping instead of drawing shapes</li>
+  <li><strong>Tile maps:</strong> build game levels from grid data, combine with keyboard controls from Lesson 7</li>
+  <li><strong>Physics engines:</strong> <a href="https://brm.io/matter-js/" style="color: var(--accent);">Matter.js</a> adds rigid body physics (bouncing, stacking, constraints)</li>
+  <li><strong>Canvas game frameworks:</strong> <a href="https://phaser.io/" style="color: var(--accent);">Phaser</a>, <a href="https://pixijs.com/" style="color: var(--accent);">PixiJS</a>, <a href="https://konvajs.org/" style="color: var(--accent);">Konva</a> for production-grade games</li>
+  <li><strong>WebGL / Three.js:</strong> 3D graphics using the GPU, orders of magnitude more particles possible</li>
+  <li><strong>OffscreenCanvas:</strong> render in a Web Worker for better performance on the main thread</li>
+  <li><strong>Shader-based particles:</strong> move particle physics to the GPU with GLSL shaders for millions of particles</li>
+  <li><strong>Procedural generation:</strong> generate terrain, trees, caves using noise functions and Canvas</li>
 </ul>
 
 <div class="concept">

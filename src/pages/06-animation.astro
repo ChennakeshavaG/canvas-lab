@@ -16,7 +16,7 @@ import CanvasDemo from '../components/CanvasDemo.astro';
      ====================================================== -->
 
 <h2>What Is Animation?</h2>
-<p>Animation is an illusion. Nothing actually "moves" on your screen. Instead, you show a series of still images so quickly that your brain perceives motion. It is exactly the same trick as a flipbook — each page has a slightly different drawing, and when you flip through them fast enough, things appear to move.</p>
+<p>Animation is an illusion. Nothing actually "moves" on your screen. Instead, you show a series of still images so quickly that your brain perceives motion. It is exactly the same trick as a flipbook: each page has a slightly different drawing, and when you flip through them fast enough, things appear to move.</p>
 
 <div class="concept">
   <p><strong>The flipbook analogy:</strong></p>
@@ -36,14 +36,14 @@ import CanvasDemo from '../components/CanvasDemo.astro';
   4. Repeat 60 times/second  (flip fast!)`}</pre>
 </div>
 
-<p>On a Canvas, we do this by writing a function that clears the screen, updates some numbers (positions, sizes, colors), draws everything fresh, and then asks the browser to call that function again for the next frame. That cycle — clear, update, draw, repeat — is called the <strong>game loop</strong> (even if you are not making a game).</p>
+<p>On a Canvas, we do this by writing a function that clears the screen, updates some numbers (positions, sizes, colors), draws everything fresh, and then asks the browser to call that function again for the next frame. That cycle (clear, update, draw, repeat) is called the <strong>game loop</strong> (even if you are not making a game).</p>
 
 <!-- ======================================================
      SECTION 2: Why 60fps?
      ====================================================== -->
 
 <h2>Why 60 Frames Per Second?</h2>
-<p>Most monitors refresh their display 60 times per second — that is 60 <em>frames per second</em>, or <strong>60fps</strong>. Movies use 24fps, which is enough for film but looks choppy for interactive graphics. At 60fps, each frame lasts about 16.7 milliseconds. If your drawing code takes longer than that, frames get dropped and animation looks janky.</p>
+<p>Most monitors refresh their display 60 times per second. That is 60 <em>frames per second</em>, or <strong>60fps</strong>. Movies use 24fps, which is enough for film but looks choppy for interactive graphics. At 60fps, each frame lasts about 16.7 milliseconds. If your drawing code takes longer than that, frames get dropped and animation looks janky.</p>
 
 <div class="concept">
   <p><strong>Frame timing at different rates:</strong></p>
@@ -64,7 +64,7 @@ import CanvasDemo from '../components/CanvasDemo.astro';
      ====================================================== -->
 
 <h2>requestAnimationFrame vs setInterval</h2>
-<p>You might think: "I will just use <code>setInterval(draw, 16)</code> to run my loop 60 times per second." That works, but it has serious problems. <code>setInterval</code> is a general-purpose timer — it does not know anything about the screen. It will keep firing even when the browser tab is hidden (wasting battery), it drifts out of sync with the monitor, and it cannot adapt to different refresh rates.</p>
+<p>You might think: "I will just use <code>setInterval(draw, 16)</code> to run my loop 60 times per second." That works, but it has serious problems. <code>setInterval</code> is a general-purpose timer; it does not know anything about the screen. It will keep firing even when the browser tab is hidden (wasting battery), it drifts out of sync with the monitor, and it cannot adapt to different refresh rates.</p>
 
 <p><code>requestAnimationFrame(callback)</code> was built specifically for animation. It syncs with the display refresh, pauses automatically when the tab is hidden, and lets the browser batch your drawing with other visual updates for maximum efficiency.</p>
 
@@ -121,7 +121,7 @@ loop();
 
 <p>Notice the pattern: <code>clearRect</code> wipes the slate, we move <code>x</code> a bit, draw the circle at the new <code>x</code>, and call <code>requestAnimationFrame(loop)</code> to schedule the next frame. The variable <code>__raf</code> stores the frame ID so the demo harness can cancel the loop when you hit Reset or navigate away.</p>
 
-<p><strong>Stopping an animation:</strong> When building your own pages, call <code>cancelAnimationFrame(id)</code> with the ID returned by <code>requestAnimationFrame</code> to stop the loop. Without this, animation loops keep running forever — even after removing the canvas from the page — wasting CPU and causing memory leaks.</p>
+<p><strong>Stopping an animation:</strong> When building your own pages, call <code>cancelAnimationFrame(id)</code> with the ID returned by <code>requestAnimationFrame</code> to stop the loop. Without this, animation loops keep running forever, even after removing the canvas from the page, wasting CPU and causing memory leaks.</p>
 
 <!-- ======================================================
      SECTION 4: The Timestamp Parameter
@@ -147,7 +147,7 @@ loop();
      ====================================================== -->
 
 <h2>Delta Time: Frame-Rate Independent Motion</h2>
-<p>In the first demo, we moved the ball by a fixed 2 pixels every frame. That means on a 60fps monitor the ball moves 120 pixels per second, but on a 120fps monitor it moves 240 pixels per second — twice as fast! This is a bug, not a feature.</p>
+<p>In the first demo, we moved the ball by a fixed 2 pixels every frame. That means on a 60fps monitor the ball moves 120 pixels per second, but on a 120fps monitor it moves 240 pixels per second, twice as fast! This is a bug, not a feature.</p>
 
 <p>The fix is <strong>delta time</strong> (often written <code>dt</code>). Instead of moving a fixed amount per frame, you decide a speed in <em>pixels per second</em>, then multiply by how many seconds actually passed since the last frame.</p>
 
@@ -226,7 +226,7 @@ __raf = requestAnimationFrame(loop);
 <p>Let's zoom out and see the full picture of what happens each frame. This is the heartbeat of every game, animation, and interactive canvas app.</p>
 
 <div class="concept">
-  <p><strong>The game loop — what happens 60 times per second:</strong></p>
+  <p><strong>The game loop: what happens 60 times per second:</strong></p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`          ┌──────────────────────┐
           │  Browser calls your  │
           │  loop(timestamp)     │
@@ -269,7 +269,7 @@ __raf = requestAnimationFrame(loop);
      ====================================================== -->
 
 <h2>Physics Basics: Position, Velocity, Acceleration</h2>
-<p>Real-world objects do not teleport — they accelerate, cruise, and slow down. To make canvas animation feel physical and natural, we model three properties:</p>
+<p>Real-world objects do not teleport; they accelerate, cruise, and slow down. To make canvas animation feel physical and natural, we model three properties:</p>
 
 <div class="concept">
   <p><strong>The three layers of motion:</strong></p>
@@ -354,14 +354,14 @@ __raf = requestAnimationFrame(loop);
   `}
 />
 
-<p>The green ball starts slowly and speeds up — that is acceleration at work. This single idea (velocity changes position, acceleration changes velocity) is the foundation of all physics-based animation: gravity, bouncing, springs, friction, and more.</p>
+<p>The green ball starts slowly and speeds up. That is acceleration at work. This single idea (velocity changes position, acceleration changes velocity) is the foundation of all physics-based animation: gravity, bouncing, springs, friction, and more.</p>
 
 <!-- ======================================================
      SECTION 8: Gravity and Bouncing
      ====================================================== -->
 
 <h2>Gravity Simulation: The Bouncing Ball</h2>
-<p>Gravity is just acceleration pointing downward. Each frame, gravity adds to the ball's downward velocity, making it fall faster and faster. When the ball hits the floor, we reverse its vertical velocity (bounce) and multiply by a number less than 1 so it loses energy each bounce — just like a real ball.</p>
+<p>Gravity is just acceleration pointing downward. Each frame, gravity adds to the ball's downward velocity, making it fall faster and faster. When the ball hits the floor, we reverse its vertical velocity (bounce) and multiply by a number less than 1 so it loses energy each bounce, just like a real ball. This demo also uses <code>ctx.shadowColor</code> and <code>ctx.shadowBlur</code> to add a glow effect around the ball; setting <code>shadowBlur</code> back to 0 disables it for subsequent draws.</p>
 
 <div class="concept">
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`  Gravity simulation each frame:
@@ -564,7 +564,7 @@ __raf = requestAnimationFrame(loop);
      ====================================================== -->
 
 <h2>Sine Wave Motion: Oscillation</h2>
-<p><code>Math.sin()</code> is the animation secret weapon. It produces a smooth wave that oscillates between -1 and +1, repeating forever. Feed it a steadily increasing number (like time) and you get smooth back-and-forth motion for free — no physics needed.</p>
+<p><code>Math.sin()</code> is the animation secret weapon. It produces a smooth wave that oscillates between -1 and +1, repeating forever. Feed it a steadily increasing number (like time) and you get smooth back-and-forth motion for free, no physics needed.</p>
 
 <div class="concept">
   <p><strong>Sine wave anatomy:</strong></p>
@@ -761,14 +761,14 @@ loop();
   `}
 />
 
-<p>This "smooth follow" pattern is everywhere: camera systems in games, cursor trails, tooltip positioning, scroll animations, and more. Changing the lerp factor (0.08 above) controls how snappy vs floaty the follow feels.</p>
+<p>This "smooth follow" pattern is everywhere: camera systems in games, cursor trails, tooltip positioning, scroll animations, and more. Changing the lerp factor (0.08 above) controls how snappy vs floaty the follow feels. Note that the demos use <code>addListener(canvas, ...)</code> instead of <code>canvas.addEventListener</code> so the demo harness can automatically clean up event listeners on reset.</p>
 
 <!-- ======================================================
      SECTION 12: Particle Trails
      ====================================================== -->
 
 <h2>Particle Trails Using Semi-Transparent Clear</h2>
-<p>Normally we clear the canvas completely each frame with <code>clearRect</code>. But there is a beautiful trick: instead of clearing fully, draw a semi-transparent rectangle over the entire canvas. The previous frame fades but does not disappear instantly — creating a trail or "ghosting" effect.</p>
+<p>Normally we clear the canvas completely each frame with <code>clearRect</code>. But there is a beautiful trick: instead of clearing fully, draw a semi-transparent rectangle over the entire canvas. The previous frame fades but does not disappear instantly, creating a trail or "ghosting" effect.</p>
 
 <div class="concept">
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`  Normal clear (no trails):
@@ -1012,7 +1012,7 @@ __raf = requestAnimationFrame(loop);
      ====================================================== -->
 
 <h2>Easing Functions: Natural-Feeling Motion</h2>
-<p>Linear motion — moving the same amount every frame — looks robotic. Real objects ease in (start slow), ease out (slow down at the end), or both. Easing functions take a progress value <code>t</code> (from 0 to 1) and return a curved version of it.</p>
+<p>Linear motion, moving the same amount every frame, looks robotic. Real objects ease in (start slow), ease out (slow down at the end), or both. Easing functions take a progress value <code>t</code> (from 0 to 1) and return a curved version of it.</p>
 
 <div class="concept">
   <p><strong>Common easing functions:</strong></p>
@@ -1235,7 +1235,7 @@ __raf = requestAnimationFrame(loop);
   `}
 />
 
-<p>Click in different spots rapidly and watch the ball oscillate. Springs are perfect for UI interactions (drag-and-snap, pull-to-refresh, dialog animations) because they respond naturally to interruption — you can change the target mid-animation and the spring adapts smoothly.</p>
+<p>Click in different spots rapidly and watch the ball oscillate. Springs are perfect for UI interactions (drag-and-snap, pull-to-refresh, dialog animations) because they respond naturally to interruption; you can change the target mid-animation and the spring adapts smoothly.</p>
 
 <!-- ======================================================
      SECTION 17: Practical Example — Loading Spinner
@@ -1516,7 +1516,7 @@ loop();
 <h2>What You Learned</h2>
 
 <div class="concept">
-  <p><strong>Lesson 6 recap — everything you need for canvas animation:</strong></p>
+  <p><strong>Lesson 6 recap, everything you need for canvas animation:</strong></p>
   <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`  Core loop:      clear → update → draw → requestAnimationFrame
   Delta time:      distance = speed * dt  (frame-rate independent)
   Physics:         velocity += acceleration * dt; position += velocity * dt
@@ -1532,6 +1532,6 @@ loop();
   __raf:           always store requestAnimationFrame ID for cleanup`}</pre>
 </div>
 
-<p>With these tools you can animate almost anything. The next lesson covers <strong>interaction</strong> — responding to mouse, touch, and keyboard input to make your animations interactive.</p>
+<p>With these tools you can animate almost anything. The next lesson covers <strong>interaction</strong>: responding to mouse, touch, and keyboard input to make your animations interactive.</p>
 
 </LessonLayout>
