@@ -99,7 +99,129 @@ import CanvasDemo from '../components/CanvasDemo.astro';
 <p>If you put a <code>&lt;canvas&gt;</code> tag in your HTML and do nothing else, you will see... nothing. Just an invisible rectangle taking up space. The magic happens when JavaScript starts giving it drawing commands.</p>
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- SECTION 4 — Canvas Size vs CSS Size               -->
+<!-- SECTION 4 — The Rendering Context                 -->
+<!-- ═══════════════════════════════════════════════════ -->
+
+<h2>The Rendering Context: Your Paintbrush</h2>
+
+<p>The <code>&lt;canvas&gt;</code> element itself is just a container, a blank rectangle in your HTML. It cannot draw anything on its own. To actually put pixels on the screen, you need a <strong>rendering context</strong>. You get one by calling:</p>
+
+<div class="concept">
+  <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`    var canvas = document.getElementById('myCanvas');
+    var ctx = canvas.getContext('2d');
+    //  ^^^                    ^^^^
+    //  This variable is       '2d' asks for the 2D drawing API.
+    //  your drawing toolkit.  It returns a CanvasRenderingContext2D
+    //  By convention we       object — a massive toolkit with
+    //  call it "ctx".         dozens of methods and properties.`}</pre>
+</div>
+
+<p>The <code>ctx</code> object (short for "context") is the single most important object in Canvas programming. It is your paintbrush, your palette, your ruler, and your eraser all rolled into one. <em>Every</em> drawing operation goes through <code>ctx</code>:</p>
+
+<ul>
+  <li>Want to draw a rectangle? <code>ctx.fillRect()</code></li>
+  <li>Want to set a color? <code>ctx.fillStyle = 'red'</code></li>
+  <li>Want to draw text? <code>ctx.fillText()</code></li>
+  <li>Want to draw a curve? <code>ctx.arc()</code></li>
+  <li>Want to rotate everything? <code>ctx.rotate()</code></li>
+  <li>Want to read individual pixels? <code>ctx.getImageData()</code></li>
+</ul>
+
+<div class="concept">
+  <p><strong>Analogy:</strong> If the <code>&lt;canvas&gt;</code> element is a physical canvas (the fabric stretched over a frame), then <code>ctx</code> is the entire art supply kit sitting next to it: brushes, paints, pencils, erasers, rulers, stencils. The canvas just sits there. The context does all the work.</p>
+</div>
+
+<h3>Other Rendering Contexts</h3>
+
+<p>The <code>'2d'</code> context is what we will use throughout this course, but it is not the only option. When you call <code>getContext()</code>, you can request different types:</p>
+
+<div class="concept">
+  <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`    Context Type          What It Does
+    ───────────────────── ──────────────────────────────────
+    '2d'                  2D drawing — shapes, text, images,
+                          gradients. This is what we use.
+
+    'webgl'               3D graphics via OpenGL ES 2.0.
+                          Used for 3D games and visualizations.
+
+    'webgl2'              3D graphics via OpenGL ES 3.0.
+                          More features than webgl.
+
+    'webgpu'              Next-gen GPU access (newer API).
+                          Maximum performance for 3D/compute.
+
+    'bitmaprenderer'      Efficiently displays an ImageBitmap.
+                          Used for transferring images between
+                          canvases or from workers.`}</pre>
+</div>
+
+<p>A canvas can only have <strong>one</strong> context at a time. Once you call <code>getContext('2d')</code>, that canvas is locked to 2D; calling <code>getContext('webgl')</code> on the same canvas returns <code>null</code>. For this entire course, <code>'2d'</code> is all you need.</p>
+
+<div class="concept">
+  <p><strong>A note about the demos on this site:</strong> Every interactive code box on this site already has <code>canvas</code> and <code>ctx</code> set up for you behind the scenes. So when you see demo code that starts with <code>ctx.fillRect(...)</code>, it is not missing anything; the boilerplate (<code>getElementById</code>, <code>getContext</code>) has already been done. In your own projects, you will always need to write those two setup lines yourself.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 5 — Your First Lines of Code              -->
+<!-- ═══════════════════════════════════════════════════ -->
+
+<h2>Your First Lines of Code</h2>
+
+<p>Now that you know what <code>ctx</code> is, let's see it in action. This demo draws a colored rectangle, a circle, and some text -- with annotations explaining each line:</p>
+
+<CanvasDemo
+  id="hello-world"
+  title="Hello, Canvas!"
+  width={500}
+  height={300}
+  code={`
+// --- STEP 1: Draw a filled rectangle ---
+
+// Set the fill color to a nice blue
+ctx.fillStyle = '#58a6ff';
+
+// Draw a rectangle: x=40, y=40, width=200, height=100
+// (40 pixels from the left, 40 from the top)
+ctx.fillRect(40, 40, 200, 100);
+
+// --- STEP 2: Draw a circle ---
+
+// Tell ctx we're starting a new shape (a "path")
+ctx.beginPath();
+
+// Draw a circle: center at (350, 90), radius 60
+// 0 to Math.PI*2 means a full circle (360 degrees)
+ctx.arc(350, 90, 60, 0, Math.PI * 2);
+
+// Set fill color to pink and fill the circle
+ctx.fillStyle = '#f778ba';
+ctx.fill();
+
+// --- STEP 3: Add some text ---
+
+ctx.fillStyle = '#e6edf3';
+ctx.font = 'bold 16px monospace';
+ctx.fillText('fillRect()', 85, 95);
+ctx.fillText('arc()', 325, 95);
+
+// --- STEP 4: Annotate the coordinates ---
+
+ctx.fillStyle = '#8b949e';
+ctx.font = '12px monospace';
+ctx.fillText('x:40 y:40 w:200 h:100', 40, 170);
+ctx.fillText('center:(350,90) r:60', 280, 175);
+
+// A small note at the bottom
+ctx.fillStyle = '#3fb950';
+ctx.font = '14px monospace';
+ctx.fillText('A few lines of code is all it takes!', 100, 250);
+  `}
+/>
+
+<p>A handful of drawing commands to put a rectangle, a circle, and text on screen. Do not worry about memorizing these methods yet -- you will learn each one in detail starting in Lesson 1. The point here is to see the pattern: set a style, call a draw method, repeat.</p>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 6 — Canvas Size vs CSS Size               -->
 <!-- ═══════════════════════════════════════════════════ -->
 
 <h2>Canvas Size vs CSS Size (A Huge Beginner Pitfall!)</h2>
@@ -160,7 +282,7 @@ ctx.fillText('size is set correctly!', 200, 135);
 <p>The default canvas size (if you do not specify width and height) is 300x150 pixels. That is almost never what you want, so always set both attributes explicitly.</p>
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- SECTION 5 — Immediate Mode                        -->
+<!-- SECTION 6 — Immediate Mode                        -->
 <!-- ═══════════════════════════════════════════════════ -->
 
 <h2>Immediate Mode: Canvas's Superpower (and Quirk)</h2>
@@ -265,7 +387,46 @@ ctx.fillText('size is set correctly!', 200, 135);
 <p>The <code>requestAnimationFrame</code> function mentioned in step 4 is a browser API that tells the browser "call my drawing function before the next screen refresh." It is the standard way to create smooth animations; the browser handles timing so your animation runs at the optimal frame rate (usually 60 fps). You will use it extensively starting in Lesson 6.</p>
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- SECTION 6 — Canvas vs SVG vs DOM                  -->
+<!-- SECTION 7 — The Rendering Pipeline                -->
+<!-- ═══════════════════════════════════════════════════ -->
+
+<h2>The Rendering Pipeline</h2>
+
+<p>When you call a drawing method like <code>ctx.fillRect()</code>, what actually happens? Here is the journey from your JavaScript code to visible pixels:</p>
+
+<div class="concept">
+  <p><strong>How pixels get on screen:</strong></p>
+  <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`    Step 1         Step 2         Step 3         Step 4
+    ┌────────┐     ┌────────┐     ┌────────┐     ┌────────┐
+    │  HTML  │ --> │ canvas │ --> │  ctx   │ --> │ pixels │
+    │  page  │     │ element│     │  draw  │     │   on   │
+    │        │     │        │     │  calls │     │ screen │
+    └────────┘     └────────┘     └────────┘     └────────┘
+
+    Browser        JavaScript     You call       Browser
+    parses         gets the 2D    fillRect(),    turns your
+    your HTML      context from   arc(), etc.    commands
+    and creates    the canvas     to describe    into actual
+    the canvas     element        what to draw   colored dots`}</pre>
+</div>
+
+<p>In code, that pipeline looks like this:</p>
+
+<ol>
+  <li><code>&lt;canvas id="c" width="500" height="400"&gt;&lt;/canvas&gt;</code>, the HTML creates the blank bitmap</li>
+  <li><code>var canvas = document.getElementById('c');</code>, JavaScript grabs a reference to it</li>
+  <li><code>var ctx = canvas.getContext('2d');</code>, you get the 2D drawing context</li>
+  <li><code>ctx.fillRect(10, 10, 100, 80);</code>, you issue drawing commands that change pixels</li>
+</ol>
+
+<p>Behind the scenes, the browser may use GPU hardware acceleration to execute your drawing commands quickly. Modern browsers are surprisingly efficient; a simple <code>fillRect</code> call might be translated into a GPU texture operation that completes in microseconds.</p>
+
+<div class="concept">
+  <p><strong>Key point:</strong> Drawing commands execute <em>immediately</em>. When <code>ctx.fillRect()</code> returns, those pixels are already on the canvas bitmap. There is no "render later" step for basic drawing. (Animation is different; we use <code>requestAnimationFrame</code> to time our redraws, but each individual draw call is instant.)</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 8 — Canvas vs SVG vs DOM                  -->
 <!-- ═══════════════════════════════════════════════════ -->
 
 <h2>Canvas vs SVG vs DOM</h2>
@@ -347,104 +508,6 @@ ctx.fillText('size is set correctly!', 200, 135);
 </div>
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- SECTION 7 — The Rendering Context                 -->
-<!-- ═══════════════════════════════════════════════════ -->
-
-<h2>The Rendering Context: Your Paintbrush</h2>
-
-<p>The <code>&lt;canvas&gt;</code> element itself is just a container, a blank rectangle in your HTML. It cannot draw anything on its own. To actually put pixels on the screen, you need a <strong>rendering context</strong>. You get one by calling:</p>
-
-<div class="concept">
-  <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`    var canvas = document.getElementById('myCanvas');
-    var ctx = canvas.getContext('2d');
-    //  ^^^                    ^^^^
-    //  This variable is       '2d' asks for the 2D drawing API.
-    //  your drawing toolkit.  It returns a CanvasRenderingContext2D
-    //  By convention we       object — a massive toolkit with
-    //  call it "ctx".         dozens of methods and properties.`}</pre>
-</div>
-
-<p>The <code>ctx</code> object (short for "context") is the single most important object in Canvas programming. It is your paintbrush, your palette, your ruler, and your eraser all rolled into one. <em>Every</em> drawing operation goes through <code>ctx</code>:</p>
-
-<ul>
-  <li>Want to draw a rectangle? <code>ctx.fillRect()</code></li>
-  <li>Want to set a color? <code>ctx.fillStyle = 'red'</code></li>
-  <li>Want to draw text? <code>ctx.fillText()</code></li>
-  <li>Want to draw a curve? <code>ctx.arc()</code></li>
-  <li>Want to rotate everything? <code>ctx.rotate()</code></li>
-  <li>Want to read individual pixels? <code>ctx.getImageData()</code></li>
-</ul>
-
-<div class="concept">
-  <p><strong>Analogy:</strong> If the <code>&lt;canvas&gt;</code> element is a physical canvas (the fabric stretched over a frame), then <code>ctx</code> is the entire art supply kit sitting next to it: brushes, paints, pencils, erasers, rulers, stencils. The canvas just sits there. The context does all the work.</p>
-</div>
-
-<h3>Other Rendering Contexts</h3>
-
-<p>The <code>'2d'</code> context is what we will use throughout this course, but it is not the only option. When you call <code>getContext()</code>, you can request different types:</p>
-
-<div class="concept">
-  <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`    Context Type          What It Does
-    ───────────────────── ──────────────────────────────────
-    '2d'                  2D drawing — shapes, text, images,
-                          gradients. This is what we use.
-
-    'webgl'               3D graphics via OpenGL ES 2.0.
-                          Used for 3D games and visualizations.
-
-    'webgl2'              3D graphics via OpenGL ES 3.0.
-                          More features than webgl.
-
-    'webgpu'              Next-gen GPU access (newer API).
-                          Maximum performance for 3D/compute.
-
-    'bitmaprenderer'      Efficiently displays an ImageBitmap.
-                          Used for transferring images between
-                          canvases or from workers.`}</pre>
-</div>
-
-<p>A canvas can only have <strong>one</strong> context at a time. Once you call <code>getContext('2d')</code>, that canvas is locked to 2D; calling <code>getContext('webgl')</code> on the same canvas returns <code>null</code>. For this entire course, <code>'2d'</code> is all you need.</p>
-
-<!-- ═══════════════════════════════════════════════════ -->
-<!-- SECTION 8 — The Rendering Pipeline                -->
-<!-- ═══════════════════════════════════════════════════ -->
-
-<h2>The Rendering Pipeline</h2>
-
-<p>When you call a drawing method like <code>ctx.fillRect()</code>, what actually happens? Here is the journey from your JavaScript code to visible pixels:</p>
-
-<div class="concept">
-  <p><strong>How pixels get on screen:</strong></p>
-  <pre style="color: var(--accent); font-size: 12px; line-height: 1.4;">{`    Step 1         Step 2         Step 3         Step 4
-    ┌────────┐     ┌────────┐     ┌────────┐     ┌────────┐
-    │  HTML  │ --> │ canvas │ --> │  ctx   │ --> │ pixels │
-    │  page  │     │ element│     │  draw  │     │   on   │
-    │        │     │        │     │  calls │     │ screen │
-    └────────┘     └────────┘     └────────┘     └────────┘
-
-    Browser        JavaScript     You call       Browser
-    parses         gets the 2D    fillRect(),    turns your
-    your HTML      context from   arc(), etc.    commands
-    and creates    the canvas     to describe    into actual
-    the canvas     element        what to draw   colored dots`}</pre>
-</div>
-
-<p>In code, that pipeline looks like this:</p>
-
-<ol>
-  <li><code>&lt;canvas id="c" width="500" height="400"&gt;&lt;/canvas&gt;</code>, the HTML creates the blank bitmap</li>
-  <li><code>var canvas = document.getElementById('c');</code>, JavaScript grabs a reference to it</li>
-  <li><code>var ctx = canvas.getContext('2d');</code>, you get the 2D drawing context</li>
-  <li><code>ctx.fillRect(10, 10, 100, 80);</code>, you issue drawing commands that change pixels</li>
-</ol>
-
-<p>Behind the scenes, the browser may use GPU hardware acceleration to execute your drawing commands quickly. Modern browsers are surprisingly efficient; a simple <code>fillRect</code> call might be translated into a GPU texture operation that completes in microseconds.</p>
-
-<div class="concept">
-  <p><strong>Key point:</strong> Drawing commands execute <em>immediately</em>. When <code>ctx.fillRect()</code> returns, those pixels are already on the canvas bitmap. There is no "render later" step for basic drawing. (Animation is different; we use <code>requestAnimationFrame</code> to time our redraws, but each individual draw call is instant.)</p>
-</div>
-
-<!-- ═══════════════════════════════════════════════════ -->
 <!-- SECTION 9 — The Coordinate System                 -->
 <!-- ═══════════════════════════════════════════════════ -->
 
@@ -483,15 +546,22 @@ ctx.fillText('size is set correctly!', 200, 135);
   width={500}
   height={400}
   code={`
-// Draw subtle grid lines
+// --- STEP 1: Draw a background grid ---
+// strokeStyle sets the color for lines (like fillStyle for fills)
 ctx.strokeStyle = '#21262d';
 ctx.lineWidth = 0.5;
+
+// Draw vertical lines every 50 pixels across the canvas.
+// beginPath() starts a new line. moveTo() picks up the "pen"
+// and places it. lineTo() draws to a point. stroke() makes
+// the line visible. You'll learn all of these in Lesson 2.
 for (var x = 50; x < 500; x += 50) {
   ctx.beginPath();
   ctx.moveTo(x, 0);
   ctx.lineTo(x, 400);
   ctx.stroke();
 }
+// Same idea, but horizontal lines
 for (var y = 50; y < 400; y += 50) {
   ctx.beginPath();
   ctx.moveTo(0, y);
@@ -499,16 +569,17 @@ for (var y = 50; y < 400; y += 50) {
   ctx.stroke();
 }
 
-// Draw the axes with arrows
+// --- STEP 2: Draw the X and Y axes ---
 ctx.strokeStyle = '#8b949e';
 ctx.lineWidth = 2;
 
-// X axis
+// X axis: a horizontal line from (0,0) to (490,0)
 ctx.beginPath();
 ctx.moveTo(0, 0);
 ctx.lineTo(490, 0);
 ctx.stroke();
-// X arrow
+
+// A small arrowhead at the end of the X axis
 ctx.beginPath();
 ctx.moveTo(490, 0);
 ctx.lineTo(480, -6);
@@ -516,12 +587,13 @@ ctx.moveTo(490, 0);
 ctx.lineTo(480, 6);
 ctx.stroke();
 
-// Y axis
+// Y axis: a vertical line from (0,0) down to (0,390)
 ctx.beginPath();
 ctx.moveTo(0, 0);
 ctx.lineTo(0, 390);
 ctx.stroke();
-// Y arrow
+
+// Arrowhead for Y axis
 ctx.beginPath();
 ctx.moveTo(0, 390);
 ctx.lineTo(-6, 380);
@@ -529,26 +601,30 @@ ctx.moveTo(0, 390);
 ctx.lineTo(6, 380);
 ctx.stroke();
 
-// Label axes
+// Label each axis with text
 ctx.fillStyle = '#8b949e';
 ctx.font = 'bold 14px monospace';
 ctx.fillText('X', 480, 20);
 ctx.fillText('Y', 10, 395);
 
-// Mark specific points with pink dots
+// --- STEP 3: Plot some points to show coordinates ---
+// Each entry is [x, y, label]
 var points = [
   [0, 0, '(0,0) origin'],
   [200, 100, '(200,100)'],
   [350, 250, '(350,250)'],
   [100, 300, '(100,300)']
 ];
+
 points.forEach(function(p) {
-  // Draw dot
+  // Draw a small pink circle at the point.
+  // arc(x, y, radius, startAngle, endAngle) draws a circle.
   ctx.fillStyle = '#f778ba';
   ctx.beginPath();
   ctx.arc(p[0], p[1], 5, 0, Math.PI * 2);
   ctx.fill();
-  // Draw label
+
+  // Label the point with its coordinates
   ctx.fillStyle = '#58a6ff';
   ctx.font = '13px monospace';
   var labelX = p[0] + 10;
@@ -622,65 +698,6 @@ points.forEach(function(p) {
 <p>Do not worry about memorizing any of this. As we work through each lesson, these categories will become second nature. This overview just gives you a mental map so you are never lost.</p>
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- SECTION 12 — Your First Lines of Code             -->
-<!-- ═══════════════════════════════════════════════════ -->
-
-<h2>Your First Lines of Code</h2>
-
-<p>Let's close this lesson with a gentle "hello world," a tiny taste of what drawing looks like before we dive deep in Lesson 1. This demo draws a colored rectangle and a circle, with annotations explaining each line:</p>
-
-<CanvasDemo
-  id="hello-world"
-  title="Hello, Canvas!"
-  width={500}
-  height={300}
-  code={`
-// --- STEP 1: Draw a filled rectangle ---
-
-// Set the fill color to a nice blue
-ctx.fillStyle = '#58a6ff';
-
-// Draw a rectangle: x=40, y=40, width=200, height=100
-// (40 pixels from the left, 40 from the top)
-ctx.fillRect(40, 40, 200, 100);
-
-// --- STEP 2: Draw a circle ---
-
-// Tell ctx we're starting a new shape (a "path")
-ctx.beginPath();
-
-// Draw a circle: center at (350, 90), radius 60
-// 0 to Math.PI*2 means a full circle (360 degrees)
-ctx.arc(350, 90, 60, 0, Math.PI * 2);
-
-// Set fill color to pink and fill the circle
-ctx.fillStyle = '#f778ba';
-ctx.fill();
-
-// --- STEP 3: Add some text ---
-
-ctx.fillStyle = '#e6edf3';
-ctx.font = 'bold 16px monospace';
-ctx.fillText('fillRect()', 85, 95);
-ctx.fillText('arc()', 325, 95);
-
-// --- STEP 4: Annotate the coordinates ---
-
-ctx.fillStyle = '#8b949e';
-ctx.font = '12px monospace';
-ctx.fillText('x:40 y:40 w:200 h:100', 40, 170);
-ctx.fillText('center:(350,90) r:60', 280, 175);
-
-// A small note at the bottom
-ctx.fillStyle = '#3fb950';
-ctx.font = '14px monospace';
-ctx.fillText('A few lines of code is all it takes!', 100, 250);
-  `}
-/>
-
-<p>That is it: a handful of drawing commands to put a rectangle, a circle, and text on screen. Everything starts from this foundation. In Lesson 1, we will zoom in on rectangles and explore every option: fills, strokes, colors, and combining them into more complex drawings.</p>
-
-<!-- ═══════════════════════════════════════════════════ -->
 <!-- Summary                                           -->
 <!-- ═══════════════════════════════════════════════════ -->
 
@@ -695,6 +712,10 @@ ctx.fillText('A few lines of code is all it takes!', 100, 250);
     The <canvas> element         A blank bitmap in HTML. Nothing
                                  appears until JS draws on it.
 
+    The ctx object               Your drawing toolkit. Got via
+                                 canvas.getContext('2d'). Every
+                                 drawing call goes through it.
+
     Canvas size vs CSS size      Two independent sizes. Mismatch
                                  = stretched/blurry graphics.
                                  Always set width/height attrs.
@@ -702,6 +723,8 @@ ctx.fillText('A few lines of code is all it takes!', 100, 250);
     Immediate mode               Canvas forgets what you drew.
                                  No objects — just pixels.
                                  You must redraw every frame.
+
+    The rendering pipeline       HTML -> canvas -> ctx -> pixels.
 
     Retained mode (DOM/SVG)      Browser remembers objects.
                                  Easier to interact with, but
@@ -711,14 +734,8 @@ ctx.fillText('A few lines of code is all it takes!', 100, 250);
                                  vector graphics, Canvas for
                                  raw speed and pixel control.
 
-    The ctx object               Your drawing toolkit. Got via
-                                 canvas.getContext('2d'). Every
-                                 drawing call goes through it.
-
     The coordinate system        (0,0) is top-left. X goes right.
                                  Y goes DOWN (not up!).
-
-    The rendering pipeline       HTML -> canvas -> ctx -> pixels.
 
     What you can build           Games, charts, editors, art,
                                  maps, video effects, and more.`}</pre>
